@@ -175,6 +175,8 @@ export AWS_DEFAULT_PROFILE="assumed_role"
 # brew
 alias ctags="`brew --prefix`/bin/ctags"
 
+# neovim
+alias vim="nvim"
 
 ######################-begin-npm-completion-##########################
 #

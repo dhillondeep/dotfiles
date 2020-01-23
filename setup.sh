@@ -5,6 +5,7 @@ printf "Setting up Ultimate Vim Configuration...\n"
 git clone --depth=1 https://github.com/dhillondeep/vimrc.git ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
 ln -s $(pwd)/vim/vim_runtime/my_configs.vim ~/.vim_runtime/my_configs.vim
+ln -s $(pwd)/vim/nvim/init.vim ~/.config/nvim/init.vim
 printf "Done!\n\n"
 
 # tmux
