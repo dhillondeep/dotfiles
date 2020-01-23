@@ -63,15 +63,11 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 plugins=(
   git
   zsh-autosuggestions
+  zsh-syntax-highlighting
   extract
   common-aliases
   encode64
-  mvn
-  node
-  npm
   osx
-  pip
-  pylint
   python
   web-search
   wd
@@ -107,8 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # powerline settings
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
