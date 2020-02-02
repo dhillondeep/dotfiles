@@ -104,6 +104,26 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# vi mode
+bindkey -v
+
+# Use vim cli mode
+bindkey '^P' up-history
+bindkey '^N' down-history
+
+# backspace and ^h working even after
+# returning from command mode
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+
+# ctrl-w removed word backwards
+bindkey '^w' backward-kill-word
+
+# ctrl-r starts searching history backward
+bindkey '^r' history-incremental-search-backward
+
+bindkey '^]' history-search-backward
+
 # powerline settings
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
@@ -145,9 +165,6 @@ export CPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platfor
 export PATH="/usr/local/opt/qt/bin:$PATH"
 export QT_DIR="$HOME/Applications/Qt/5.10.0/"
 export PATH="$PATH:/Users/deep/Qt/5.13.0/clang_64/bin"
-
-# bazel
-export DEVELOPER_DIR=/Users/deep/Development/cio/rough-bazel-project
 
 # python
 export PATH="/Users/deep/Library/Python/2.7/bin:$PATH"
