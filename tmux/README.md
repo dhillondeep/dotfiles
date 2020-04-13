@@ -1,6 +1,14 @@
-# Tmux Bindings
+# Tmux
 
-## General Bindings
+## Setup
+- Install Script
+```bash
+./install.sh
+```
+- `prefix` + <kbd>I</kbd> to install pluggins
+
+## Configurations
+### General Bindings
 ```
 prefix + R source ~/.tmux.conf
 prefix + M Use Mouse
@@ -8,8 +16,8 @@ prefix + m Disable Mouse
 prefix + c Create new window in the same path
 ```
 
-## Pane Management
-### Navigation
+### Pane Management
+#### Navigation
 
 - `prefix + h` and `prefix + C-h`<br/>
   select pane on the left
@@ -53,7 +61,7 @@ Newly created pane always has the same path as the original pane.
 - `prefix + <` - moves current window one position to the left
 - `prefix + >` - moves current window one position to the right
 
-## Tmux Session Management
+### Tmux Session Management
 
 - `prefix + Ctrl-s` - save
 - `prefix + Ctrl-r` - restore
