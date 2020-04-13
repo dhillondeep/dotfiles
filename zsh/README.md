@@ -14,3 +14,7 @@
 ```bash
 source ~/.zshrc
 ```
+
+## Configurations
+- Modify `~/.zshrc` file for non personal configurations
+- For private configs, use `$ZSH/custom` folder
