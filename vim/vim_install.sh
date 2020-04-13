@@ -10,7 +10,13 @@ DEST_PLUGINS_FILE=~/.vim_runtime/my_plugins.vim
 
 # check if ~/.vim_runtime exists
 if [ -d ~/.vim_runtime ]; then
-    echo "Error: ~/.vim_runtime already exists"
+    echo "Error: ~/.vim_runtime already exists."
+    exit 1
+fi
+
+# check if ~/.vimrc exists
+if [ -f ~/.vimrc ]; then
+    echo "Error: ~/.vimrc file already exists."
     exit 1
 fi
 

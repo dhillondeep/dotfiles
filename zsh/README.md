@@ -1,4 +1,4 @@
-# ZSH Configurations
+# ZSH
 
 ## Prerequisites:
 - [Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
