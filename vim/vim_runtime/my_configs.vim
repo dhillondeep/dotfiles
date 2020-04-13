@@ -28,5 +28,3 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" source all the plugins
-source ~/.vim_runtime/my_plugins.vim
