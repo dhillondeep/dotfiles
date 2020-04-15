@@ -15,6 +15,12 @@
 source ~/.zshrc
 ```
 
+## Arch Custom Files
+For arch system, there are custom files (to be placed inside $ZSH/custom)
+```bash
+./arch/install.sh
+```
+
 ## Configurations
 - Modify `~/.zshrc` file for non personal configurations
 - For private configs, use `$ZSH/custom` folder
