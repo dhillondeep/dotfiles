@@ -7,8 +7,14 @@ Number=1
 Rows=1
 
 [Plugins]
+forceblurEnabled=false
+grid-tilingEnabled=true
+kwin-script-tilingEnabled=true
 kwin4_effect_squashEnabled=false
 magiclampEnabled=true
+minimizeallEnabled=false
+synchronizeskipswitcherEnabled=false
+videowallEnabled=false
 
 [TabBox]
 DesktopLayout=org.kde.breeze.desktop
@@ -20,6 +26,6 @@ BorderlessMaximizedWindows=true
 
 [org.kde.kdecoration2]
 ButtonsOnLeft=
-ButtonsOnRight=IAX
+ButtonsOnRight=AIX
 library=org.kde.kwin.aurorae
 theme=__aurorae__svg__McMojave
