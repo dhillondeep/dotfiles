@@ -13,3 +13,4 @@ git clone --depth=1 https://github.com/dhillondeep/dotfiles ~/.dotfiles
 - [zsh](https://github.com/dhillondeep/dot-files/tree/master/zsh)
 - [tmux](https://github.com/dhillondeep/dot-files/tree/master/tmux)
 - [vim](https://github.com/dhillondeep/dot-files/tree/master/vim)
+- [ssh](https://github.com/dhillondeep/dot-files/tree/master/.ssh)
