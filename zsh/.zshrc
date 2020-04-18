@@ -20,6 +20,8 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  git
+  zsh-abbr
   zsh-autosuggestions
   zsh-syntax-highlighting
   encode64
@@ -43,12 +45,6 @@ POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_CONTEXT_TEMPLATE="%n"
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status dir_writable load time)
 
-# git alias
-alias gitd="git diff --color-words"
-alias gits="git status"
-alias gitc="git commit"
-alias gita="git add"
-
 # tmux alias
 alias ta="tmux attach -t"
 alias tn="tmux new -t"
@@ -58,3 +54,5 @@ alias tl="tmux list-sessions"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# git
