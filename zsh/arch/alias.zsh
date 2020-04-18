@@ -13,3 +13,4 @@ alias svim="sudoedit vim"
 # pacman
 alias spac="sudo pacman"
 alias pac="pacman"
+alias ppp='pacman'
