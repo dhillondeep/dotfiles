@@ -1,3 +1,6 @@
+" color sceme
+colorscheme gruvbox
+
 " chromatica
 let g:chromatica#responsive_mode=1
 
