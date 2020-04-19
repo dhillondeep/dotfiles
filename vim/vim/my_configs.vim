@@ -32,6 +32,11 @@ noremap <Right> <Nop>
 " remove show mode
 set noshowmode
 
+" dim inactive window (neovim)
+hi ActiveWindow ctermbg=None ctermfg=None guibg=#21242b
+hi InactiveWindow ctermbg=darkgray ctermfg=gray guibg=#282c34
+set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+
 " coc configurations
 
 " TextEdit might fail if hidden is not set.
