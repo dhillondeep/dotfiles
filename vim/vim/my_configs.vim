@@ -1,8 +1,10 @@
 " color sceme
-colorscheme gruvbox
+syntax on
+colorscheme onedark
 
-" chromatica
-let g:chromatica#responsive_mode=1
+let g:lightline = {
+  \ 'colorscheme': 'onedark',
+  \ }
 
 " Toggles numbers between hybrid and absolute based on the mode
 set number relativenumber
