@@ -2,10 +2,6 @@
 syntax on
 colorscheme onedark
 
-let g:lightline = {
-  \ 'colorscheme': 'onedark',
-  \ }
-
 " Toggles numbers between hybrid and absolute based on the mode
 set number relativenumber
 

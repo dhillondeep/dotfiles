@@ -5,8 +5,10 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SRC_CONFIGS_FILE="$SCRIPT_DIR/vim/my_configs.vim"
 SRC_PLUGINS_FILE="$SCRIPT_DIR/vim/my_plugins.vim"
+SRC_COC_CONFIG_FILE="$SCRIPT_DIR"/coc.vim/coc-settings.json
 DEST_CONFIGS_FILE=~/.vim_runtime/my_configs.vim
 DEST_PLUGINS_FILE=~/.vim_runtime/my_plugins.vim
+DEST_COC_CONFIG_FILE=~/.vim/coc-settings.json
 
 # check if ~/.vim_runtime exists
 if [ -d ~/.vim_runtime ]; then
@@ -27,4 +29,5 @@ sh ~/.vim_runtime/install_awesome_vimrc.sh
 # Symlink files
 ln -s $SRC_CONFIGS_FILE $DEST_CONFIGS_FILE
 ln -s $SRC_PLUGINS_FILE $DEST_PLUGINS_FILE
+ln -s $SRC_COC_CONFIG_FILE $DEST_COC_CONFIG_FILE
 echo "Success: Symlinked my_configs.vim and my_plugins.vim!"
