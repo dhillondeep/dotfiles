@@ -19,12 +19,6 @@ map <Leader>vl :VimuxRunLastCommand<CR>
 map <Leader>x :x<CR>
 map <Leader>q :q<CR>
 
-" disabling arrow keys
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-
 " remove show mode
 set noshowmode
 
@@ -32,6 +26,12 @@ set noshowmode
 hi ActiveWindow ctermbg=None ctermfg=None guibg=#21242b
 hi InactiveWindow ctermbg=darkgray ctermfg=gray guibg=#282c34
 set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+ 
+"  setup hardtime
+let g:hardtime_default_on = 1
+let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
+let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+"]
+let g:list_of_disabled_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 
 " coc configurations
 
