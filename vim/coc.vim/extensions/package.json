@@ -2,7 +2,10 @@
   "dependencies": {
     "coc-clangd": ">=0.3.3",
     "coc-cmake": ">=0.0.1",
+    "coc-git": ">=1.7.9",
     "coc-go": ">=0.7.0",
-    "coc-json": ">=1.2.5"
+    "coc-highlight": ">=1.2.5",
+    "coc-json": ">=1.2.5",
+    "coc-yaml": ">=1.0.4"
   }
 }
