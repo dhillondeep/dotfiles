@@ -1,0 +1,4 @@
+# Coc
+extensions/*
+!extensions/package.json
+!extensions/yarn.lock
