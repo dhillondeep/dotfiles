@@ -29,3 +29,8 @@ fi
 ln -s $SRC_COC_CONFIG_FILE $DEST_COC_CONFIG_FILE
 ln -s $SRC_COC_EXTENSIONS $DEST_COC_EXTENSIONS
 echo "Success: Symlinked all the nvim config files!"
+
+# Install coc extensions
+cd $SCRIPT_DIR/coc.vim/extensions
+yarn
+echo "Coc.vim extensions installed!"
