@@ -1,5 +1,10 @@
 # Vim
 
+## Requirements
+- yarn
+    - Needed for installing **coc.vim** extensions
+- git
+
 This is a wrapper for actual vimrc. Configurations are
 at [github.com/dhillondeep/vimrc](https://github.com/dhillondeep/vimrc) and
 you can check out the repo to learn more.
