@@ -1,5 +1,9 @@
 # Vim
 
+This is a wrapper for actual vimrc. Configurations are
+at [github.com/dhillondeep/vimrc](https://github.com/dhillondeep/vimrc) and
+you can check out the repo to learn more.
+
 ## Installing Vim Config
 - Install `vim_install.sh` script
 ```bash
@@ -11,11 +15,3 @@
 ```bash
 ./nvim_install.sh
 ```
-
-## Configuration
-
-- `<leader>` key is `,`
-- Make sure to run `:PlugInstall` to install all plugins
-  - You could also do `<leader>` + `pi`
-- Custom pluggins can be added to `~/.vim_runtime/my_pluggins.sh`
-- Custim config can be added to `~/.vim_runtime/my_configs.sh`
