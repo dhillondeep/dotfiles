@@ -14,4 +14,4 @@ git clone --depth=1 https://github.com/dhillondeep/dotfiles ~/.dotfiles
 - [tmux](https://github.com/dhillondeep/dot-files/tree/master/tmux)
 - [vim](https://github.com/dhillondeep/dot-files/tree/master/vim)
 - [ssh](https://github.com/dhillondeep/dot-files/tree/master/ssh)
-- [hammerspoon (macOs)(https://github.com/dhillondeep/dot-files/tree/master/hammerspoon)]
+- [hammerspoon (macOs)](https://github.com/dhillondeep/dot-files/tree/master/hammerspoon)
