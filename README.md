@@ -1,4 +1,4 @@
-# dotfiles
+# Dotfiles
 These are my private configuration files. It has bunch of configurations for tools I use so, feel free to look and use what you like.
 
 ## How to use these dotfiles?
@@ -13,4 +13,5 @@ git clone --depth=1 https://github.com/dhillondeep/dotfiles ~/.dotfiles
 - [zsh](https://github.com/dhillondeep/dot-files/tree/master/zsh)
 - [tmux](https://github.com/dhillondeep/dot-files/tree/master/tmux)
 - [vim](https://github.com/dhillondeep/dot-files/tree/master/vim)
-- [ssh](https://github.com/dhillondeep/dot-files/tree/master/.ssh)
+- [ssh](https://github.com/dhillondeep/dot-files/tree/master/ssh)
+- [hammerspoon (macOs)(https://github.com/dhillondeep/dot-files/tree/master/hammerspoon)]

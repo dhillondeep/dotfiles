@@ -21,6 +21,12 @@ For arch system, there are custom files (to be placed inside $ZSH/custom)
 ./arch/install.sh
 ```
 
+## MacOS Custom files
+For macOS system, there are custom files (to be placed inside $ZSH/custom)
+```bash
+./macos/install.sh
+```
+
 ## Configurations
 - Modify `~/.zshrc` file for non personal configurations
 - For private configs, use `$ZSH/custom` folder

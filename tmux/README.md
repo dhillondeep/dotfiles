@@ -65,5 +65,3 @@ Newly created pane always has the same path as the original pane.
 
 - `prefix + Ctrl-s` - save
 - `prefix + Ctrl-r` - restore
-
-
