@@ -2,6 +2,9 @@
 
 set -e
 
+mkdir -p ~/.config/nvim
+mkdir -p ~/.config/coc/extensions
+
 # install ~/.vim_runtime if it does not exist
 if [ ! -d ~/.vim_runtime ]; then
     git clone --depth=1 https://github.com/dhillondeep/vimrc ~/.vim_runtime

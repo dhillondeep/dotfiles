@@ -120,4 +120,4 @@ key_bindings:
   - { key: M,      mods: Command,         action: Minimize         }
   - { key: Q,      mods: Command,         action: Quit             }
   - { key: W,      mods: Command,         action: Quit             }
-  - { key: Grave,  mods: Command,         action: ToggleFullscreen }
+  - { key: F,      mods: Command,         action: ToggleFullscreen }

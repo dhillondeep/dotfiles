@@ -11,6 +11,6 @@ if [ -f $DEST_FILE ]; then
     echo "Found $DEST_FILE. Move the file to $DEST_FILE.bak"
 fi
 
-# Symlink .zshrc file
+# Symlink init.lua file
 ln -s $SRC_FILE $DEST_FILE
 echo "Success: Symlinked $DEST_FILE file!"

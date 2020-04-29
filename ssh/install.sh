@@ -2,6 +2,8 @@
 
 set -e
 
+mkdir -p ~/.ssh
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 DEST_FILE=~/.ssh/config
 

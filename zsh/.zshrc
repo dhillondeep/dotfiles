@@ -3,6 +3,8 @@ export TERM="xterm-256color"
 
 export ZSH=~/.oh-my-zsh
 
+export ZSH_DISABLE_COMPFIX=true
+
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 plugins=(

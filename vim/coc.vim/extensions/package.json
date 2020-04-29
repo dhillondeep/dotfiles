@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "coc-clangd": ">=0.3.3",
+    "coc-clangd": ">=0.3.4",
     "coc-cmake": ">=0.0.1",
-    "coc-git": ">=1.7.9",
+    "coc-git": ">=1.7.11",
     "coc-go": ">=0.7.0",
     "coc-highlight": ">=1.2.5",
     "coc-json": ">=1.2.5",

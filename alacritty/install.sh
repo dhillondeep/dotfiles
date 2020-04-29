@@ -13,6 +13,6 @@ if [ -f $DEST_FILE ]; then
     exit 1
 fi
 
-# Symlink .zshrc file
+# Symlink alacritty.yml file
 ln -s $SRC_FILE $DEST_FILE
-echo "Success: Symlinked ~/.zshrc file!"
+echo "Success: Symlinked $DEST_FILE file!"

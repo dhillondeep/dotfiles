@@ -6,8 +6,9 @@
 - [Powerlevel9k](https://github.com/Powerlevel9k/powerlevel9k/wiki/Install-Instructions#option-2-install-for-oh-my-zsh)
 
 ## Setup
-- Install Script
+- Install Scripts
 ```bash
+./pre_install.sh
 ./install.sh
 ```
 - Source `~/.zshrc`

@@ -12,7 +12,7 @@ if [ -d ~/.tmux/plugins/tpm ]; then
 fi
 
 # install tmux plugin manage
-git clone https://github.com/tmux-plugins/m ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 echo "Success: Installed tmux package manager"
 
 if [ -f $DEST_FILE ]; then
@@ -20,6 +20,7 @@ if [ -f $DEST_FILE ]; then
     echo "Found $DEST_FILE. Moved to $DEST_FILE.bak"
 fi
 
-# symlink .zshrc file
+# symlink .tmux.conf file
 ln -s $SRC_FILE $DEST_FILE
 echo "Success: Symlinked $DEST_FILE file!"
+echo "Install Tmux plugins (when inside tmux) by doing: ` + I"
