@@ -1,23 +1,5 @@
-# Only for XTerm emulator
-export TERM="xterm-256color"
-
-export ZSH=~/.oh-my-zsh
-
-export ZSH_DISABLE_COMPFIX=true
-
-ZSH_THEME="powerlevel9k/powerlevel9k"
-
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  encode64
-  wd
-)
-
-source $ZSH/oh-my-zsh.sh
-
-##################### User configuration #####################
+# for tmux 256 color support
+export TERM="screen-256color"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -26,17 +8,46 @@ else
   export EDITOR='nvim'
 fi
 
-# powerline settings
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_CONTEXT_TEMPLATE="%n"
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status dir_writable)
+# set dotfiles location
+export DOTFILES=~/.dotfiles
 
-# tmux alias
-alias ta="tmux attach -t"
-alias tn="tmux new -t"
-alias tl="tmux list-sessions"
+# ------------ Syntax Highlighting --------------
+# -----------------------------------------------
+source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
-# fzf
+# ------------ Autocompletition -----------------
+# -----------------------------------------------
+# sourc completion plugin
+source $DOTFILES/zsh/completion.zsh
+
+# Initialize the completion system
+autoload -Uz compinit
+
+# Cache completion if nothing changed - faster startup time
+typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
+if [ $(date +'%j') != $updated_at ]; then
+  compinit -i
+else
+  compinit -C -i
+fi
+
+# Enhanced form of menu completion called `menu selection'
+zmodload -i zsh/complist
+
+# ------------ Autosuggestions ------------------
+# -----------------------------------------------
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Source configuration files
+source ~/.dotfiles/zsh/alias.zsh
+source ~/.dotfiles/zsh/export.zsh
+
+# setup fzf and ripgrep
+export PATH=$PATH:~/.fzf/bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 export FZF_DEFAULT_OPS="--extended"
+
+# setup starship
+export STARSHIP_CONFIG=$DOTFILES/zsh/starship.toml
+eval "$(starship init zsh)"

@@ -9,8 +9,8 @@ env:
 window:
   decorations: none
   padding:
-    x: 0 
-    y: 0 
+    x: 0
+    y: 0
 
   # Window title
   title: Alacritty
@@ -25,28 +25,28 @@ window:
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 5000
+  history: 0
 
 # Font configuration
 font:
   normal:
-    family: Iosevka Term
+    family: Iosevka Nerd Font
     style: Regular
 
   bold:
-    family: Iosevka Term
+    family: Iosevka Nerd Font
     style: Bold
 
   italic:
-    family: Iosevka Term
+    family: Iosevka Nerd Font
     style: Italic
 
   bold_italic:
-    family: Iosevka Term
+    family: Iosevka Nerd Font
     style: Bold Italic
 
   # Point size
-  size: 12.5
+  size: 15
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.

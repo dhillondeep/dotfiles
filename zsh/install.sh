@@ -8,18 +8,18 @@ DEST_FILE=~/.zshrc
 
 if [ -f $DEST_FILE ]; then
     mv $DEST_FILE $DEST_FILE.bak
-    echo "Found $DEST_FILE. Move the file to $DEST_FILE.bak"
+    echo "Found $DEST_FILE. Move the file to $DEST_FILE.bak!"
 fi
 
 # Symlink .zshrc file
 ln -s $SRC_FILE $DEST_FILE
 echo "Success: Symlinked ~/.zshrc file!"
 
-# clone Oh-My-Zsh plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-echo "Success: Installed Oh-My-Zsh plugins!"
+# Install Starship
+curl -fsSL https://starship.rs/install.sh | bash
+echo "Success: Startship downloaded!"
 
-# install powerline
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-echo "Success: Installed Powerlevel9k!"
+# clone zsh plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
+echo "Success: zsh plugins downloaded!"
