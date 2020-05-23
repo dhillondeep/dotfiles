@@ -1,5 +1,5 @@
 # for tmux 256 color support
-export TERM="screen-256color"
+export TERM="xterm-256color"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -39,14 +39,17 @@ zmodload -i zsh/complist
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Source configuration files
-source ~/.dotfiles/zsh/alias.zsh
-source ~/.dotfiles/zsh/export.zsh
+source $DOTFILES/zsh/alias.zsh
+source $DOTFILES/zsh/export.zsh
 
-# setup fzf and ripgrep
+# fzf and ripgrep
 export PATH=$PATH:~/.fzf/bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 export FZF_DEFAULT_OPS="--extended"
+
+# setuo shopify dev tool
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 
 # setup starship
 export STARSHIP_CONFIG=$DOTFILES/zsh/starship.toml

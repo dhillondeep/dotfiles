@@ -1,4 +1,4 @@
-add_newline = true # remove a line at top
+add_newline = false # remove a line at top
 
 [battery]
 full_symbol = "🔋"
