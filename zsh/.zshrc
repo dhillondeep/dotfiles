@@ -11,10 +11,6 @@ fi
 # set dotfiles location
 export DOTFILES=~/.dotfiles
 
-# ------------ Syntax Highlighting --------------
-# -----------------------------------------------
-source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-
 # ------------ Autocompletition -----------------
 # -----------------------------------------------
 # sourc completion plugin
@@ -37,10 +33,26 @@ zmodload -i zsh/complist
 # ------------ Autosuggestions ------------------
 # -----------------------------------------------
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
+
+# ----------------- History ---------------------
+# -----------------------------------------------
+source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# specify keybindings
+bindkey '^N' history-substring-search-up
+bindkey '^P' history-substring-search-down
+
+# configre the search
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
+HISTORY_SUBSTRING_SEARCH_FUZZY=true
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=none,fg=none"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=none,fg=none"
 
 # Source configuration files
 source $DOTFILES/zsh/alias.zsh
 source $DOTFILES/zsh/export.zsh
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local # local machine stuff
 
 # fzf and ripgrep
 export PATH=$PATH:~/.fzf/bin
@@ -48,9 +60,10 @@ export PATH=$PATH:~/.fzf/bin
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 export FZF_DEFAULT_OPS="--extended"
 
-# setuo shopify dev tool
-[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
-
 # setup starship
 export STARSHIP_CONFIG=$DOTFILES/zsh/starship.toml
 eval "$(starship init zsh)"
+
+# ------------ Syntax Highlighting --------------
+# -----------------------------------------------
+source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
