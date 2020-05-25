@@ -2,11 +2,10 @@
 
 ## Prerequisites:
 - [Alacritty](https://github.com/alacritty/alacritty)
-- [Iosevka Term](https://github.com/be5invis/Iosevka)
-  - Make sure to get Term variant
+- [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
+  - Using Iosevka font
 
 ## Setup
-- Install Script
 ```bash
 ./install.sh
 ```
