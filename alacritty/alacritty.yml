@@ -22,10 +22,7 @@ window:
     # General application class
     general: Alacritty
 
-scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
-  history: 0
+dynamic_title: true
 
 # Font configuration
 font:
@@ -51,8 +48,18 @@ font:
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
-    x: 1
-    y: 1
+    x: 0
+    y: 0
+
+scrolling:
+  history: 1000
+  multiplier: 10
+
+selection:
+  semantic_escape_chars: ',│`|:"'' ()[]{}<>'
+  save_to_clipboard: true
+
+draw_bold_text_with_bright_colors: true
 
 # Colors (One Dark)
 colors:

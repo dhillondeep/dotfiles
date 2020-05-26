@@ -1,6 +1,3 @@
-# for tmux 256 color support
-export TERM="xterm-256color"
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
