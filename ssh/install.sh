@@ -13,5 +13,5 @@ if [ -f $DEST_FILE ]; then
 fi
 
 # Symlink files
-ln -s $SCRIPT_DIR/CONFIG $DEST_FILE
+ln -s $SCRIPT_DIR/config $DEST_FILE
 echo "Success: Symlinked $DEST_FILE!"
