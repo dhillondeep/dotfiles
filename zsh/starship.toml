@@ -1,4 +1,15 @@
 add_newline = false # remove a line at top
+prompt_order = [
+    "username", "hostname", "directory", "git_branch", "git_state", "nodejs", "python", "ruby", "golang",
+    "memory_usage", "jobs", "line_break", "character"
+    ]
+
+[memory_usage]
+disabled = false
+show_percentage = true
+
+[jobs]
+disabled = false
 
 [battery]
 full_symbol = "🔋"
@@ -18,51 +29,3 @@ symbol = "🏎💨 "
 
 [directory]
 style = "fg:#98C379"
-
-[aws]
-disabled = true
-
-[conda]
-disabled = true
-
-[crystal]
-disabled = true
-
-[dotnet]
-disabled = true
-
-[elixir]
-disabled = true
-
-[elm]
-disabled = true
-
-[erlang]
-disabled = true
-
-[haskell]
-disabled = true
-
-[julia]
-disabled = true
-
-[package]
-disabled = true
-
-[ocaml]
-disabled = true
-
-[php]
-disabled = true
-
-[rust]
-disabled = true
-
-[singularity]
-disabled = true
-
-[terraform]
-disabled = true
-
-[zig]
-disabled = true
