@@ -5,6 +5,12 @@ else
   export EDITOR='nvim'
 fi
 
+# history
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt INC_APPEND_HISTORY_TIME
+
 # set dotfiles location
 export DOTFILES=~/.dotfiles
 
