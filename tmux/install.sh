@@ -23,4 +23,4 @@ fi
 # symlink .tmux.conf file
 ln -s $SRC_FILE $DEST_FILE
 echo "Success: Symlinked $DEST_FILE file!"
-echo "Install Tmux plugins (when inside tmux) by doing: ` + I"
+echo "Install Tmux plugins (when inside tmux) by doing: <prefix> + I"

@@ -24,3 +24,11 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosugges
 git clone https://github.com/zdharma/fast-syntax-highlighting ~/.zsh/fast-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-history-substring-search ~/.zsh/zsh-history-substring-search
 echo "Success: zsh plugins downloaded!"
+
+# clone tools
+git clone https://github.com/bigH/git-fuzzy.git ~/.zsh/git-fuzzy
+echo "Success: downloaded tools required!"
+
+# make zsh default shell
+chsh -s $(which zsh)
+echo "Zsh default shell!"
