@@ -129,6 +129,11 @@ if type pacman > /dev/null; then
     source $DOTFILES/zsh/arch_alias.zsh
 fi
 
+if type apt > /dev/null; then
+    source $DOTFILES/zsh/ubuntu_alias.zsh
+fi
+
+
 # macOS
 if [[ `uname` == "Darwin" ]]; then
     source $DOTFILES/zsh/macos_alias.zsh

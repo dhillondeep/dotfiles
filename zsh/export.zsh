@@ -13,6 +13,11 @@ if type pacman > /dev/null; then
     source $DOTFILES/zsh/arch_export.zsh
 fi
 
+# ubuntu linux
+if type apt > /dev/null; then
+	source $DOTFILES/zsh/ubuntu_export.zsh
+fi
+
 # macOS
 if [[ `uname` == "Darwin" ]]; then
     source $DOTFILES/zsh/macos_export.zsh

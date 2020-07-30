@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -20,13 +20,27 @@ curl -fsSL https://starship.rs/install.sh | bash
 echo "Success: Startship downloaded!"
 
 # clone zsh plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-git clone https://github.com/zdharma/fast-syntax-highlighting ~/.zsh/fast-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-history-substring-search ~/.zsh/zsh-history-substring-search
+CLONE_DIR=~/.zsh/zsh-autosuggestions
+if [ ! -d $CLONE_DIR ]; then
+	git clone https://github.com/zsh-users/zsh-autosuggestions $CLONE_DIR
+fi
+
+CLONE_DIR=~/.zsh/fast-syntax-highlighting
+if [ ! -d $CLONE_DIR ]; then
+	git clone https://github.com/zdharma/fast-syntax-highlighting $CLONE_DIR
+fi
+
+CLONE_DIR=~/.zsh/zsh-history-substring-search
+if [ ! -d $CLONE_DIR ]; then
+	git clone https://github.com/zsh-users/zsh-history-substring-search $CLONE_DIR
+fi
 echo "Success: zsh plugins downloaded!"
 
 # clone tools
-git clone https://github.com/bigH/git-fuzzy.git ~/.zsh/git-fuzzy
+CLONE_DIR=~/.zsh/git-fuzzy
+if [ ! -d $CLONE_DIR ]; then
+	git clone https://github.com/bigH/git-fuzzy.git $CLONE_DIR
+fi
 echo "Success: downloaded tools required!"
 
 # make zsh default shell
