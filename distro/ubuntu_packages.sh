@@ -3,6 +3,9 @@ sudo apt install -y zsh tmux xsel bat
 sudo apt install -y build-essential golang nodejs yarn python openssh-client python3 python3-pip ruby yarn
 sudo apt install -y docker docker-compose
 
+# bat
+sudo ln -s /usr/bin/batcat /usr/bin/bat
+
 # yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -15,3 +15,6 @@ fi
 # Symlink files
 ln -s $SCRIPT_DIR/config $DEST_FILE
 echo "Success: Symlinked $DEST_FILE!"
+
+# Gen ssh key
+ssh-keygen -t rsa -b 4096 -C "deep@dhillon.io"
