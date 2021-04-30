@@ -4,6 +4,11 @@ alias tn="tmux new -t"
 alias tl="tmux list-sessions"
 alias tap="tmux attach -t personal || tmux new -t personal"
 
+alias fta="tmux -L freelancer attach -t"
+alias ftn="tmux -L freelancer new -t"
+alias ftl="tmux -L freelancer list-sessions"
+alias ftap="tmux -L freelancer attach -t personal || tmux -L freelancer new -t personal"
+
 # vim
 alias vim="nvim"
 alias svim="sudoedit nvim"

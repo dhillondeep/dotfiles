@@ -21,19 +21,19 @@ window:
 # Font configuration
 font:
   normal:
-    family: Iosevka Nerd Font
+    family: Iosevka Nerd Font Mono
     style: Regular
 
   bold:
-    family: Iosevka Nerd Font
+    family: Iosevka
     style: Bold
 
   italic:
-    family: Iosevka Nerd Font
+    family: Iosevka
     style: Italic
 
   bold_italic:
-    family: Iosevka Nerd Font
+    family: Iosevka
     style: Bold Italic
 
   # Point size
@@ -99,8 +99,8 @@ key_bindings:
   - { key: Insert,   mods: Shift,         action: PasteSelection   }
   - { key: Key0,     mods: Control,       action: ResetFontSize    }
   - { key: Equals,   mods: Control,       action: IncreaseFontSize }
-  - { key: Add,      mods: Control,       action: IncreaseFontSize }
-  - { key: Subtract, mods: Control,       action: DecreaseFontSize }
+  - { key: NumpadAdd,      mods: Control,       action: IncreaseFontSize }
+  - { key: NumpadSubtract, mods: Control,       action: DecreaseFontSize }
   - { key: Minus,    mods: Control,       action: DecreaseFontSize }
 
   # (Windows only)
@@ -109,7 +109,7 @@ key_bindings:
   # (macOS only)
   - { key: Key0,   mods: Command,         action: ResetFontSize    }
   - { key: Equals, mods: Command,         action: IncreaseFontSize }
-  - { key: Add,    mods: Command,         action: IncreaseFontSize }
+  - { key: NumpadAdd,    mods: Command,         action: IncreaseFontSize }
   - { key: Minus,  mods: Command,         action: DecreaseFontSize }
   - { key: V,      mods: Command|Shift,   action: Paste            }
   - { key: C,      mods: Command|Shift,   action: Copy             }
@@ -118,3 +118,4 @@ key_bindings:
   - { key: Q,      mods: Command,         action: Quit             }
   - { key: W,      mods: Command,         action: Quit             }
   - { key: F,      mods: Command,         action: ToggleFullscreen }
+  - { key: N,      mods: Command,         action: SpawnNewInstance }

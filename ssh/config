@@ -2,10 +2,8 @@
 Host github.com
         Hostname github.com
         IdentitiesOnly yes
-        IdentityFile ~/.ssh/github_rsa
+        IdentityFile ~/.ssh/github_ed25519
 
-# dhillondeep gitlab account
-Host gitlab.com 
-        Hostname gitlab.com
-        IdentitiesOnly yes
-        IdentityFile ~/.ssh/gitlab_rsa
+Host raspberrypi
+    Hostname 192.168.86.29
+    User pi

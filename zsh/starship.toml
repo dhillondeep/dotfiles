@@ -1,28 +1,12 @@
 add_newline = false # remove a line at top
-prompt_order = [
-    "username", "hostname", "directory", "git_branch", "git_state", "nodejs", "python", "ruby", "golang",
-    "memory_usage", "jobs", "line_break", "character"
-    ]
 
-[memory_usage]
-disabled = false
-show_percentage = true
+format = """
+$directory$git_branch$kubernetes$golang$java$ruby$nodejs$python
+$character
+"""
 
 [jobs]
 disabled = false
-
-[battery]
-full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "💀"
-
-[[battery.display]]  # "bold red" style when capacity is between 0% and 10%
-threshold = 10
-style = "bold red"
-
-[[battery.display]]  # "bold yellow" style when capacity is between 10% and 30%
-threshold = 30
-style = "bold yellow"
 
 [golang]
 symbol = "🏎💨 "
