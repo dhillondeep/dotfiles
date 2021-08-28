@@ -17,4 +17,4 @@ ln -s $SCRIPT_DIR/config $DEST_FILE
 echo "Success: Symlinked $DEST_FILE!"
 
 # Gen ssh key
-ssh-keygen -t ed25519 -C "deep@dhillon.io"
+ssh-keygen -f ~/.ssh/github_ed25519 -t ed25519 -C "deep@dhillon.io"
