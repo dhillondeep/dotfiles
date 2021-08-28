@@ -1,5 +1,6 @@
 # go
 export GOPATH=~/Development/go
+export GOBIN=~/Development/go/bin
 export PATH=$PATH:$GOPATH/bin
 
 # git fuzzy
