@@ -5,7 +5,8 @@ brew install nvim tmux
 brew install cmake make ninja yarn go python@3.7
 
 # infra
-brew install docker docker-compose
+brew tap hashicorp/tap
+brew install docker docker-compose hashicorp/tap/terraform
 
 # Fast tools
-brew install bat exa fd rg
+brew install bat exa fd rg fzf
