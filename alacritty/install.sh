@@ -16,3 +16,8 @@ fi
 # Symlink alacritty.yml file
 ln -s $SRC_FILE $DEST_FILE
 echo "Success: Symlinked $DEST_FILE file!"
+
+# Install font
+brew tap homebrew/cask-fonts
+brew install --cask font-iosevka-nerd-font font-iosevka
+echo "Success: Iosevka Fonts Installed."

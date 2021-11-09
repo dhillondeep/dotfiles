@@ -18,6 +18,9 @@ window:
     # General application class
     general: Alacritty
 
+  # Window opacity
+  opacity: 0.98
+
 # Font configuration
 font:
   normal:
@@ -37,7 +40,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 13
+  size: 15
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -81,8 +84,6 @@ colors:
     magenta: '#c678dd'
     cyan:    '#56b6c2'
     white:   '#ffffff'
-
-background_opacity: 0.98
 
 # Live config reload (changes require restart)
 live_config_reload: true
