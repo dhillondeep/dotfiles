@@ -9,9 +9,8 @@ if [ -f '/Users/deep/Development/tools/google-cloud-sdk/path.zsh.inc' ]; then . 
 if [ -f '/Users/deep/Development/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/deep/Development/tools/google-cloud-sdk/completion.zsh.inc'; fi
 
 # brew gcloud
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 # Git fzf
 export PATH=$PATH:~/Applications/git-fuzzy/bin

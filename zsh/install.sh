@@ -15,10 +15,6 @@ fi
 ln -s $SRC_FILE $DEST_FILE
 echo "Success: Symlinked ~/.zshrc file!"
 
-# Install Starship
-curl -fsSL https://starship.rs/install.sh | bash
-echo "Success: Startship downloaded!"
-
 # clone zsh plugins
 CLONE_DIR=~/.zsh/zsh-autosuggestions
 if [ ! -d $CLONE_DIR ]; then
