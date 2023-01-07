@@ -1,0 +1,16 @@
+version: '3'
+
+tasks:
+  setup-zshrc:
+    - FILE=~/.zshrc && [ ! -f "$FILE" ] || mv "$FILE" "$FILE.bk"
+    - FILE=~/.zplug && [ ! -f "$FILE" ] || curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+    - ln -s $(pwd)/.zshrc ~/.zshrc
+    - task: install-tools
+
+  install-tools:
+    - curl -sS https://starship.rs/install.sh | sh
+
+  install-zsh:
+    - sudo apt install zsh
+    - sudo chsh -s $(which zsh)
+    - sudo usermod -s $(which zsh) $USER

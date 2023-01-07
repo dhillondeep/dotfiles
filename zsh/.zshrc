@@ -5,68 +5,98 @@ else
   export EDITOR='nvim'
 fi
 
-# history
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt INC_APPEND_HISTORY_TIME
-
 # set dotfiles location
-export DOTFILES=~/.dotfiles
+export DOTFILES=${DOTFILES:-~/Lab/config/dotfiles}
+export DOTFILES_PRIVATE=${DOTFILES_PRIVATE:-~/Lab/config/dotfiles.private}
 
-# ------------ Autocompletition -----------------
-# -----------------------------------------------
-# sourc completion plugin
-source $DOTFILES/zsh/completion.zsh
+# set local binaries location
+export PATH=$PATH:~/.local/bin
 
-# Initialize the completion system
+# initialize the completion system
 autoload -Uz compinit
-
-# Cache completion if nothing changed - faster startup time
-typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
-if [ $(date +'%j') != $updated_at ]; then
-  compinit -i
+if [[ -n ~/.zcompdump(N.mh+24) ]]; then
+	compinit;
 else
-  compinit -C -i
-fi
+	compinit -C;
+fi;
 
-# Enhanced form of menu completion called `menu selection'
-zmodload -i zsh/complist
+# setup zoxide
+source ${DOTFILES}/zsh/zoxide.sh
 
-# ------------ Autosuggestions ------------------
-# -----------------------------------------------
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-export ZSH_AUTOSUGGEST_USE_ASYNC=true
+# ------- History -------
+# -----------------------
 
-# ----------------- History ---------------------
-# -----------------------------------------------
-source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
 
-# specify keybindings
-bindkey '^N' history-substring-search-up
-bindkey '^P' history-substring-search-down
+setopt extendedhistory incappendhistorytime
+autoload -Uz add-zsh-hook
 
-# configre the search
-HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
-HISTORY_SUBSTRING_SEARCH_FUZZY=true
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=none,fg=none"
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=none,fg=none"
+load-shared-history() {
+  # Pop the current history off the history stack, so 
+  # we don't grow the history stack endlessly
+  fc -P
 
-# Source configuration files
-source $DOTFILES/zsh/alias.zsh
-source $DOTFILES/zsh/export.zsh
-[ -f ~/.zshrc_local ] && source ~/.zshrc_local # local machine stuff
+  # Load a new history from $HISTFILE and push
+  # it onto the history stack.
+  fc -p $HISTFILE
+}
 
-# fzf and ripgrep
+# Import the latest history at the start of each new 
+# command line.
+add-zsh-hook precmd load-shared-history
+
+# ------- Plugins -------
+# -----------------------
+
+# - autocomplete -
+zstyle ':autocomplete:*' fzf-completion yes
+zstyle ':autocomplete:recent-dirs' backend zoxide
+zstyle ':autocomplete:*' widget-style menu-select
+source ${DOTFILES}/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+# - syntax highlighting -
+source ${DOTFILES}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
+# - alias tips -
+source ${DOTFILES}/zsh/plugins/alias-tips/alias-tips.plugin.zsh
+
+# - vi mode -
+export ZVM_INIT_MODE=sourcing
+source ${DOTFILES}/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+# --------- FZF ---------
+# -----------------------
 export PATH=$PATH:~/.fzf/bin
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
-export FZF_DEFAULT_OPS="--extended"
+FILE=~/.fzf.zsh && [ -f "$FILE" ] && source "$FILE"
 
-# setup starship
+# ------ Starship (Prompt) -------
+# --------------------------------
+
 export STARSHIP_CONFIG=$DOTFILES/zsh/starship.toml
 eval "$(starship init zsh)"
 
-# ------------ Syntax Highlighting --------------
-# -----------------------------------------------
-source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+# ---------- Key Bindings ----------
+# ----------------------------------
+
+# reset history search key binding
+bindkey '\e[A' up-line-or-history
+bindkey '\eOA' up-line-or-history
+bindkey '\e[B' down-line-or-history
+bindkey '\eOB' down-line-or-history
+
+# --------- Configurations ---------
+# ----------------------------------
+
+source $DOTFILES/zsh/alias.zsh
+source $DOTFILES/zsh/export.zsh
+FILE=$DOTFILES_PRIVATE/zsh/alias.zsh && [ -f $FILE ] && source "$FILE"
+FILE=$DOTFILES_PRIVATE/zsh/export.zsh && [ -f $FILE ] && source "$FILE"
+FILE=~/.zshrc.local && [ -f "$FILE" ] && source "$FILE" # local
