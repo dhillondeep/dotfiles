@@ -1,9 +1,8 @@
 # Tmux
 
 ## Setup
-- Install Script
 ```bash
-./install.sh
+task install
 ```
 - `prefix` + <kbd>I</kbd> to install pluggins
 

@@ -1,0 +1,8 @@
+version: '3'
+
+tasks:
+  install:
+    - DIR=~/.tmux/plugins/tpm && [ ! -d "$DIR" ] || mv "$DIR" "$DIR.bk"
+    - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    - FILE=~/.tmux.conf && [ ! -f "$FILE" ] || mv "$FILE" "$FILE.bk"
+    - ln -s $(pwd)/.tmux.conf ~/.tmux.conf
