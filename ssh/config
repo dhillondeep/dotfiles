@@ -1,9 +1,0 @@
-# dhillondeep github account
-Host github.com
-        Hostname github.com
-        IdentitiesOnly yes
-        IdentityFile ~/.ssh/github_ed25519
-
-Host raspberrypi
-    Hostname 192.168.86.29
-    User pi
