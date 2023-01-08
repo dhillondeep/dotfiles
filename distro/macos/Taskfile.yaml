@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  install-linux:
+    - mkdir -p ~/.local/bin
+    # essentials
+    - brew install git tmux vim neovim curl sshuttle ca-certificates gnupg autojump
+      # -- lazygit --
+    - go install github.com/jesseduffield/lazygit@latest
+    # faster tools
+    - brew install bat exa ripgrep fd
+    - curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+    - sudo ln -s $(which fdfind) ~/.local/bin/fd
+    - sudo ln -s $(which batcat) ~/.local/bin/bat
+      # -- fzf --
+    - DIR=~/.fzf && git -C "$DIR" pull || (git clone --depth=1 https://github.com/junegunn/fzf.git "$DIR" && $DIR/install)
+    # development
+    - brew install cmake ninja make golang nodejs python3 yarn python3-pip bazel
+      # -- k8s and containers --
+    - sudo apt install -y docker docker-compose
+    - go install github.com/derailed/k9s@latest
