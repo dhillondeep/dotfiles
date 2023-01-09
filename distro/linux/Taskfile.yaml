@@ -1,27 +1,55 @@
 version: '3'
 
 tasks:
-  install-linux:
-    - mkdir -p ~/.local/bin
+  install:
+    - task: setup-paths
     # essentials
-    - sudo apt install -y git tmux vim neovim curl sshuttle apt-transport-https ca-certificates gnupg autojump
-      # -- lazygit --
-    - go install github.com/jesseduffield/lazygit@latest
+    - sudo apt install -y git tmux vim neovim curl sshuttle apt-transport-https ca-certificates gnupg
+    - task: install-nvim
+    - task: install-envman
     # faster tools
     - sudo apt install -y bat exa ripgrep fd-find
+      # -- zoxide --
     - curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
-    - sudo ln -s $(which fdfind) ~/.local/bin/fd
-    - sudo ln -s $(which batcat) ~/.local/bin/bat
+      # -- fd --
+    - ln -sf $(which fdfind) ~/.local/bin/fd
+      # -- bat --
+    - ln -sf $(which batcat) ~/.local/bin/bat
       # -- fzf --
     - DIR=~/.fzf && git -C "$DIR" pull || (git clone --depth=1 https://github.com/junegunn/fzf.git "$DIR" && $DIR/install)
     # development
-    - sudo apt install -y build-essential cmake ninja-build make golang nodejs python3 yarn python3-pip
+    - sudo apt install -y build-essential cmake ninja-build make golang nodejs python3 yarn python3-pip kubectx
       # -- bazel --
+    - task: install-bazel
+      # -- k8s and containers --
+    - sudo apt install -y docker docker-compose
+    - curl -sS https://webinstall.dev/k9s | bash
+      # -- lazygit --
+    - go install github.com/jesseduffield/lazygit@latest
+
+  # envman (2.4.0)
+  install-envman:
+    - curl -fL https://github.com/bitrise-io/envman/releases/download/2.4.0/envman-"$(uname -s)"-"$(uname -m)" > ~/.local/bin/envman
+    - chmod +x ~/.local/bin/envman
+
+  # neovim (0.8.2)
+  install-nvim:
+    - mkdir -p ~/Lab/apps/nvim && rm -rf ~/Lab/apps/nvim/nvim-linux64
+    - wget -qO- https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz | tar xvz -C ~/Lab/apps/nvim
+    - ln -sf ~/Lab/apps/nvim/nvim-linux64/bin/nvim ~/.local/bin/nvim
+    - mkdir -p ~/.vim/sessions
+
+  install-bazel:
     - curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
     - sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
     - echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
     - sudo apt update && sudo apt install -y bazel
     - go install github.com/bazelbuild/bazelisk@latest
-      # -- k8s and containers --
-    - sudo apt install -y docker docker-compose
-    - go install github.com/derailed/k9s@latest
+
+  setup-paths:
+    internal: true
+    cmds:
+      - mkdir -p ~/.local/bin # common place to store in path binaries
+      - mkdir -p ~/Lab/apps # common place to store custom apps and their files
+
+
