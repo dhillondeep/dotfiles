@@ -20,6 +20,10 @@ alias zshreload='source ~/.zshrc'
 # bazel
 alias bazel=bazelisk
 
+# kubernetes
+alias kctl="kubectx"
+alias k="kubectl"
+
 # macOS
 if [[ `uname` == "Darwin" ]]; then
     source $DOTFILES/zsh/alias_macos.zsh
