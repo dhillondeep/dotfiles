@@ -18,7 +18,7 @@ tasks:
       # -- fzf --
     - DIR=~/.fzf && git -C "$DIR" pull || (git clone --depth=1 https://github.com/junegunn/fzf.git "$DIR" && $DIR/install)
     # development
-    - sudo apt install -y build-essential cmake ninja-build make golang nodejs python3 yarn python3-pip kubectx
+    - sudo apt install -y build-essential cmake ninja-build make golang nodejs python3 yarn python3-pip
       # -- bazel --
     - task: install-bazel
       # -- k8s and containers --
@@ -51,5 +51,3 @@ tasks:
     cmds:
       - mkdir -p ~/.local/bin # common place to store in path binaries
       - mkdir -p ~/Lab/apps # common place to store custom apps and their files
-
-
