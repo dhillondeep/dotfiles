@@ -6,8 +6,8 @@ else
 fi
 
 # set dotfiles location
-export DOTFILES=${DOTFILES:-~/Lab/config/dotfiles}
-export DOTFILES_PRIVATE=${DOTFILES_PRIVATE:-~/Lab/config/dotfiles.private}
+export DOTFILES=${DOTFILES:-~/.dotfiles}
+export DOTFILES_PRIVATE=${DOTFILES_PRIVATE:-~/.dotfiles.private}
 
 # set local binaries location
 export PATH=$PATH:~/.local/bin
