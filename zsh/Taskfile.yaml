@@ -1,10 +1,14 @@
 version: '3'
 
 tasks:
-  install-zsh:
+  install-zsh-linux:
     - sudo apt install zsh
     - sudo chsh -s $(which zsh)
     - sudo usermod -s $(which zsh) $USER
+
+  install-zsh-macos:
+    - brew install zsh
+    - sudo chsh -s $(which zsh)
 
   setup:
     - FILE=~/.zshrc && [ ! -f "$FILE" ] || mv "$FILE" "$FILE.bk"
