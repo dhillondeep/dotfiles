@@ -13,7 +13,7 @@ tasks:
     # faster tools
     - brew install bat exa ripgrep fd
       # -- zoxide --
-    - curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+    - brew install zoxide
       # -- fzf --
     - DIR=~/.fzf && git -C "$DIR" pull || (git clone --depth=1 https://github.com/junegunn/fzf.git "$DIR" && $DIR/install)
     # development
