@@ -44,6 +44,5 @@ export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS"
 
 # macOS
 if [[ `uname` == "Darwin" ]]; then
-    source $DOTFILES/zsh/export_macos.zsh
-    source $DOTFILES_PRIVATE/zsh/export_macos.zsh
+    FILE=$DOTFILES/zsh/export_macos.zsh && [ -f $FILE ] && source "$FILE"
 fi

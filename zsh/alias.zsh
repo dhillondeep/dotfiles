@@ -24,8 +24,10 @@ alias bazel=bazelisk
 alias kctl="kubectx"
 alias k="kubectl"
 
+# lazygit
+alias lgit="lazygit"
+
 # macOS
 if [[ `uname` == "Darwin" ]]; then
-    source $DOTFILES/zsh/alias_macos.zsh
-    source $DOTFILES_PRIVATE/zsh/alias_macos.zsh
+    FILE=$DOTFILES/zsh/alias_macos.zsh && [ -f $FILE ] && source "$FILE"
 fi
