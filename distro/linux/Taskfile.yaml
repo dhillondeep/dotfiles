@@ -26,6 +26,8 @@ tasks:
     - curl -sS https://webinstall.dev/k9s | bash
       # -- lazygit --
     - go install github.com/jesseduffield/lazygit@latest
+      # -- github cli --
+    - task: install-github-cli
 
   # envman (2.4.0)
   install-envman:
@@ -45,6 +47,13 @@ tasks:
     - echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
     - sudo apt update && sudo apt install -y bazel
     - go install github.com/bazelbuild/bazelisk@latest
+
+  install-github-cli:
+    - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+    - sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+    - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    - sudo apt update
+    - sudo apt install gh -y
 
   setup-paths:
     internal: true
