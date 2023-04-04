@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  setup-paths:
+    internal: true
+    cmds:
+      - mkdir -p ~/.local/bin # common place to store in path binaries
+      - mkdir -p ~/Lab/apps # common place to store custom apps and their files
+
+  setup-git:
+    cmds:
+      - git config --global user.name "{{.Name}}"
+      - git config --global user.email "{{.Email}}"
+
+  generate-ssh-keys:
+    cmds:
+      - ssh-keygen -t ed25519 -C "{{.Email}}"
+
+  github-add-ssh-key:
+    cmds:
+      - gh ssh-key add ~/.ssh/{{.KeyName}} --title "{{.Title}}"

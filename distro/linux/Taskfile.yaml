@@ -1,8 +1,11 @@
 version: '3'
 
+includes:
+  generic: ../Taskfile.yaml
+
 tasks:
   install:
-    - task: setup-paths
+    - task: generic:setup-paths
     # essentials
     - sudo apt install -y git tmux vim neovim curl sshuttle apt-transport-https ca-certificates gnupg
     - task: install-nvim
@@ -58,8 +61,6 @@ tasks:
     - sudo apt update
     - sudo apt install gh -y
 
-  setup-paths:
-    internal: true
+  add-ssh-key:
     cmds:
-      - mkdir -p ~/.local/bin # common place to store in path binaries
-      - mkdir -p ~/Lab/apps # common place to store custom apps and their files
+      - ssh-add ~/.ssh/{{.KeyName}}
