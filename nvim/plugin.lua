@@ -1,0 +1,168 @@
+local plugin_manager = require("custom.config.plugin.manager")
+
+local plugins = {
+  --- File Manager & Search/Find
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = function()
+      local default = require("plugins.configs.nvimtree")
+      default       = vim.tbl_deep_extend("force", default, plugin_manager.get_nvim_tree_opts())
+      return default
+    end,
+  },
+
+  {
+    "SmiteshP/nvim-navbuddy",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim",
+    },
+    init = require("core.utils").load_mappings("navbuddy"),
+    config = function()
+      plugin_manager.configure_navbuddy()
+    end
+  },
+
+  {
+    "ibhagwan/fzf-lua",
+    init = require("core.utils").load_mappings("fzflua"),
+    cmd = { "FzfLua" },
+    dependencies = {
+      {
+        "junegunn/fzf",
+        build = "./install --all",
+      },
+      { "nvim-tree/nvim-web-devicons" },
+    },
+    config = function()
+      plugin_manager.configure_fzflua()
+    end,
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "olimorris/persisted.nvim",
+      "ahmedkhalf/project.nvim",
+    },
+    opts = function()
+      local default = require("plugins.configs.telescope")
+      return vim.tbl_deep_extend("force", default, plugin_manager.configure_telescope())
+    end
+  },
+
+  --- LSP & Code
+  {
+    "glepnir/lspsaga.nvim",
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons" },
+      { "nvim-treesitter/nvim-treesitter" }
+    },
+    event = "LspAttach",
+    init = require("core.utils").load_mappings("lspsaga"),
+    config = function()
+      plugin_manager.configure_lspsaga()
+    end,
+  },
+
+  {
+    "williamboman/mason.nvim",
+    opts = function()
+      local opts = require("plugins.configs.mason")
+      opts = vim.tbl_deep_extend("force", opts, plugin_manager.get_mason_opts())
+      return opts
+    end,
+  },
+
+  {
+    "williamboman/mason-lspconfig.nvim",
+    cmd = { "MasonInstallAll", "LspInstall", "LspUninstall" },
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
+    config = function()
+      plugin_manager.configure_mason_lspconfig()
+    end,
+  },
+
+  { "jose-elias-alvarez/null-ls.nvim" },
+
+  { "b0o/SchemaStore.nvim" },
+
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      plugin_manager.configure_lspconfig()
+    end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      { "p00f/nvim-ts-rainbow" },
+    },
+    opts = function()
+      local default = require("plugins.configs.treesitter")
+      default = vim.tbl_deep_extend("force", default, plugin_manager.get_treesitter_opts())
+      return default
+    end,
+  },
+
+  --- Startup, Sessions, and Projects ---
+  {
+    "olimorris/persisted.nvim",
+    lazy = false,
+    config = function()
+      plugin_manager.configure_persisted()
+    end,
+  },
+
+  {
+    "ahmedkhalf/project.nvim",
+    lazy = false,
+    config = function()
+      plugin_manager.configure_project()
+    end,
+  },
+
+  --- Copy, Paste and Move ---
+
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+    keys = { "<C-l>", "<C-h>", "<C-j>", "<C-k>" },
+    init = function()
+      vim.g.tmux_navigator_disable_when_zoomed = 1
+    end,
+  },
+
+  {
+    "ggandor/leap.nvim",
+    keys = { "s", "S" },
+    config = function()
+      require("leap").add_default_mappings()
+    end,
+  },
+
+  {
+    "ggandor/flit.nvim",
+    dependencies = { "leap.nvim" },
+    keys = { "f", "F", "t", "T" },
+    config = function()
+      plugin_manager.configure_flit()
+    end,
+  },
+
+  --- UI/Look and feel ---
+
+  {
+    "nmac427/guess-indent.nvim",
+    event = { "BufRead", "BufWinEnter", "BufNewFile" },
+    config = function()
+      plugin_manager.configure_guess_indent()
+    end,
+  },
+}
+
+return plugins
