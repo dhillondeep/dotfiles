@@ -7,7 +7,7 @@ tasks:
   setup:
     - task: generic:setup-paths
     - task: install-fonts
-    - brew install git tmux vim neovim curl sshuttle apt-transport-https ca-certificates gnupg
+    - brew install git tmux curl sshuttle ca-certificates gnupg
     - task: install-nvim
     - task: install-envman
     # faster tools
@@ -17,9 +17,9 @@ tasks:
       # -- fzf --
     - DIR=~/.fzf && git -C "$DIR" pull || (git clone --depth=1 https://github.com/junegunn/fzf.git "$DIR" && $DIR/install)
     # development
-    - brew install cmake ninja make go python yarn pip
+    - brew install cmake ninja make go python yarn
       # -- nodejs --
-    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    - brew install nvm
     - nvm install --lts
       # -- bazel --
     - brew install bazel
