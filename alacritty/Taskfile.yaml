@@ -1,0 +1,10 @@
+version: '3'
+
+tasks:
+  setup-macos:
+    - DIR=~/.config/alacritty && mkdir -p $DIR
+    - FILE=~/.config/alacritty/alacritty.yaml && [ ! -d "$FILE" ] || mv $FILE "$FILE.bk"
+    - FILE=~/.config/alacritty/alacritty.yaml && ln -s $(pwd)/macos/alacritty.yaml $FILE
+
+  remove:
+    - rm -rf ~/.config/alacritty
