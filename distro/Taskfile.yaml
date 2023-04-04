@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 tasks:
   setup-paths:
@@ -8,14 +8,14 @@ tasks:
       - mkdir -p ~/Lab/apps # common place to store custom apps and their files
 
   setup-git:
-    cmds:
-      - git config --global user.name "{{.Name}}"
-      - git config --global user.email "{{.Email}}"
+    - git config --global user.name "{{.Name}}"
+    - git config --global user.email "{{.Email}}"
 
   generate-ssh-keys:
-    cmds:
-      - ssh-keygen -t ed25519 -C "{{.Email}}"
+    - ssh-keygen -t ed25519 -C "{{.Email}}"
+
+  github-login:
+    - gh auth login -h github.com -s admin:public_key
 
   github-add-ssh-key:
-    cmds:
-      - gh ssh-key add ~/.ssh/{{.KeyName}} --title "{{.Title}}"
+    - gh ssh-key add ~/.ssh/{{.KeyName}}.pub --title "{{.Title}}"
