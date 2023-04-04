@@ -18,7 +18,10 @@ tasks:
       # -- fzf --
     - DIR=~/.fzf && git -C "$DIR" pull || (git clone --depth=1 https://github.com/junegunn/fzf.git "$DIR" && $DIR/install)
     # development
-    - sudo apt install -y build-essential cmake ninja-build make golang nodejs python3 yarn python3-pip
+    - sudo apt install -y build-essential cmake ninja-build make golang python3 yarn python3-pip
+      # -- nodejs --
+    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    - nvm install --lts
       # -- bazel --
     - task: install-bazel
       # -- k8s and containers --
