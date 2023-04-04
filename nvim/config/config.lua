@@ -29,6 +29,11 @@ function cfg.lspserver_cfgs()
         validate = { enable = true },
       },
     },
+    ["yamlls"] = {
+      yaml = {
+        schemas = require('schemastore').yaml.schemas(),
+      },
+    },
   }
 end
 

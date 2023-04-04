@@ -5,6 +5,7 @@ _G.deepvim = {}
 require("custom.config.constants")
 require("custom.config.options")
 require("custom.config.config")
+require("custom.utils")
 
 -- Set vim options with a nested table like API with the format vim.<first_key>.<second_key>.<value>
 for scope, table in pairs(deepvim.vim_opts) do
