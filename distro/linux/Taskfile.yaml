@@ -40,7 +40,7 @@ tasks:
     - curl -fL https://github.com/bitrise-io/envman/releases/download/2.4.0/envman-"$(uname -s)"-"$(uname -m)" > ~/.local/bin/envman
     - chmod +x ~/.local/bin/envman
 
-  # neovim (0.8.2)
+  # neovim (stable)
   install-nvim:
     - mkdir -p ~/Lab/apps/nvim && rm -rf ~/Lab/apps/nvim/nvim-linux64
     - wget -qO- https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz | tar xvz -C ~/Lab/apps/nvim
