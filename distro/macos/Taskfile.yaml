@@ -1,21 +1,52 @@
 version: '3'
 
+includes:
+  generic: ../Taskfile.yaml
+
 tasks:
-  install-linux:
-    - mkdir -p ~/.local/bin
-    # essentials
-    - brew install git tmux vim neovim curl sshuttle ca-certificates gnupg autojump
-      # -- lazygit --
-    - go install github.com/jesseduffield/lazygit@latest
+  setup:
+    - task: generic:setup-paths
+    - task: install-fonts
+    - brew install git tmux vim neovim curl sshuttle apt-transport-https ca-certificates gnupg
+    - task: install-nvim
+    - task: install-envman
     # faster tools
     - brew install bat exa ripgrep fd
+      # -- zoxide --
     - curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
-    - sudo ln -s $(which fdfind) ~/.local/bin/fd
-    - sudo ln -s $(which batcat) ~/.local/bin/bat
       # -- fzf --
     - DIR=~/.fzf && git -C "$DIR" pull || (git clone --depth=1 https://github.com/junegunn/fzf.git "$DIR" && $DIR/install)
     # development
-    - brew install cmake ninja make golang nodejs python3 yarn python3-pip bazel
+    - brew install cmake ninja make go python yarn pip
+      # -- nodejs --
+    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    - nvm install --lts
+      # -- bazel --
+    - brew install bazel
       # -- k8s and containers --
-    - sudo apt install -y docker docker-compose
-    - go install github.com/derailed/k9s@latest
+    - brew install docker docker-compose
+    - curl -sS https://webinstall.dev/k9s | bash
+      # -- lazygit --
+    - go install github.com/jesseduffield/lazygit@latest
+      # -- github cli --
+    - brew install gh
+
+  install-fonts:
+    - brew tap homebrew/cask-fonts
+    - brew install --cask font-iosevka-nerd-font font-iosevka
+
+  # envman (2.4.0)
+  install-envman:
+    - curl -fL https://github.com/bitrise-io/envman/releases/download/2.4.0/envman-"$(uname -s)"-"$(uname -m)" > ~/.local/bin/envman
+    - chmod +x ~/.local/bin/envman
+
+  # neovim (stable)
+  install-nvim:
+    - mkdir -p ~/Lab/apps/nvim && rm -rf ~/Lab/apps/nvim/nvim-macos
+    - wget -qO- https://github.com/neovim/neovim/releases/download/stable/nvim-macos.tar.gz | tar xvz -C ~/Lab/apps/nvim
+    - ln -sf ~/Lab/apps/nvim/nvim-macos/bin/nvim ~/.local/bin/nvim
+    - mkdir -p ~/.vim/sessions
+
+  add-ssh-key:
+    cmds:
+      - ssh-add ~/.ssh/{{.KeyName}}
