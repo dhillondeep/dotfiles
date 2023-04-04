@@ -20,7 +20,8 @@ tasks:
     - brew install cmake ninja make go python yarn
       # -- nodejs --
     - brew install nvm
-    - nvm install --lts
+    - mkdir -p ~/.nvm
+    - \. "/opt/homebrew/opt/nvm/nvm.sh" && nvm install --lts
       # -- bazel --
     - brew install bazel
       # -- k8s and containers --
