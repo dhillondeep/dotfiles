@@ -4,7 +4,7 @@ includes:
   generic: ../Taskfile.yaml
 
 tasks:
-  install:
+  setup:
     - task: generic:setup-paths
     # essentials
     - sudo apt install -y git tmux vim neovim curl sshuttle apt-transport-https ca-certificates gnupg
