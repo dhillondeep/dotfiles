@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  setup:
+    - DIR=~/.config/nvim && [ ! -d "$DIR" ] || mv "$DIR" "$DIR.bk"
+    - DIR=~/.config/nvim && git clone https://github.com/NvChad/NvChad $DIR --depth 1
+    - DIR=~/.config/nvim/lua/custom && ln -s $(pwd) $DIR
+
+  remove:
+    - rm -rf ~/.config/nvim
+    - rm -rf ~/.local/share/nvim
