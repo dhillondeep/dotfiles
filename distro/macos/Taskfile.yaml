@@ -7,7 +7,7 @@ tasks:
   setup:
     - task: generic:setup-paths
     - task: install-fonts
-    - brew install git tmux curl sshuttle ca-certificates gnupg
+    - brew install git git-lfs tmux curl sshuttle ca-certificates gnupg
     - task: install-nvim
     - task: install-envman
     # faster tools
