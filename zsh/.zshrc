@@ -104,3 +104,13 @@ FILE=~/.zshrc.local && [ -f "$FILE" ] && source "$FILE" # local
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# The next line updates PATH for the Google Cloud SDK.
+gcloud_file_path="~/Lab/apps/gcloud-cli/path.zsh.inc"
+eval gcloud_file_path=$gcloud_file_path
+if [ -f $gcloud_file_path ]; then . $gcloud_file_path; fi
+
+# The next line enables shell command completion for gcloud.
+gcloud_comp_path="~/Lab/apps/gcloud-cli/completion.zsh.inc"
+eval gcloud_comp_path=$gcloud_comp_path
+if [ -f $gcloud_comp_path ]; then . $gcloud_comp_path; fi

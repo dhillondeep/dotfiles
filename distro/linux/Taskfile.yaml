@@ -34,6 +34,10 @@ tasks:
     - go install github.com/jesseduffield/lazygit@latest
       # -- github cli --
     - task: install-github-cli
+      # -- gcloud cli --
+    - task: install-gcloud-cli
+      # -- aws cli --
+    - task: install-aws-cli
 
   # envman (2.4.0)
   install-envman:
@@ -60,6 +64,25 @@ tasks:
     - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
     - sudo apt update
     - sudo apt install gh -y
+
+  install-gcloud-cli:
+    dir: ~/lab/apps/
+    vars:
+      file_name: google-cloud-cli-425.0.0-linux-x86_64.tar.gz
+    cmds:
+      - curl -o https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{.file_name}}
+      - tar -xf {{.file_name}} && rm -rf {{.file_name}}
+      - rm -rf gcloud-cli && mv google-cloud-sdk ./gcloud-cli
+      - ./gcloud-cli/install.sh --path-update=false --usage-reporting=false --command-completion=false
+
+  install-aws-cli:
+    dir: ~/lab/apps/
+    vars:
+      file_name: awscli-exe-linux-x86_64.zip
+    cmds:
+      - curl "https://awscli.amazonaws.com/{{.file_name}}" -o "awscliv2.zip"
+      - unzip awscliv2.zip
+      - sudo ./aws/install
 
   add-ssh-key:
     cmds:
