@@ -32,6 +32,7 @@ local opts = {
   ts = {
     languages = {
       "lua",
+      "vim",
       "go",
       "cpp",
       "python",
