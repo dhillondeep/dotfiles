@@ -48,10 +48,17 @@ tasks:
 
   # neovim (stable)
   install-nvim:
-    - mkdir -p ~/Lab/apps/nvim && rm -rf ~/Lab/apps/nvim/nvim-linux64
-    - wget -qO- https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz | tar xvz -C ~/Lab/apps/nvim
-    - ln -sf ~/Lab/apps/nvim/nvim-linux64/bin/nvim ~/.local/bin/nvim
-    - mkdir -p ~/.vim/sessions
+    dir: ~/Lab/apps
+    vars:
+      file_name: nvim-linux64
+      link_path: ~/.local/bin/nvim
+    cmds:
+      - rm -rf nvim
+      - wget -qO- https://github.com/neovim/neovim/releases/download/stable/{{.file_name}}.tar.gz | tar xvz -C .
+      - mv {{.file_name}} nvim
+      - chmod +x ./nvim/bin/nvim
+      - rm -rf {{.link_path}} && ln -sf ~/Lab/apps/nvim/bin/nvim {{.link_path}}
+      - mkdir -p ~/.vim/sessions
 
   install-bazel:
     - curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg

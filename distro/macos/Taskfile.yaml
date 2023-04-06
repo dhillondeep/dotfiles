@@ -34,7 +34,7 @@ tasks:
       # -- gcloud cli --
     - task: install-gcloud-cli
       # -- aws cli --
-    - task: install-aws-cli
+    - brew install awscli
       # -- help
     - task: generic:install-helm
 
@@ -49,28 +49,27 @@ tasks:
 
   # neovim (stable)
   install-nvim:
-    - mkdir -p ~/Lab/apps/nvim && rm -rf ~/Lab/apps/nvim/nvim-macos
-    - wget -qO- https://github.com/neovim/neovim/releases/download/stable/nvim-macos.tar.gz | tar xvz -C ~/Lab/apps/nvim
-    - ln -sf ~/Lab/apps/nvim/nvim-macos/bin/nvim ~/.local/bin/nvim
-    - mkdir -p ~/.vim/sessions
+    dir: ~/Lab/apps
+    vars:
+      file_name: nvim-macos
+      link_path: ~/.local/bin/nvim
+    cmds:
+      - rm -rf nvim
+      - wget -qO- https://github.com/neovim/neovim/releases/download/stable/{{.file_name}}.tar.gz | tar xvz -C .
+      - mv {{.file_name}} nvim
+      - chmod +x ./nvim/bin/nvim
+      - rm -rf {{.link_path}} && ln -sf ~/Lab/apps/nvim/bin/nvim {{.link_path}}
+      - mkdir -p ~/.vim/sessions
 
   install-gcloud-cli:
     dir: ~/lab/apps/
     vars:
       file_name: google-cloud-cli-425.0.0-darwin-arm.tar.gz
     cmds:
-      - curl -o https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{.file_name}}
+      - curl -o {{.file_name}} https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{.file_name}}
       - tar -xf {{.file_name}} && rm -rf {{.file_name}}
       - rm -rf gcloud-cli && mv google-cloud-sdk ./gcloud-cli
       - ./gcloud-cli/install.sh --path-update=false --usage-reporting=false --command-completion=false
-
-  install-aws-cli:
-    dir: ~/lab/apps/
-    vars:
-      file_name: AWSCLIV2.pkg
-    cmds:
-      - curl "https://awscli.amazonaws.com/{{.file_name}}" -o "AWSCLIV2.pkg"
-      - sudo installer -pkg ./AWSCLIV2.pkg -target /
 
   add-ssh-key:
     cmds:
