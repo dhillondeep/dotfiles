@@ -38,6 +38,8 @@ tasks:
     - task: install-gcloud-cli
       # -- aws cli --
     - task: install-aws-cli
+      # -- help
+    - task: generic:install-helm
 
   # envman (2.4.0)
   install-envman:

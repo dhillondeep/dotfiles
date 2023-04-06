@@ -7,7 +7,7 @@ tasks:
   setup:
     - task: generic:setup-paths
     - task: install-fonts
-    - brew install git git-lfs tmux curl sshuttle ca-certificates gnupg
+    - brew install git git-lfs tmux curl sshuttle ca-certificates gnupg wget
     - task: install-nvim
     - task: install-envman
     # faster tools
@@ -35,6 +35,8 @@ tasks:
     - task: install-gcloud-cli
       # -- aws cli --
     - task: install-aws-cli
+      # -- help
+    - task: generic:install-helm
 
   install-fonts:
     - brew tap homebrew/cask-fonts

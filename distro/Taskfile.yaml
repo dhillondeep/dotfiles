@@ -19,3 +19,10 @@ tasks:
 
   github-add-ssh-key:
     - gh ssh-key add ~/.ssh/{{.KeyName}}.pub --title "{{.Title}}"
+
+  install-helm:
+    dir: ~/Lab/apps/
+    cmds:
+      - curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      - chmod 700 get_helm.sh
+      - ./get_helm.sh && rm -rf ./get_helm.sh
