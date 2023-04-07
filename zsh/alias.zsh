@@ -15,7 +15,8 @@ alias find=fd
 alias ls=exa
 
 # -- zsh --
-alias zshreload='source ~/.zshrc'
+alias histreload='fc -R'
+alias zshsource='source ~/.zshrc && histreload'
 
 # bazel
 alias bazel=bazelisk
