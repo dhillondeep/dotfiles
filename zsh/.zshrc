@@ -23,8 +23,8 @@ source ${DOTFILES}/zsh/zoxide.sh
 # -----------------------
 
 HISTFILE=~/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=1000000
+SAVEHIST=1000000
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -32,22 +32,27 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 
-setopt extendedhistory incappendhistorytime
-autoload -Uz add-zsh-hook
-
-load-shared-history() {
-  # Pop the current history off the history stack, so 
-  # we don't grow the history stack endlessly
-  fc -P
-
-  # Load a new history from $HISTFILE and push
-  # it onto the history stack.
-  fc -p $HISTFILE
-}
-
-# Import the latest history at the start of each new 
-# command line.
-add-zsh-hook precmd load-shared-history
+# Append to the history.
+setopt appendhistory
+# Use the extended history format, which gives timing info.
+setopt extendedhistory
+# Append to the history after each command runs, including timing info.
+setopt incappendhistorytime
+# Do not store adjacent duplicate commands.
+setopt histignoredups
+# Remove superfluous blanks that sometimes make it into my commands.
+setopt histreduceblanks
+# Commands beginning with a space are forgotten.
+setopt histignorespace
+# Notify on the completion of background tasks as soon as they finish, instead
+# of waiting for the next prompt.
+setopt notify
+# Don't remove trailing slashs from directory names.
+setopt noautoremoveslash
+# When completing an unambiguous prefix, show the completions immediately.
+setopt nolistambiguous
+# Permit completion to happen inside a word, just before the cursor.
+setopt completeinword
 
 # ------- Plugins -------
 # -----------------------
@@ -66,6 +71,7 @@ source ${DOTFILES}/zsh/plugins/alias-tips/alias-tips.plugin.zsh
 
 # - vi mode -
 export ZVM_INIT_MODE=sourcing
+export ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 source ${DOTFILES}/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # --------- FZF ---------
@@ -82,11 +88,15 @@ eval "$(starship init zsh)"
 # ---------- Key Bindings ----------
 # ----------------------------------
 
-# reset history search key binding
-bindkey '\e[A' up-line-or-history
-bindkey '\eOA' up-line-or-history
-bindkey '\e[B' down-line-or-history
-bindkey '\eOB' down-line-or-history
+bindkey "\e[A" history-beginning-search-backward
+bindkey "\eOA" history-beginning-search-backward
+bindkey "\e[B" history-beginning-search-forward
+bindkey "\eOB" history-beginning-search-forward
+
+bindkey -M vicmd "\e[A" history-beginning-search-backward
+bindkey -M vicmd "\eOA" history-beginning-search-backward
+bindkey -M vicmd "\e[B" history-beginning-search-backward
+bindkey -M vicmd "\eOB" history-beginning-search-backward
 
 # --------- Configurations ---------
 # ----------------------------------
