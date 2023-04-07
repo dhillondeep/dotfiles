@@ -12,19 +12,6 @@ local plugins = {
   },
 
   {
-    "SmiteshP/nvim-navbuddy",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim",
-    },
-    init = require("core.utils").load_mappings("navbuddy"),
-    config = function()
-      plugin_manager.configure_navbuddy()
-    end
-  },
-
-  {
     "ibhagwan/fzf-lua",
     init = require("core.utils").load_mappings("fzflua"),
     cmd = { "FzfLua" },

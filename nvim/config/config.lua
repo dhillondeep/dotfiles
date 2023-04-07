@@ -23,6 +23,16 @@ function cfg.lspserver_cfgs()
         },
       },
     },
+    ["pyright"] = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          typeCheckingMode = "basic",
+          diagnosticMode = "workspace",
+          useLibraryCodeForTypes = true
+        }
+      }
+    },
     ["jsonls"] = {
       json = {
         schemas = require("schemastore").json.schemas(),
@@ -34,15 +44,6 @@ function cfg.lspserver_cfgs()
         schemas = require('schemastore').yaml.schemas(),
       },
     },
-  }
-end
-
--- Configuration for null-ls sources
-function cfg.nullls_sources(nullls)
-  return {
-    nullls.builtins.formatting.stylua,
-    nullls.builtins.formatting.jq,
-    nullls.builtins.formatting.yamlfmt,
   }
 end
 

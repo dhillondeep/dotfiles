@@ -6,7 +6,11 @@ local opts = {
   icons = true,
   mason = {
     ensure_installed = {
-      "stylua",
+      "flake8",
+      "black",
+      "isort",
+      "fixjson",
+      "shfmt",
     },
     ensure_lsp_servers_installed = {
       "gopls",
@@ -22,12 +26,39 @@ local opts = {
   },
   lsp = {
     ["go"] = { servers = { "gopls" } },
-    ["python"] = { servers = { "pyright" } },
+    ["python"] = {
+      servers = { "pyright" },
+      server_capabilities = {
+        documentFormattingProvider = false,
+        documentRangeFormattingProvider = true,
+      },
+      nullls_sources = function(nullls)
+        return {
+          nullls.builtins.diagnostics.flake8,
+          nullls.builtins.formatting.black.with { extra_args = { "--fast" } },
+          nullls.builtins.formatting.isort,
+        }
+      end,
+    },
     ["lua"] = { servers = { "lua_ls", "vimls" } },
     ["vim"] = { servers = { "vimls" } },
-    ["json"] = { servers = { "jsonls" } },
+    ["json"] = {
+      servers = { "jsonls" },
+      nullls_sources = function(nullls)
+        return {
+          nullls.builtins.formatting.fixjson,
+        }
+      end
+    },
     ["yaml"] = { servers = { "yamlls" } },
-    ["sh"] = { servers = { "bashls" } },
+    ["sh"] = {
+      servers = { "bashls" },
+      nullls_sources = function(nullls)
+        return {
+          nullls.builtins.formatting.shfmt,
+        }
+      end
+    },
   },
   ts = {
     languages = {
@@ -75,11 +106,11 @@ local vim_opts = {
     --   shortmess = vim.opt.shortmess + { s = true, I = true },
     --   showmode = false, -- Disable showing modes in command line
     -- showtabline = 2, -- always display tabline
-    sidescrolloff = 8,   -- Number of columns to keep at the sides of the cursor
+    sidescrolloff = 8, -- Number of columns to keep at the sides of the cursor
     --   signcolumn = "yes", -- Always show the sign column
     --   smartcase = true, -- Case sensitivie searching
-    splitbelow = true,   -- Splitting a new window below the current one
-    splitright = true,   -- Splitting a new window at the right of the current one
+    splitbelow = true, -- Splitting a new window below the current one
+    splitright = true, -- Splitting a new window at the right of the current one
     --   tabstop = 2, -- Number of space in a tab
     --   termguicolors = true, -- Enable 24-bit RGB color in the TUI
     timeoutlen = 400, -- Length of time to wait for a mapped sequence
