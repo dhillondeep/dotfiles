@@ -91,6 +91,26 @@ function manager.get_treesitter_opts()
   }
 end
 
+function manager.get_nvimcmp_opts()
+  return {
+    sources = {
+      {
+        -- make it autocomplete from visible buffers
+        name = "buffer",
+        option = {
+          get_bufnrs = function()
+            local bufs = {}
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+              bufs[vim.api.nvim_win_get_buf(win)] = true
+            end
+            return vim.tbl_keys(bufs)
+          end
+        },
+      },
+    }
+  }
+end
+
 function manager.configure_persisted()
   require("persisted").setup({
     silent = false,
@@ -169,6 +189,33 @@ function manager.configure_telescope()
           ["dd"] = actions.delete_buffer,
         },
       },
+    },
+  }
+end
+
+function manager.configure_toggleterm()
+  require("toggleterm").setup {
+    size = function(term)
+      if term.direction == "horizontal" then
+        return 15
+      elseif term.direction == "vertical" then
+        return vim.o.columns * 0.4
+      end
+    end,
+    open_mapping = [[<c-\>]],
+    highlights = {
+      NormalFloat = {
+        link = "TelescopeNormal"
+      },
+      FloatBorder = {
+        guifg = "#1b1f27",
+        guibg = "#1b1f27",
+      },
+    },
+    shading_factor = 2,
+    direction = "float",
+    float_opts = {
+      border = "curved",
     },
   }
 end

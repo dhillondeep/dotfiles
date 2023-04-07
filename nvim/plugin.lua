@@ -109,6 +109,14 @@ local plugins = {
     end,
   },
 
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function()
+      local default = require("plugins.configs.cmp")
+      return vim.tbl_deep_extend("force", default, plugin_manager.get_nvimcmp_opts())
+    end
+  },
+
   --- Startup, Sessions, and Projects ---
   {
     "olimorris/persisted.nvim",
@@ -138,6 +146,24 @@ local plugins = {
   },
 
   {
+    "christoomey/vim-system-copy",
+    dependencies = {
+      {
+        "ojroques/vim-oscyank",
+        init = function()
+          vim.g.oscyank_silent = true
+          vim.g.oscyank_term = "default"
+        end,
+      },
+    },
+    keys = { "cp", "cP" }, -- only load for these keys: copy supported
+    init = function()
+      vim.g.system_copy_silent = 1
+      vim.g.system_copy_enable_osc52 = 1
+    end,
+  },
+
+  {
     "ggandor/leap.nvim",
     keys = { "s", "S" },
     config = function()
@@ -161,6 +187,18 @@ local plugins = {
     event = { "BufRead", "BufWinEnter", "BufNewFile" },
     config = function()
       plugin_manager.configure_guess_indent()
+    end,
+  },
+
+  --- Terminal ---
+
+  -- Manage multiple terminal windows
+  {
+    "akinsho/toggleterm.nvim",
+    cmd = "ToggleTerm",
+    init = require("core.utils").load_mappings("toggleterm"),
+    config = function()
+      plugin_manager.configure_toggleterm()
     end,
   },
 }
