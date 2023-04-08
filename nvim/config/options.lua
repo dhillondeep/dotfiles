@@ -1,56 +1,31 @@
 --- Options to configure various functionalities and properties ---
 -------------------------------------------------------------------
-local server_cfg = require("custom.config.lsp_options")
-local nullls_cfg = require("custom.config.nullls_options")
 
 local opts = {
   lsp = {
     ["go"] = {
-      servers = {
-        server_cfg["gopls"],
-      },
+      servers = { "gopls" },
     },
     ["python"] = {
-      servers = {
-        server_cfg["pyright"],
-      },
-      nullls = {
-        nullls_cfg["flake8"],
-        nullls_cfg["black"],
-        nullls_cfg["isort"],
-      },
+      servers = { "pyright" },
+      nullls = { "flake8", "black", "isort" },
     },
     ["lua"] = {
-      servers = {
-        server_cfg["lua_ls"],
-        server_cfg["vimls"],
-      },
+      servers = { "lua_ls", "vimls" },
     },
     ["vim"] = {
-      servers = {
-        server_cfg["vimls"],
-      },
+      servers = { "vimls" },
     },
     ["json"] = {
-      servers = {
-        server_cfg["jsonls"],
-      },
-      nullls = {
-        nullls_cfg["fixjson"],
-      },
+      servers = { "jsonls" },
+      nullls = { "fixjson" },
     },
     ["yaml"] = {
-      servers = {
-        server_cfg["yamlls"],
-      },
+      servers = { "yamlls" },
     },
     ["sh"] = {
-      servers = {
-        server_cfg["bashls"]
-      },
-      nullls = {
-        nullls_cfg["shfmt"],
-      },
+      servers = { "bashls" },
+      nullls = { "shfmt" },
     },
   },
   ts = {
@@ -78,9 +53,9 @@ local opts = {
 -- vim options
 local vim_opts = {
   opt = {
-    backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
-    clipboard = "",                               -- Disable system clipboard
-    --   completeopt = { "menuone", "noselect" }, -- Options for insert mode completion
+    backspace = vim.opt.backspace + { "nostop" },                -- Don't stop backspace at insert
+    clipboard = "",                                              -- Disable system clipboard
+    completeopt = { "menu", "menuone", "noinsert", "noselect" }, -- Options for insert mode completion
     -- copyindent = true, -- Copy the previous indentation on autoindenting
     --   cursorline = true, -- Highlight the text line of the cursor
     expandtab = true, -- Enable the use of space in tab

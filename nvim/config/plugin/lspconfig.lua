@@ -46,32 +46,35 @@ lsp_capabilities.textDocument.completion.completionItem = {
 }
 
 local lsp_cfg = deepvim.opts.lsp[vim.bo.filetype]
+local server_cfg = require("custom.config.lsp_options")
+local nullls_cfg = require("custom.config.nullls_options")
 
 if lsp_cfg ~= nil then
 	if lsp_cfg.servers ~= nil then
 		for _, server in ipairs(lsp_cfg.servers) do
-			local server_cfg = server()
+			local cfg = server_cfg[server]()
 
 			local capabilities = lsp_capabilities
-			if server_cfg.capabilities ~= nil then
-				capabilities = vim.tbl_deep_extend("force", capabilities, server_cfg.capabilities)
+			if cfg.capabilities ~= nil then
+				capabilities = vim.tbl_deep_extend("force", capabilities, cfg.capabilities)
 			end
 
 			local opts = {
 				on_attach = on_attach,
 				capabilities = capabilities,
 			}
-			if server_cfg.config ~= nil then
-				opts.settings = server_cfg.config
+			if cfg.config ~= nil then
+				opts.settings = cfg.config
 			end
-			lspconfig[server_cfg.name].setup(opts)
+			lspconfig[cfg.name].setup(opts)
 		end
 	end
 
 	if lsp_cfg.nullls ~= nil then
 		local sources = {}
 		for _, source in ipairs(lsp_cfg.nullls) do
-			table.insert(sources, source())
+			local cfg = nullls_cfg[source]()
+			table.insert(sources, cfg)
 		end
 
 		if next(sources) ~= nil then
