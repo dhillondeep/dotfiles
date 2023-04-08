@@ -1,63 +1,56 @@
 --- Options to configure various functionalities and properties ---
 -------------------------------------------------------------------
+local server_cfg = require("custom.config.lsp_options")
+local nullls_cfg = require("custom.config.nullls_options")
 
 local opts = {
-  dim_inactive_windows = false,
-  icons = true,
-  mason = {
-    ensure_installed = {
-      "flake8",
-      "black",
-      "isort",
-      "fixjson",
-      "shfmt",
-    },
-    ensure_lsp_servers_installed = {
-      "gopls",
-      "pyright",
-      "lua_ls",
-      "jsonls",
-      "yamlls",
-      "vimls",
-      "bashls",
-      "dockerls",
-      "docker_compose_language_service",
-    },
-  },
   lsp = {
-    ["go"] = { servers = { "gopls" } },
-    ["python"] = {
-      servers = { "pyright" },
-      server_capabilities = {
-        documentFormattingProvider = false,
-        documentRangeFormattingProvider = true,
+    ["go"] = {
+      servers = {
+        server_cfg["gopls"],
       },
-      nullls_sources = function(nullls)
-        return {
-          nullls.builtins.diagnostics.flake8,
-          nullls.builtins.formatting.black.with { extra_args = { "--fast" } },
-          nullls.builtins.formatting.isort,
-        }
-      end,
     },
-    ["lua"] = { servers = { "lua_ls", "vimls" } },
-    ["vim"] = { servers = { "vimls" } },
+    ["python"] = {
+      servers = {
+        server_cfg["pyright"],
+      },
+      nullls = {
+        nullls_cfg["flake8"],
+        nullls_cfg["black"],
+        nullls_cfg["isort"],
+      },
+    },
+    ["lua"] = {
+      servers = {
+        server_cfg["lua_ls"],
+        server_cfg["vimls"],
+      },
+    },
+    ["vim"] = {
+      servers = {
+        server_cfg["vimls"],
+      },
+    },
     ["json"] = {
-      servers = { "jsonls" },
-      nullls_sources = function(nullls)
-        return {
-          nullls.builtins.formatting.fixjson,
-        }
-      end
+      servers = {
+        server_cfg["jsonls"],
+      },
+      nullls = {
+        nullls_cfg["fixjson"],
+      },
     },
-    ["yaml"] = { servers = { "yamlls" } },
+    ["yaml"] = {
+      servers = {
+        server_cfg["yamlls"],
+      },
+    },
     ["sh"] = {
-      servers = { "bashls" },
-      nullls_sources = function(nullls)
-        return {
-          nullls.builtins.formatting.shfmt,
-        }
-      end
+      servers = {
+        server_cfg["bashls"]
+      },
+      nullls = {
+        nullls_cfg["shfmt"],
+      },
     },
   },
   ts = {

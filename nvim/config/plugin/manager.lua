@@ -4,23 +4,33 @@ function manager.configure_fzflua()
   require("custom.config.plugin.fzflua")
 end
 
-function manager.configure_navbuddy()
-  require("custom.config.plugin.navbuddy")
-end
-
 function manager.configure_starter()
   require("custom.config.plugin.starter").setup()
 end
 
 function manager.get_mason_opts()
+  local nullls_cfg = require("custom.config.nullls_options")
+  local ensure_installed = {}
+  -- get nullls servers
+  for key, _ in pairs(nullls_cfg) do
+    table.insert(ensure_installed, key)
+  end
+
   return {
-    ensure_installed = deepvim.opts.mason.ensure_installed
+    ensure_installed = ensure_installed,
   }
 end
 
 function manager.configure_mason_lspconfig()
+  local lsp_cfg = require("custom.config.lsp_options")
+  local ensure_installed = {}
+  -- get lsp servers
+  for key, _ in pairs(lsp_cfg) do
+    table.insert(ensure_installed, key)
+  end
+
   require("mason-lspconfig").setup {
-    ensure_installed = deepvim.opts.mason.ensure_lsp_servers_installed
+    ensure_installed = ensure_installed,
   }
 end
 
@@ -38,6 +48,7 @@ function manager.configure_guess_indent()
       "netrw",
       "tutor",
       "neo-tree",
+      "NvimTree",
     },
     buftype_exclude = {
       "help",
@@ -94,6 +105,10 @@ end
 function manager.get_nvimcmp_opts()
   return {
     sources = {
+      { name = "nvim_lsp" },
+      { name = "luasnip" },
+      { name = "buffer" },
+      { name = "nvim_lua" },
       {
         -- make it autocomplete from visible buffers
         name = "buffer",
@@ -107,7 +122,8 @@ function manager.get_nvimcmp_opts()
           end
         },
       },
-    }
+      { name = "path" },
+    },
   }
 end
 

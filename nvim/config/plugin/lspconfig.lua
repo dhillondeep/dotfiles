@@ -9,34 +9,25 @@ require("nvchad_ui.lsp")
 local utils = require("core.utils")
 
 -- on_attach function
-local function generate_on_attach(lsp_cfg)
-	return function(client, bufnr)
-		client.server_capabilities.documentFormattingProvider = true
-		client.server_capabilities.documentRangeFormattingProvider = true
+local function on_attach(client, bufnr)
+	utils.load_mappings("lspconfig", { buffer = bufnr })
 
-		if lsp_cfg ~= nil and lsp_cfg.server_capabilities ~= nil then
-			client.server_capabilities = vim.tbl_deep_extend("force", client.server_capabilities, lsp_cfg.server_capabilities)
-		end
+	-- Format command
+	vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
+		vim.lsp.buf.format({
+			format_on_save = false,
+		})
+	end, { desc = "Format file with LSP" })
 
-		utils.load_mappings("lspconfig", { buffer = bufnr })
-
-		-- Format command
-		vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
-			vim.lsp.buf.format({
-				format_on_save = false,
-			})
-		end, { desc = "Format file with LSP" })
-
-		if client.server_capabilities.signatureHelpProvider then
-			require("nvchad_ui.signature").setup(client)
-		end
+	if client.server_capabilities.signatureHelpProvider then
+		require("nvchad_ui.signature").setup(client)
 	end
 end
 
 -- capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
 
-capabilities.textDocument.completion.completionItem = {
+lsp_capabilities.textDocument.completion.completionItem = {
 	documentationFormat = { "markdown", "plaintext" },
 	snippetSupport = true,
 	preselectSupport = true,
@@ -54,32 +45,40 @@ capabilities.textDocument.completion.completionItem = {
 	},
 }
 
-local servers_cfgs = deepvim.cfg.lspserver_cfgs()
 local lsp_cfg = deepvim.opts.lsp[vim.bo.filetype]
 
 if lsp_cfg ~= nil then
-	-- setup null-ls if enabled
-	if lsp_cfg["nullls_sources"] ~= nil then
-		local present2, nullls = pcall(require, "null-ls")
-		if not present2 then
-			return
+	if lsp_cfg.servers ~= nil then
+		for _, server in ipairs(lsp_cfg.servers) do
+			local server_cfg = server()
+
+			local capabilities = lsp_capabilities
+			if server_cfg.capabilities ~= nil then
+				capabilities = vim.tbl_deep_extend("force", capabilities, server_cfg.capabilities)
+			end
+
+			local opts = {
+				on_attach = on_attach,
+				capabilities = capabilities,
+			}
+			if server_cfg.config ~= nil then
+				opts.settings = server_cfg.config
+			end
+			lspconfig[server_cfg.name].setup(opts)
 		end
-		nullls.setup({
-			on_attach = generate_on_attach(nil),
-			sources = lsp_cfg["nullls_sources"](nullls),
-		})
 	end
-	-- setup servers
-	for _, server in ipairs(lsp_cfg["servers"]) do
-		-- setup lsp servers
-		local opts = {
-			on_attach = generate_on_attach(lsp_cfg),
-			capabilities = capabilities,
-		}
-		local config = servers_cfgs[server]
-		if config ~= nil then
-			opts.settings = config
+
+	if lsp_cfg.nullls ~= nil then
+		local sources = {}
+		for _, source in ipairs(lsp_cfg.nullls) do
+			table.insert(sources, source())
 		end
-		lspconfig[server].setup(opts)
+
+		if next(sources) ~= nil then
+			require("null-ls").setup({
+				on_attach = on_attach,
+				sources = sources,
+			})
+		end
 	end
 end
