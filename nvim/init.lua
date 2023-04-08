@@ -54,6 +54,7 @@ local id = vim.api.nvim_create_augroup("startup", {
   clear = false
 })
 
+-- Store untouched buffers (can deleted by a key mapping)
 local persistbuffer = function(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
   vim.fn.setbufvar(bufnr, 'bufpersist', 1)

@@ -6,8 +6,7 @@ local plugins = {
     "nvim-tree/nvim-tree.lua",
     opts = function()
       local default = require("plugins.configs.nvimtree")
-      default       = vim.tbl_deep_extend("force", default, plugin_manager.get_nvim_tree_opts())
-      return default
+      return vim.tbl_deep_extend("force", default, plugin_manager.get_nvim_tree_opts())
     end,
   },
 
@@ -61,8 +60,7 @@ local plugins = {
     "williamboman/mason.nvim",
     opts = function()
       local opts = require("plugins.configs.mason")
-      opts = vim.tbl_deep_extend("force", opts, plugin_manager.get_mason_opts())
-      return opts
+      return vim.tbl_deep_extend("force", opts, plugin_manager.get_mason_opts())
     end,
   },
 
@@ -95,8 +93,7 @@ local plugins = {
     },
     opts = function()
       local default = require("plugins.configs.treesitter")
-      default = vim.tbl_deep_extend("force", default, plugin_manager.get_treesitter_opts())
-      return default
+      return vim.tbl_deep_extend("force", default, plugin_manager.get_treesitter_opts())
     end,
   },
 

@@ -12,9 +12,9 @@ M.disabled = {
 
 M.general = {
   n = {
-    -- quit
+    ["<leader>w"] = { "<cmd> w <CR>", "save file" },
     ["<C-q>"] = { "<cmd> q <CR>", "close file" },
-    ["<leader>kb"] = { function()
+    ["<leader>cb"] = { function()
       local curbufnr = vim.api.nvim_get_current_buf()
       local buflist = vim.api.nvim_list_bufs()
       for _, bufnr in ipairs(buflist) do
@@ -22,7 +22,7 @@ M.general = {
           vim.cmd('bd ' .. tostring(bufnr))
         end
       end
-    end, "kill buffers" },
+    end, "close buffers" },
   },
 }
 
@@ -98,7 +98,6 @@ M.toggleterm = {
     ["<C-k>"] = { "<C-\\><C-n><C-w>k", "ToggleTerm move up" },
     ["<leader><esc>"] = { "<C-\\><C-n>", "Toggleterm change to normal mode" },
   },
-
   n = {
     ["<leader>tl"] = {
       function()
@@ -108,37 +107,37 @@ M.toggleterm = {
     },
     ["<leader>tv"] = {
       function()
-        deepvim.fn.toggle_term({direction="vertical"})
+        deepvim.fn.toggle_term({ direction = "vertical" })
       end,
       "ToggleTerm vertical",
     },
     ["<leader>tcv"] = {
       function()
-        deepvim.fn.close_term({direction="vertical"})
+        deepvim.fn.close_term({ direction = "vertical" })
       end,
       "ToggleTerm close vertical",
     },
     ["<leader>th"] = {
       function()
-        deepvim.fn.toggle_term({direction="horizontal"})
+        deepvim.fn.toggle_term({ direction = "horizontal" })
       end,
       "ToggleTerm horizontal",
     },
     ["<leader>tch"] = {
       function()
-        deepvim.fn.close_term({direction="horizontal"})
+        deepvim.fn.close_term({ direction = "horizontal" })
       end,
       "ToggleTerm close horizontal",
     },
     ["<leader>tf"] = {
       function()
-        deepvim.fn.toggle_term({direction="float"})
+        deepvim.fn.toggle_term({ direction = "float" })
       end,
       "ToggleTerm float",
     },
     ["<leader>tcf"] = {
       function()
-        deepvim.fn.close_term({direction="float"})
+        deepvim.fn.close_term({ direction = "float" })
       end,
       "ToggleTerm close float",
     },
@@ -147,6 +146,17 @@ M.toggleterm = {
         deepvim.fn.close_all_terms()
       end,
       "ToggleTerm close all",
+    },
+  },
+}
+
+M.gitstatus = {
+  n = {
+    ["<leader>gd"] = {
+      function()
+        require("gitsigns").diffthis()
+      end,
+      "View git diff",
     },
   },
 }
