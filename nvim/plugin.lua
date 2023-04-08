@@ -101,7 +101,7 @@ local plugins = {
     "hrsh7th/nvim-cmp",
     opts = function()
       local default = require("plugins.configs.cmp")
-      return vim.tbl_deep_extend("force", default, plugin_manager.get_nvimcmp_opts())
+      return vim.tbl_deep_extend("force", default, require("custom.config.plugin.cmp"))
     end
   },
 
