@@ -13,19 +13,19 @@ require("fzf-lua").setup({
     row     = 0.38, -- window row position (0=top, 1=bottom)
     col     = 0.46, -- window col position (0=left, 1=right)
     preview = {
-      border     = "noborder",
+      border     = "border",
       default    = "bat",
       scrollbar  = "false",
       vertical   = "down:55%",  -- up|down:size
       horizontal = "right:55%", -- right|left:size
     },
-    border  = false,
+    border  = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
     hl      = {
-      normal = "TelescopeNormal",  -- window normal color (fg+bg)
+      normal = "TelescopeNormal",      -- window normal color (fg+bg)
       cursor = "TelescopeSelection",
-      border = "FloatBorder",      -- border color
-      help_normal = "Normal",      -- <F1> window normal
-      help_border = "FloatBorder", -- <F1> window border
+      border = "TelescopeBorder",      -- border color
+      help_normal = "TelescopeNormal", -- <F1> window normal
+      help_border = "TelescopeBorder", -- <F1> window border
     },
   },
   fzf_opts = {

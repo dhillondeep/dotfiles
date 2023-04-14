@@ -4,7 +4,8 @@ M.plugins = "custom.plugin"
 M.mappings = require("custom.mapping")
 
 M.ui = {
-  theme = "onedark",
+  theme_toggle = { "onedark", "kanagawa" },
+  theme = "kanagawa",
   nvdash = {
     load_on_startup = true,
     buttons = {
@@ -14,6 +15,9 @@ M.ui = {
       { "  Find Word",    "Spc f w", "Telescope live_grep" },
     },
   },
+  telescope = {
+    style = "bordered"
+  }
 }
 
 return M
