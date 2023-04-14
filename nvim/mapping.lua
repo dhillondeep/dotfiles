@@ -50,6 +50,7 @@ M.lspsaga = {
 M.lspconfig = {
   plugin = true,
   n = {
+    ["<leader>fm"] = { "<cmd> Format <CR>", "lsp formatting" },
     ["<leader>rn"] = {
       function()
         require("nvchad_ui.renamer").open()
@@ -99,6 +100,7 @@ M.toggleterm = {
     ["<leader><esc>"] = { "<C-\\><C-n>", "Toggleterm change to normal mode" },
   },
   n = {
+    ["<leader>ts"] = { "<cmd> Telescope themes <CR>", "nvchad themes" },
     ["<leader>tl"] = {
       function()
         deepvim.fn.toggle_term("lazygit")

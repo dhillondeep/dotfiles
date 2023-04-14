@@ -10,7 +10,7 @@ export BAT_ARGS="--style=numbers --color=always"
 export FD_OPTS='--hidden --follow --no-ignore -E .min.js -E .swp -E .git -E node_modules -E vendor -E "bazel-*" -E "go\/pkg\/*"'
 
 # -- rg --
-export RG_OPTS="--column --line-number --no-heading --color=always --hidden --follow --no-ignore --smart-case -g '!*.{min.js,swp,o,zip}' -g '!{.git,node_modules,*/node_modules,vendor,*/vendor,bazel-*,*/bazel-*}/*' "
+export RG_OPTS="--column --line-number --no-heading --color=always --hidden --follow --no-ignore --smart-case -g '!*.{min.js,swp,o,zip}' -g '!{.git,node_modules,*/node_modules,vendor,*/vendor,bazel-*,*/bazel-*,.mypy_cache}/*' "
 
 # -- fzf --
 export FZF_DEFAULT_COMMAND="fd $FD_OPTS"

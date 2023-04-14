@@ -60,11 +60,11 @@ local persistbuffer = function(bufnr)
   vim.fn.setbufvar(bufnr, 'bufpersist', 1)
 end
 
-vim.api.nvim_create_autocmd({"BufRead"}, {
+vim.api.nvim_create_autocmd({ "BufRead" }, {
   group = id,
-  pattern = {"*"},
+  pattern = { "*" },
   callback = function()
-    vim.api.nvim_create_autocmd({"InsertEnter","BufModifiedSet"}, {
+    vim.api.nvim_create_autocmd({ "InsertEnter", "BufModifiedSet" }, {
       buffer = 0,
       once = true,
       callback = function()

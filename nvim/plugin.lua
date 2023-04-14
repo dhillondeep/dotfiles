@@ -75,6 +75,8 @@ local plugins = {
     end,
   },
 
+  { "lukas-reineke/lsp-format.nvim" },
+
   { "jose-elias-alvarez/null-ls.nvim" },
 
   { "b0o/SchemaStore.nvim" },
