@@ -3,30 +3,10 @@
 
 local opts = {
   lsp = {
-    ["go"] = {
-      servers = { "gopls" },
-    },
-    ["python"] = {
-      servers = { "pyright" },
-      nullls = { "flake8", "black", "isort" },
-    },
-    ["lua"] = {
-      servers = { "lua_ls", "vimls" },
-    },
-    ["vim"] = {
-      servers = { "vimls" },
-    },
-    ["json"] = {
-      servers = { "jsonls" },
-      nullls = { "fixjson" },
-    },
-    ["yaml"] = {
-      servers = { "yamlls" },
-    },
-    ["sh"] = {
-      servers = { "bashls" },
-      nullls = { "shfmt" },
-    },
+    servers = { "gopls", "pyright", "lua_ls", "vimls", "jsonls", "yamlls", "bashls" },
+  },
+  nulls = {
+    servers = { "ruff", "black", "isort", "fixjson", "shfmt" },
   },
   ts = {
     languages = {

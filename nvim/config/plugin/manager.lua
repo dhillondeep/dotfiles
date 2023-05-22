@@ -37,30 +37,7 @@ function manager.configure_mason_lspconfig()
 end
 
 function manager.configure_lspconfig()
-  local setup_servers = require("custom.config.plugin.lspconfig").setup_servers
-
-  -- autocommand to setup servers
-  vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    group = vim.api.nvim_create_augroup("LspConfigBeLazyOnFiletypeChange", {}),
-    callback = function()
-      local bufnr = vim.fn.bufnr()
-      local filetype = vim.bo[bufnr].filetype
-
-      -- ignore certain filetypes
-      local condition = filetype == "NvimTree" or filetype == "lazy" or filetype == "" or filetype == "mason" or
-          filetype == "nvdash"
-      if condition then
-        return
-      end
-
-      if not manager.lspconfig_ft_visited[filetype] then
-        manager.lspconfig_ft_visited[filetype] = true
-        setup_servers()
-      end
-    end
-  })
-
-  setup_servers()
+  require("custom.config.plugin.lspconfig")
 end
 
 function manager.configure_devicons()
