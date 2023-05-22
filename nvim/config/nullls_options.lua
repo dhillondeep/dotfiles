@@ -17,7 +17,7 @@ return {
     return nulllls_builtins().formatting.shfmt
   end,
   -- diagnostics --
-  ["flake8"] = function()
-    return nulllls_builtins().diagnostics.flake8
+  ["ruff"] = function()
+    return nulllls_builtins().diagnostics.ruff
   end,
 }

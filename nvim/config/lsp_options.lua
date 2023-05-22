@@ -38,6 +38,7 @@ return {
       },
       config = {
         Lua = {
+          checkThirdParty = false,
           completion = {
             callSnippet = "Replace"
           },
