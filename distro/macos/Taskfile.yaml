@@ -25,7 +25,7 @@ tasks:
       # -- bazel --
     - brew install bazel
       # -- k8s and containers --
-    - brew install docker docker-compose
+    - brew install docker docker-compose kubectl kubectx
     - curl -sS https://webinstall.dev/k9s | bash
       # -- lazygit --
     - go install github.com/jesseduffield/lazygit@latest
