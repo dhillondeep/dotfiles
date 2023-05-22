@@ -5,7 +5,7 @@ M.mappings = require("custom.mapping")
 
 M.ui = {
   theme_toggle = { "onedark", "kanagawa" },
-  theme = "kanagawa",
+  theme = "onedark",
   nvdash = {
     load_on_startup = true,
     buttons = {
