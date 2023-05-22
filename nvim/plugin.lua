@@ -179,18 +179,6 @@ local plugins = {
       plugin_manager.configure_guess_indent()
     end,
   },
-
-  --- Terminal ---
-
-  -- Manage multiple terminal windows
-  {
-    "akinsho/toggleterm.nvim",
-    cmd = "ToggleTerm",
-    init = require("core.utils").load_mappings("toggleterm"),
-    config = function()
-      plugin_manager.configure_toggleterm()
-    end,
-  },
 }
 
 return plugins

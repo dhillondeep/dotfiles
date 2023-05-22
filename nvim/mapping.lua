@@ -31,6 +31,7 @@ M.lspsaga = {
   n = {
     ["gf"] = { "<cmd>Lspsaga lsp_finder<CR>", "lsp finder" },
     ["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "lsp peek definition" },
+    ["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "lsp peek type definition" },
     ["<leader>la"] = { "<cmd> Lspsaga code_action<CR>", "lsp code action" },
     ["[e"] = {
       function()
@@ -90,67 +91,101 @@ M.telescope = {
   },
 }
 
--- Toggleterm
-M.toggleterm = {
+M.nvterm = {
   t = {
-    ["<C-h>"] = { "<C-\\><C-n><C-w>h", "ToggleTerm move left" },
-    ["<C-l>"] = { "<C-\\><C-n><C-w>l", "ToggleTerm move right" },
-    ["<C-j>"] = { "<C-\\><C-n><C-w>j", "ToggleTerm move down" },
-    ["<C-k>"] = { "<C-\\><C-n><C-w>k", "ToggleTerm move up" },
+    ["<C-h>"] = { "<C-\\><C-n><C-w>h", "Terminal move left" },
+    ["<C-l>"] = { "<C-\\><C-n><C-w>l", "Terminal move right" },
+    ["<C-j>"] = { "<C-\\><C-n><C-w>j", "Terminal move down" },
+    ["<C-k>"] = { "<C-\\><C-n><C-w>k", "Terminal move up" },
     ["<leader><esc>"] = { "<C-\\><C-n>", "Toggleterm change to normal mode" },
   },
   n = {
-    ["<leader>ts"] = { "<cmd> Telescope themes <CR>", "nvchad themes" },
-    ["<leader>tl"] = {
-      function()
-        deepvim.fn.toggle_term("lazygit")
-      end,
-      "ToggleTerm lazygit",
-    },
-    ["<leader>tv"] = {
-      function()
-        deepvim.fn.toggle_term({ direction = "vertical" })
-      end,
-      "ToggleTerm vertical",
-    },
-    ["<leader>tcv"] = {
-      function()
-        deepvim.fn.close_term({ direction = "vertical" })
-      end,
-      "ToggleTerm close vertical",
-    },
-    ["<leader>th"] = {
-      function()
-        deepvim.fn.toggle_term({ direction = "horizontal" })
-      end,
-      "ToggleTerm horizontal",
-    },
-    ["<leader>tch"] = {
-      function()
-        deepvim.fn.close_term({ direction = "horizontal" })
-      end,
-      "ToggleTerm close horizontal",
-    },
+    -- toggle in normal mode
     ["<leader>tf"] = {
       function()
-        deepvim.fn.toggle_term({ direction = "float" })
+        require("nvterm.terminal").toggle "float"
       end,
-      "ToggleTerm float",
+      "Toggle floating term",
     },
-    ["<leader>tcf"] = {
+
+    ["<leader>th"] = {
       function()
-        deepvim.fn.close_term({ direction = "float" })
+        require("nvterm.terminal").toggle "horizontal"
       end,
-      "ToggleTerm close float",
+      "Toggle horizontal term",
     },
-    ["<leader>tca"] = {
+
+    ["<leader>tv"] = {
       function()
-        deepvim.fn.close_all_terms()
+        require("nvterm.terminal").toggle "vertical"
       end,
-      "ToggleTerm close all",
+      "Toggle vertical term",
     },
-  },
+  }
 }
+
+-- Toggleterm
+-- M.toggleterm = {
+--   t = {
+--     ["<C-h>"] = { "<C-\\><C-n><C-w>h", "ToggleTerm move left" },
+--     ["<C-l>"] = { "<C-\\><C-n><C-w>l", "ToggleTerm move right" },
+--     ["<C-j>"] = { "<C-\\><C-n><C-w>j", "ToggleTerm move down" },
+--     ["<C-k>"] = { "<C-\\><C-n><C-w>k", "ToggleTerm move up" },
+--     ["<leader><esc>"] = { "<C-\\><C-n>", "Toggleterm change to normal mode" },
+--   },
+--   n = {
+--     ["<leader>ts"] = { "<cmd> Telescope themes <CR>", "nvchad themes" },
+--     ["<leader>tl"] = {
+--       function()
+--         deepvim.fn.toggle_term("lazygit")
+--       end,
+--       "ToggleTerm lazygit",
+--     },
+--     ["<leader>tv"] = {
+--       function()
+--         deepvim.fn.toggle_term({ direction = "vertical" })
+--       end,
+--       "ToggleTerm vertical",
+--     },
+--     ["<leader>tcv"] = {
+--       function()
+--         deepvim.fn.close_term({ direction = "vertical" })
+--       end,
+--       "ToggleTerm close vertical",
+--     },
+--     ["<leader>th"] = {
+--       function()
+--         deepvim.fn.toggle_term({ direction = "horizontal" })
+--       end,
+--       "ToggleTerm horizontal",
+--     },
+--     ["<leader>tch"] = {
+--       function()
+--         deepvim.fn.close_term({ direction = "horizontal" })
+--       end,
+--       "ToggleTerm close horizontal",
+--     },
+--     ["<leader>tf"] = {
+--       function()
+--         deepvim.fn.toggle_term({ direction = "float" })
+--       end,
+--       "ToggleTerm float",
+--     },
+--     ["<leader>tcf"] = {
+--       function()
+--         deepvim.fn.close_term({ direction = "float" })
+--       end,
+--       "ToggleTerm close float",
+--     },
+--     ["<leader>tca"] = {
+--       function()
+--         deepvim.fn.close_all_terms()
+--       end,
+--       "ToggleTerm close all",
+--     },
+--   },
+-- }
+--
 
 M.gitstatus = {
   n = {
