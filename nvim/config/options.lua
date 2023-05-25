@@ -6,7 +6,7 @@ local opts = {
     servers = { "gopls", "pyright", "lua_ls", "vimls", "jsonls", "yamlls", "bashls" },
   },
   nulls = {
-    servers = { "ruff", "black", "isort", "fixjson", "shfmt" },
+    servers = { "ruff", "black", "isort", "prettierd", "shfmt", "yamllint" },
   },
   ts = {
     languages = {

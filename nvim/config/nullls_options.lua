@@ -10,8 +10,8 @@ return {
   ["isort"] = function()
     return nulllls_builtins().formatting.isort
   end,
-  ["fixjson"] = function()
-    return nulllls_builtins().formatting.fixjson
+  ["prettierd"] = function()
+    return nulllls_builtins().formatting.prettierd
   end,
   ["shfmt"] = function()
     return nulllls_builtins().formatting.shfmt
@@ -20,4 +20,7 @@ return {
   ["ruff"] = function()
     return nulllls_builtins().diagnostics.ruff
   end,
+  ["yamllint"] = function()
+    return nulllls_builtins().diagnostics.yamllint
+  end
 }

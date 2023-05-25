@@ -57,11 +57,15 @@ return {
   ["jsonls"] = function()
     return {
       name = "jsonls",
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
     }
   end,
   ["yamlls"] = function()
     return {
       name = "yamlls",
+      schemas = require('schemastore').yaml.schemas(),
+      validate = { enable = false },
     }
   end,
   ["bashls"] = function()
