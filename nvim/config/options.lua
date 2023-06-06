@@ -3,7 +3,7 @@
 
 local opts = {
   lsp = {
-    servers = { "gopls", "pyright", "lua_ls", "vimls", "jsonls", "yamlls", "bashls" },
+    servers = { "gopls", "pyright", "lua_ls", "vimls", "jsonls", "bashls" },
   },
   nulls = {
     servers = { "ruff", "black", "isort", "prettierd", "shfmt", "yamllint" },

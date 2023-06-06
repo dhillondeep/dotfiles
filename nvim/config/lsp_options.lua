@@ -28,8 +28,6 @@ return {
     }
   end,
   ["lua_ls"] = function()
-    require("neodev").setup({})
-
     return {
       name = "lua_ls",
       capabilities = {
