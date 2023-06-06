@@ -6,10 +6,6 @@ function manager.configure_fzflua()
   require("custom.config.plugin.fzflua")
 end
 
-function manager.configure_starter()
-  require("custom.config.plugin.starter").setup()
-end
-
 function manager.get_mason_opts()
   local nullls_cfg = require("custom.config.nullls_options")
   local ensure_installed = {}
@@ -107,7 +103,7 @@ end
 function manager.configure_persisted()
   require("persisted").setup({
     silent = false,
-    use_git_branch = true,
+    use_git_branch = false,
     autosave = true,
     follow_cwd = true,
     telescope = {

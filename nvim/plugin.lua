@@ -40,10 +40,6 @@ local plugins = {
 
   --- LSP & Code
   {
-    "folke/neodev.nvim",
-  },
-
-  {
     "glepnir/lspsaga.nvim",
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
