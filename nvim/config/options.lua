@@ -43,13 +43,14 @@ local vim_opts = {
     --   fillchars = { eob = " " }, -- Disable `~` on nonexistent lines
     --   history = 100, -- Number of commands to remember in a history table
     ignorecase = true, -- Case insensitive searching
-    --   laststatus = 3, -- globalstatus
-    mouse = "nv",      -- Enable mouse support in normal and visual mode
+    laststatus = 3,    -- globalstatus
+    splitkeep = "screen",
+    mouse = "",        -- Enable mouse support in normal and visual mode
     number = true,     -- Show numberline
     --   preserveindent = true, -- Preserve indent structure as much as possible
     --   pumheight = 10, -- Height of the pop up menu
     relativenumber = true, -- Show relative numberline
-    scrolloff = 2,         -- Number of lines to keep above and below the cursor
+    scrolloff = 999,       -- Number of lines to keep above and below the cursor
     -- shiftwidth = 2, -- Number of space inserted for indentation
     --   shortmess = vim.opt.shortmess + { s = true, I = true },
     --   showmode = false, -- Disable showing modes in command line

@@ -100,29 +100,6 @@ function manager.get_treesitter_opts()
   }
 end
 
-function manager.configure_persisted()
-  require("persisted").setup({
-    silent = false,
-    use_git_branch = false,
-    autosave = true,
-    follow_cwd = true,
-    telescope = {
-      reset_prompt_after_deletion = true,
-    },
-  })
-
-  local group = vim.api.nvim_create_augroup("PersistedHooks", {})
-
-  vim.api.nvim_create_autocmd({ "User" }, {
-    pattern = "PersistedSavePre",
-    group = group,
-    callback = function(_)
-      local nvim_tree_present, api = pcall(require, "nvim-tree.api")
-      if nvim_tree_present then api.tree.close() end
-    end,
-  })
-end
-
 function manager.configure_project()
   require("project_nvim").setup({
     patterns = {
@@ -166,46 +143,59 @@ function manager.configure_telescope()
   local layout = require("telescope.actions.layout")
   return {
     extensions_list = {
-      "persisted",
       "projects",
       "themes",
     },
     defaults = {
       mappings = {
-        i = {
-          ['<C-p>'] = layout.toggle_preview
-        },
         n = {
-          ["dd"] = actions.delete_buffer,
+          ['<C-p>'] = layout.toggle_preview,
+          ["<C-d>"] = actions.delete_buffer,
         },
       },
     },
   }
 end
 
-function manager.configure_toggleterm()
-  require("toggleterm").setup {
-    size = function(term)
-      if term.direction == "horizontal" then
-        return 15
-      elseif term.direction == "vertical" then
-        return vim.o.columns * 0.4
-      end
-    end,
-    highlights = {
-      NormalFloat = {
-        link = "TelescopeNormal"
-      },
-      FloatBorder = {
-        link = "TelescopeBorder"
-      },
-    },
-    shading_factor = 2,
-    direction = "float",
-    float_opts = {
-      border = "curved",
-    },
+function manager.configure_nvterm()
+  return {
+    terminals = {
+      type_opts = {
+        float = {
+          relative = 'editor',
+          row = 0.1,
+          col = 0.1,
+          width = 0.8,
+          height = 0.75,
+          border = "single",
+        },
+        horizontal = { location = "rightbelow", split_ratio = .2, },
+        vertical = { location = "rightbelow", split_ratio = .2 },
+      }
+    }
   }
+end
+
+function manager.configure_alpha()
+  require("custom.config.plugin.alpha")
+end
+
+function manager.configure_tmux_navigation()
+  return require("nvim-tmux-navigation").setup({
+    disable_when_zoomed = true,
+    keybindings = {
+      left = "<C-h>",
+      down = "<C-j>",
+      up = "<C-k>",
+      right = "<C-l>",
+      last_active = "<C-\\>",
+      next = "<C-Space>",
+    }
+  })
+end
+
+function manager.configure_mini_animate()
+  require("mini.animate").setup()
 end
 
 return manager
