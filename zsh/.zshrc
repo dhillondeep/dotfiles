@@ -101,10 +101,10 @@ bindkey -M vicmd "\eOB" history-beginning-search-backward
 # --------- Configurations ---------
 # ----------------------------------
 
-source $DOTFILES/zsh/alias.zsh
 source $DOTFILES/zsh/export.zsh
-FILE=$DOTFILES_PRIVATE/zsh/alias.zsh && [ -f $FILE ] && source "$FILE"
+source $DOTFILES/zsh/alias.zsh
 FILE=$DOTFILES_PRIVATE/zsh/export.zsh && [ -f $FILE ] && source "$FILE"
+FILE=$DOTFILES_PRIVATE/zsh/alias.zsh && [ -f $FILE ] && source "$FILE"
 FILE=~/.zshrc.local && [ -f "$FILE" ] && source "$FILE" # local
 
 # Generated for envman. Do not edit.
