@@ -117,6 +117,9 @@ end
 
 function manager.get_nvim_tree_opts()
   return {
+    view = {
+      adaptive_size = true,
+    },
     respect_buf_cwd = true,
     update_focused_file = {
       enable = true,
@@ -195,7 +198,54 @@ function manager.configure_tmux_navigation()
 end
 
 function manager.configure_mini_animate()
-  require("mini.animate").setup()
+  require("mini.animate").setup({
+    resize = {
+      enable = false,
+    },
+  })
+end
+
+function manager.get_flash_opts()
+  return {
+    search = {
+      exclude = {
+        "notify",
+        "noice",
+        "cmp_menu",
+        "NvimTree",
+        function(win)
+          -- exclude non-focusable windows
+          return not vim.api.nvim_win_get_config(win).focusable
+        end,
+      },
+    },
+    modes = {
+      char = {
+        enabled = false,
+      },
+    },
+  }
+end
+
+function manager.configure_neovim_session_manager()
+  local path = require('plenary.path')
+  local config = require('session_manager.config')
+  require('session_manager').setup({
+    sessions_dir = path:new(vim.fn.stdpath('data'), 'sessions'),
+    autoload_mode = config.AutoloadMode.Disabled,
+    autosave_last_session = true,
+    autosave_ignore_not_normal = true,
+    autosave_ignore_filetypes = {
+      'gitcommit',
+      'gitrebase',
+      "NvimTree",
+      "terminal",
+    },
+  })
+end
+
+function manager.get_cmp_opts()
+  return require("custom.config.plugin.cmp")
 end
 
 return manager

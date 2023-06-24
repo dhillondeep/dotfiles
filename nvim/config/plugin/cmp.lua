@@ -35,8 +35,6 @@ return {
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
-    { name = "buffer" },
-    { name = "nvim_lua" },
     {
       -- make it autocomplete from visible buffers
       name = "buffer",
@@ -50,6 +48,7 @@ return {
         end
       },
     },
+    { name = "nvim_lua" },
     { name = "path" },
   },
 }

@@ -98,7 +98,7 @@ local plugins = {
 		"hrsh7th/nvim-cmp",
 		opts = function()
 			local default = require("plugins.configs.cmp")
-			return vim.tbl_deep_extend("force", default, require("custom.config.plugin.cmp"))
+			return vim.tbl_deep_extend("force", default, plugin_manager.get_cmp_opts())
 		end
 	},
 
@@ -106,25 +106,10 @@ local plugins = {
 	{
 		"Shatur/neovim-session-manager",
 		lazy = false,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
-			local Path = require('plenary.path')
-			local config = require('session_manager.config')
-			require('session_manager').setup({
-				sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'),
-				autoload_mode = config.AutoloadMode.Disabled,
-				autosave_last_session = true,
-				autosave_ignore_not_normal = true,
-				autosave_ignore_filetypes = {
-					'gitcommit',
-					'gitrebase',
-					"NvimTree",
-					"terminal",
-				},
-			})
-		end
+			plugin_manager.configure_neovim_session_manager()
+		end,
 	},
 
 	{
@@ -146,38 +131,44 @@ local plugins = {
 	},
 
 	{
-		"christoomey/vim-system-copy",
-		dependencies = {
-			{
-				"ojroques/vim-oscyank",
-				init = function()
-					vim.g.oscyank_silent = true
-					vim.g.oscyank_term = "default"
-				end,
-			},
-		},
-		keys = { "cp", "cP" }, -- only load for these keys: copy supported
-		init = function()
-			vim.g.system_copy_silent = 1
-			vim.g.system_copy_enable_osc52 = 1
-		end,
-	},
-
-	{
-		"ggandor/leap.nvim",
-		keys = { "s", "S" },
-		config = function()
-			require("leap").add_default_mappings()
-		end,
-	},
-
-	{
 		"ggandor/flit.nvim",
-		dependencies = { "leap.nvim" },
+		dependencies = { "ggandor/leap.nvim" },
 		keys = { "f", "F", "t", "T" },
 		config = function()
 			plugin_manager.configure_flit()
 		end,
+	},
+
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = plugin_manager.get_flash_opts(),
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+				desc = "Flash standalone jump",
+			},
+			{
+				"S",
+				mode = { "n", "o", "x" },
+				function()
+					require("flash").treesitter()
+				end,
+				desc = "Flash treesitter",
+			},
+			{
+				"r",
+				mode = "o",
+				function()
+					require("flash").remote()
+				end,
+				desc = "Flash remote",
+			},
+		},
 	},
 
 	--- UI/Look and feel ---
@@ -191,39 +182,8 @@ local plugins = {
 	},
 
 	{
-		"folke/edgy.nvim",
-		event = "VeryLazy",
-		opts = {
-			bottom = {
-				{
-					ft = "terminal",
-					size = { height = 0.2 },
-					filter = function(buf, win)
-						return vim.api.nvim_win_get_config(win).relative == ""
-					end,
-				},
-			},
-			left = {
-				{
-					title = "Files",
-					ft = "NvimTree",
-					pinned = true,
-					size = { height = 0.6, width = 0.1 },
-				},
-				{
-					title = "Outline",
-					ft = "aerial",
-					pinned = true,
-					size = { height = 0.4, width = 0, 1 },
-				},
-			},
-		}
-	},
-
-	{
 		'stevearc/dressing.nvim',
 		lazy = false,
-		opts = {},
 	},
 
 	{
