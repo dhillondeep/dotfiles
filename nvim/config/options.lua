@@ -6,7 +6,7 @@ local opts = {
     servers = { "gopls", "pyright", "lua_ls", "vimls", "jsonls", "bashls" },
   },
   nulls = {
-    servers = { "ruff", "black", "isort", "prettierd", "shfmt", "yamllint" },
+    servers = { "ruff", "black", "isort", "prettierd", "shfmt", "yamllint", "packer" },
   },
   ts = {
     languages = {
@@ -25,6 +25,7 @@ local opts = {
       "html",
       "markdown",
       "markdown_inline",
+      "hcl",
     },
     rainbow_disable = { "html" },
   },

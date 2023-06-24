@@ -16,6 +16,9 @@ return {
   ["shfmt"] = function()
     return nulllls_builtins().formatting.shfmt
   end,
+  ["packer"] = function()
+    return nulllls_builtins().formatting.packer
+  end,
   -- diagnostics --
   ["ruff"] = function()
     return nulllls_builtins().diagnostics.ruff
