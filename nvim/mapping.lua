@@ -7,6 +7,8 @@ M.disabled = {
     ["<leader>n"] = "",  -- [general] toggle numbers
     ["<leader>rn"] = "", -- [general] toggle relative number
     ["<leader>ra"] = "", -- [lspconfig] lsp rename: replaced with <leader>rn
+    ["<tab>"] = "",      -- [tabufline] change buffer next
+    ["<S-tab>"] = "",    -- [tabufline] change buffer prev
 
     -- conflict with tmux navigation plugin
     ["<C-h>"] = "",
