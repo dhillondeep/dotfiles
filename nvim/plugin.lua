@@ -4,10 +4,23 @@ local plugins = {
 	--- File Manager & Search/Find
 	{
 		"nvim-tree/nvim-tree.lua",
-		opts = function()
-			local default = require("plugins.configs.nvimtree")
-			return vim.tbl_deep_extend("force", default, plugin_manager.get_nvim_tree_opts())
-		end,
+		enabled = false,
+	},
+
+	{
+		'echasnovski/mini.files',
+		keys = {
+			{
+				"<C-n>",
+				function()
+					MiniFiles.open()
+				end,
+				desc = "Toggle MiniFiles"
+			},
+		},
+		config = function()
+			plugin_manager.configure_mini_files()
+		end
 	},
 
 	{
@@ -205,13 +218,16 @@ local plugins = {
 
 	{
 		'stevearc/aerial.nvim',
-		cmd = "AerialToggle",
-		opts = {},
-		-- Optional dependencies
+		keys = {
+			{ "<leader>o", "<cmd>AerialToggle float<cr>", desc = "Toggle Outline" },
+		},
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons"
 		},
+		config = function()
+			plugin_manager.configure_aerial()
+		end
 	},
 
 	--- Terminal ---

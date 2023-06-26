@@ -135,10 +135,4 @@ M.gitstatus = {
   },
 }
 
-M.aerial = {
-  n = {
-    ["<leader>o"] = { "<cmd> AerialToggle <CR>", "Outline Toggle" }
-  }
-}
-
 return M
