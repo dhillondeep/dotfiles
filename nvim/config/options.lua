@@ -27,7 +27,6 @@ local opts = {
       "markdown_inline",
       "hcl",
     },
-    rainbow_disable = { "html" },
   },
 }
 

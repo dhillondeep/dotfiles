@@ -11,9 +11,9 @@ local plugins = {
 		'echasnovski/mini.files',
 		keys = {
 			{
-				"<C-n>",
+				";",
 				function()
-					MiniFiles.open()
+					MiniFiles.open(vim.fn.expand('%:p'))
 				end,
 				desc = "Toggle MiniFiles"
 			},
@@ -98,9 +98,6 @@ local plugins = {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			{ "p00f/nvim-ts-rainbow" },
-		},
 		opts = function()
 			local default = require("plugins.configs.treesitter")
 			return vim.tbl_deep_extend("force", default, plugin_manager.get_treesitter_opts())
@@ -185,6 +182,14 @@ local plugins = {
 	},
 
 	--- UI/Look and feel ---
+
+	{
+		"NvChad/base46",
+		config = function()
+			deepvim.cfg.set_highlights(require("base46"))
+		end
+	},
+
 	{
 		'echasnovski/mini.animate',
 		lazy = false,
@@ -214,20 +219,6 @@ local plugins = {
 		config = function()
 			plugin_manager.configure_guess_indent()
 		end,
-	},
-
-	{
-		'stevearc/aerial.nvim',
-		keys = {
-			{ "<leader>o", "<cmd>AerialToggle float<cr>", desc = "Toggle Outline" },
-		},
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons"
-		},
-		config = function()
-			plugin_manager.configure_aerial()
-		end
 	},
 
 	--- Terminal ---

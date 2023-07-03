@@ -88,12 +88,6 @@ function manager.get_treesitter_opts()
       },
     },
     indent = { enable = true, disable = { "yaml", "python" } },
-    rainbow = {
-      enable = true,
-      disable = opts.rainbow_disable,
-      extended_mode = false,
-      max_file_lines = 1000,
-    },
     autotag = { enable = true },
     incremental_selection = { enable = true },
   }
@@ -243,6 +237,10 @@ function manager.configure_mini_files()
     },
   })
 
+  -- Change title highlight
+  vim.api.nvim_set_hl(0, "MiniFilesTitleFocused", { link = "DeepNvimTitleBg" })
+  vim.api.nvim_set_hl(0, "MiniFilesTitle", { link = "DeepNvimTitleAltBg" })
+
   -- Toggle dotfiles
   local show_dotfiles = true
   local filter_show = function(_) return true end
@@ -261,12 +259,6 @@ function manager.configure_mini_files()
       -- Tweak left-hand side of mapping to your liking
       vim.keymap.set('n', '.', toggle_dotfiles, { buffer = buf_id })
     end,
-  })
-end
-
-function manager.configure_aerial()
-  require("aerial").setup({
-    close_on_select = true,
   })
 end
 
