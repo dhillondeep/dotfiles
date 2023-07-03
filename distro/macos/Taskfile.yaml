@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 includes:
   generic: ../Taskfile.yaml
@@ -34,7 +34,7 @@ tasks:
       # -- gcloud cli --
     - task: install-gcloud-cli
       # -- aws cli --
-    - brew install awscli
+    - task: install-aws-cli
       # -- help
     - task: generic:install-helm
 
@@ -70,6 +70,13 @@ tasks:
       - tar -xf {{.file_name}} && rm -rf {{.file_name}}
       - rm -rf gcloud-cli && mv google-cloud-sdk ./gcloud-cli
       - ./gcloud-cli/install.sh --path-update=false --usage-reporting=false --command-completion=false
+
+  install-aws-cli:
+    dir: ~/Lab/apps
+    cmds:
+      - curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+      - installer -pkg AWSCLIV2.pkg -target /
+      - rm -rf "AWSCLIV2.pkg"
 
   add-ssh-key:
     cmds:
