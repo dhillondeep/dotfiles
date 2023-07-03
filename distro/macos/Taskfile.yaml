@@ -39,8 +39,17 @@ tasks:
     - task: generic:install-helm
 
   install-fonts:
-    - brew tap homebrew/cask-fonts
-    - brew install --cask font-iosevka-nerd-font font-iosevka
+    dir: ~/Library/Fonts/
+    cmds:
+      - rm -rf nerd-fonts Iosevka
+      - git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git
+      - cd nerd-fonts && git sparse-checkout add patched-fonts/Iosevka
+      - mkdir -p ~/Library/Fonts/Iosevka
+      - cp nerd-fonts/patched-fonts/Iosevka/Regular/*.ttf Iosevka
+      - cp nerd-fonts/patched-fonts/Iosevka/Bold/*.ttf Iosevka
+      - cp nerd-fonts/patched-fonts/Iosevka/Italic/*.ttf Iosevka
+      - cp nerd-fonts/patched-fonts/Iosevka/Bold-Italic/*.ttf Iosevka
+      - rm -rf nerd-fonts
 
   # envman (2.4.0)
   install-envman:
@@ -75,7 +84,7 @@ tasks:
     dir: ~/Lab/apps
     cmds:
       - curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
-      - installer -pkg AWSCLIV2.pkg -target /
+      - sudo installer -pkg AWSCLIV2.pkg -target /
       - rm -rf "AWSCLIV2.pkg"
 
   add-ssh-key:

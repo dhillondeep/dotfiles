@@ -24,19 +24,19 @@ window:
 # Font configuration
 font:
   normal:
-    family: Iosevka Nerd Font Mono
+    family: Iosevka Nerd Font
     style: Regular
 
   bold:
-    family: Iosevka Nerd Font Mono
+    family: Iosevka Nerd Font
     style: Bold
 
   italic:
-    family: Iosevka Nerd Font Mono
+    family: Iosevka Nerd Font
     style: Italic
 
   bold_italic:
-    family: Iosevka Nerd Font Mono
+    family: Iosevka Nerd Font
     style: Bold Italic
 
   # Point size
