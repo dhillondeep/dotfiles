@@ -45,6 +45,12 @@ require("lspsaga").setup({
     sign_priority = 20,
     virtual_text = false,
   },
+  outline = {
+    keys = {
+      expand_or_jump = '<cr>',
+      quit = "q",
+    },
+  },
 })
 
 -- set custom highlights
@@ -52,7 +58,6 @@ require("lspsaga").setup({
 -- TODO: fix color scheme and spend some time
 
 local colors = require("base46").get_theme_tb("base_30")
-deepvim.cfg.set_highlights(require("base46"))
 local highlights = {
   -- generic
   SagaBeacon = { bg = colors.white },

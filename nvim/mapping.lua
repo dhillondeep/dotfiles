@@ -45,7 +45,10 @@ M.lspsaga = {
     ["gf"] = { "<cmd>Lspsaga lsp_finder<CR>", "LSP finder" },
     ["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "LSP peek definition" },
     ["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "LSP peek type definition" },
-    ["<leader>la"] = { "<cmd> Lspsaga code_action<CR>", "LSP code action" },
+    ["ga"] = { "<cmd> Lspsaga code_action<CR>", "LSP code action" },
+    ["gi"] = { "<cmd> Lspsaga incoming_calls<CR>", "LSP incoming calls" },
+    ["go"] = { "<cmd> Lspsaga outgoing_calls<CR>", "LSP outgoing calls" },
+    ["<leader>o"] = { "<cmd> Lspsaga outline<CR>", "LSP code outline" },
     ["[e"] = {
       function()
         require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
