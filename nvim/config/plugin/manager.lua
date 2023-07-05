@@ -260,6 +260,73 @@ function manager.configure_mini_files()
       vim.keymap.set('n', '.', toggle_dotfiles, { buffer = buf_id })
     end,
   })
+
+  -- Split mappings
+  local map_split = function(buf_id, lhs, direction)
+    local rhs = function()
+      -- Make new window and set it as target
+      local new_target_window
+      vim.api.nvim_win_call(MiniFiles.get_target_window(), function()
+        vim.cmd(direction .. ' split')
+        new_target_window = vim.api.nvim_get_current_win()
+      end)
+      MiniFiles.set_target_window(new_target_window)
+      MiniFiles.go_in()
+    end
+    -- Adding `desc` will result into `show_help` entries
+    local desc = 'Split ' .. direction
+    vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
+  end
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'MiniFilesBufferCreate',
+    callback = function(args)
+      local buf_id = args.data.buf_id
+      -- Tweak keys to your liking
+      map_split(buf_id, 'gs', 'belowright horizontal')
+      map_split(buf_id, 'gv', 'belowright vertical')
+    end,
+  })
+end
+
+function manager.configure_hardtime()
+  require("hardtime").setup({
+    resetting_keys = {
+      ["1"] = { "n", "x" },
+      ["2"] = { "n", "x" },
+      ["3"] = { "n", "x" },
+      ["4"] = { "n", "x" },
+      ["5"] = { "n", "x" },
+      ["6"] = { "n", "x" },
+      ["7"] = { "n", "x" },
+      ["8"] = { "n", "x" },
+      ["9"] = { "n", "x" },
+      ["C"] = { "n" },
+      ["d"] = { "n" },
+      ["x"] = { "n" },
+      ["X"] = { "n" },
+      ["y"] = { "n" },
+      ["Y"] = { "n" },
+      ["p"] = { "n" },
+      ["P"] = { "n" },
+    },
+    hint_keys = {
+      ["k"] = { "n", "x" },
+      ["j"] = { "n", "x" },
+      ["^"] = { "n", "x" },
+      ["$"] = { "n", "o" },
+      ["a"] = { "n", "o" },
+      ["i"] = { "n" },
+      ["d"] = { "n" },
+      ["l"] = { "o" },
+    },
+    hint_messages = {
+      ["k^"] = "Use - instead of k^",
+      ["j^"] = "Use + instead of j^",
+      ["d$"] = "Use D instead of d$",
+      ["$a"] = "Use A instead of $a",
+      ["^i"] = "Use I instead of ^i",
+    },
+  })
 end
 
 return manager

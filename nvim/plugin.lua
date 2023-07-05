@@ -221,6 +221,15 @@ local plugins = {
 		end,
 	},
 
+	{
+		"m4xshen/hardtime.nvim",
+		lazy = false,
+		opts = {},
+		config = function()
+			plugin_manager.configure_hardtime()
+		end
+	},
+
 	--- Terminal ---
 	{
 		"NvChad/nvterm",
