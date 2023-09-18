@@ -20,9 +20,6 @@ return {
     return nulllls_builtins().formatting.packer
   end,
   -- diagnostics --
-  ["ruff"] = function()
-    return nulllls_builtins().diagnostics.ruff
-  end,
   ["yamllint"] = function()
     return nulllls_builtins().diagnostics.yamllint.with({
       extra_args = { "-d", "relaxed" },

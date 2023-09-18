@@ -27,6 +27,11 @@ return {
       },
     }
   end,
+  ["ruff_lsp"] = function()
+    return {
+      name = "ruff_lsp",
+    }
+  end,
   ["lua_ls"] = function()
     return {
       name = "lua_ls",

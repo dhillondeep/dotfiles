@@ -3,10 +3,10 @@
 
 local opts = {
   lsp = {
-    servers = { "gopls", "pyright", "lua_ls", "vimls", "jsonls", "bashls" },
+    servers = { "gopls", "pyright", "ruff_lsp", "lua_ls", "vimls", "jsonls", "bashls" },
   },
   nulls = {
-    servers = { "ruff", "black", "isort", "prettierd", "shfmt", "yamllint", "packer" },
+    servers = { "black", "isort", "prettierd", "shfmt", "yamllint", "packer" },
   },
   ts = {
     languages = {
@@ -50,7 +50,7 @@ local vim_opts = {
     --   preserveindent = true, -- Preserve indent structure as much as possible
     --   pumheight = 10, -- Height of the pop up menu
     relativenumber = true, -- Show relative numberline
-    scrolloff = 999,       -- Number of lines to keep above and below the cursor
+    scrolloff = 2,         -- Number of lines to keep above and below the cursor
     -- shiftwidth = 2, -- Number of space inserted for indentation
     --   shortmess = vim.opt.shortmess + { s = true, I = true },
     --   showmode = false, -- Disable showing modes in command line

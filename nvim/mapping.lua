@@ -4,11 +4,12 @@ local M = {}
 
 M.disabled = {
   n = {
-    ["<leader>n"] = "", -- [general] toggle numbers
+    ["<leader>n"] = "",  -- [general] toggle numbers
     ["<leader>rn"] = "", -- [general] toggle relative number
     ["<leader>ra"] = "", -- [lspconfig] lsp rename: replaced with <leader>rn
-    ["<tab>"] = "", -- [tabufline] change buffer next
-    ["<S-tab>"] = "", -- [tabufline] change buffer prev
+    ["<tab>"] = "",      -- [tabufline] change buffer next
+    ["<S-tab>"] = "",    -- [tabufline] change buffer prev
+    ["<C-s>"] = "",
 
     -- conflict with tmux navigation plugin
     ["<C-h>"] = "",

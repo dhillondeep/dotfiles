@@ -2,6 +2,8 @@ local cmp = require "cmp"
 
 return {
   mapping = {
+    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-j>"] = cmp.mapping.scroll_docs(4),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         local entry = cmp.get_selected_entry()
@@ -32,9 +34,10 @@ return {
       "s",
     }),
   },
+  preselect = cmp.PreselectMode.None,
   sources = {
     { name = "nvim_lsp" },
-    { name = "luasnip" },
+    { name = "luasnip", keyword_length = 2 },
     {
       -- make it autocomplete from visible buffers
       name = "buffer",
@@ -47,8 +50,8 @@ return {
           return vim.tbl_keys(bufs)
         end
       },
+      keyword_length = 2,
     },
-    { name = "nvim_lua" },
     { name = "path" },
   },
   sorting = {
