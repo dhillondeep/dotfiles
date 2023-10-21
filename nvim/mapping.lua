@@ -6,7 +6,6 @@ M.disabled = {
   n = {
     ["<leader>n"] = "",  -- [general] toggle numbers
     ["<leader>rn"] = "", -- [general] toggle relative number
-    ["<leader>ra"] = "", -- [lspconfig] lsp rename: replaced with <leader>rn
     ["<tab>"] = "",      -- [tabufline] change buffer next
     ["<S-tab>"] = "",    -- [tabufline] change buffer prev
     ["<C-s>"] = "",
@@ -32,15 +31,14 @@ M.general = {
 M.lspsaga = {
   plugin = true,
   n = {
-    ["gr"] = { "<cmd> Lspsaga rename <CR>", "LSP rename" },
+    ["<leader>ra"] = { "<cmd> Lspsaga rename <CR>", "LSP rename" },
     ["gd"] = { "<cmd>Lspsaga goto_definition<CR>", "LSP definition" },
-    ["gf"] = { "<cmd>Lspsaga lsp_finder<CR>", "LSP finder" },
+    ["gf"] = { "<cmd>Lspsaga finder<CR>", "LSP finder" },
+    ["gi"] = { "<cmd> Lspsaga finder imp<CR>", "LSP finder implementation" },
+    ["gr"] = { "<cmd> Lspsaga finder ref<CR>", "LSP finder reference" },
     ["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "LSP peek definition" },
     ["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "LSP peek type definition" },
     ["ga"] = { "<cmd> Lspsaga code_action<CR>", "LSP code action" },
-    ["gi"] = { "<cmd> Lspsaga incoming_calls<CR>", "LSP incoming calls" },
-    ["go"] = { "<cmd> Lspsaga outgoing_calls<CR>", "LSP outgoing calls" },
-    ["<leader>o"] = { "<cmd> Lspsaga outline<CR>", "LSP code outline" },
     ["[e"] = {
       function()
         require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
@@ -67,20 +65,17 @@ M.fzflua = {
   plugin = true,
   n = {
     ["<leader>fw"] = { "<cmd> FzfLua live_grep_native <CR>", "Live grep" },
-    ["<leader>fl"] = { "<cmd> FzfLua blines <CR>", "Find lines in buffer" },
-    ["<leader>f;"] = { "<cmd> FzfLua lines <CR>", "Find lines in all buffers" },
+    ["<leader>ff"] = { "<cmd> FzfLua files <CR>", "Find files" },
+    ["<leader>fb"] = { "<cmd> FzfLua buffers <CR>", "Find buffers" },
+    ["<leader>fz"] = { "<cmd> FzfLua blines <CR>", "Find in current buffer" },
+    ["<leader>fa"] = { "<cmd> FzfLua lines <CR>", "Find in all buffers" },
+    ["<leader>fo"] = { "<cmd> FzfLua oldfiles <CR>", "Find oldfiles" },
     ["<leader>fr"] = { "<cmd> FzfLua resume <CR>", "Resume last fzf-lua command" },
   }
 }
 
 M.telescope = {
   n = {
-    ["<leader>fb"] = {
-      function()
-        require("telescope.builtin").buffers({ sort_mru = true, ignore_current_buffer = true })
-      end,
-      "find buffers"
-    },
     ["<leader>fp"] = { "<cmd> Telescope projects <CR>", "Find projects" },
     ["<leader>fs"] = { "<cmd> SessionManager load_session<CR>", "Find sessions" }
   },

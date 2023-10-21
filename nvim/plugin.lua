@@ -1,28 +1,6 @@
 local plugin_manager = require("custom.config.plugin.manager")
 
 local plugins = {
-	--- File Manager & Search/Find
-	{
-		"nvim-tree/nvim-tree.lua",
-		enabled = false,
-	},
-
-	{
-		'echasnovski/mini.files',
-		keys = {
-			{
-				";",
-				function()
-					MiniFiles.open(vim.fn.expand('%:p'))
-				end,
-				desc = "Toggle MiniFiles"
-			},
-		},
-		config = function()
-			plugin_manager.configure_mini_files()
-		end
-	},
-
 	{
 		"ibhagwan/fzf-lua",
 		init = require("core.utils").load_mappings("fzflua"),
@@ -219,15 +197,6 @@ local plugins = {
 		config = function()
 			plugin_manager.configure_guess_indent()
 		end,
-	},
-
-	{
-		"m4xshen/hardtime.nvim",
-		lazy = false,
-		opts = {},
-		config = function()
-			plugin_manager.configure_hardtime()
-		end
 	},
 
 	--- Terminal ---

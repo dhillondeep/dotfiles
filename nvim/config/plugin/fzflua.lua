@@ -1,33 +1,8 @@
 local actions = require("fzf-lua.actions")
 
-local bat_args = os.getenv("BAT_ARGS") or "--style=numbers,changes --color always"
-local bat_theme = "base16"
-local fd_opts = os.getenv("FD_OPTS") or "--color=never --type f --hidden --follow --exclude .git"
-local rg_opts = os.getenv("RG_OPTS")
-    or "--column --line-number --no-heading --color=always --smart-case --max-columns=512"
 
-require("fzf-lua").setup({
-  winopts = {
-    height  = 0.76, -- window height
-    width   = 0.87, -- window width
-    row     = 0.38, -- window row position (0=top, 1=bottom)
-    col     = 0.46, -- window col position (0=left, 1=right)
-    preview = {
-      border     = "border",
-      default    = "bat",
-      scrollbar  = "false",
-      vertical   = "down:55%",  -- up|down:size
-      horizontal = "right:55%", -- right|left:size
-    },
-    border  = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-    hl      = {
-      normal = "TelescopeNormal",      -- window normal color (fg+bg)
-      cursor = "TelescopeSelection",
-      border = "TelescopeBorder",      -- border color
-      help_normal = "TelescopeNormal", -- <F1> window normal
-      help_border = "TelescopeBorder", -- <F1> window border
-    },
-  },
+local config = {
+  'telescope',
   fzf_opts = {
     ["--info"] = "inline",
     ["--layout"] = "reverse",
@@ -37,13 +12,18 @@ require("fzf-lua").setup({
   previewers = {
     bat = {
       cmd = "bat",
-      args = bat_args,
-      theme = bat_theme,
+      theme = "base16",
     },
   },
   files = {
     prompt = "Files❯   ",
-    fd_opts = fd_opts .. " --type f --type s",
+  },
+  grep = {
+    prompt = "Search❯   ",
+    actions = {
+      ["ctrl-g"] = { actions.grep_lgrep },
+    },
+    continue_last_search = false,
   },
   lines = {
     previewer = false,
@@ -54,36 +34,21 @@ require("fzf-lua").setup({
     previewer = false,
     prompt    = "BLines❯   ",
   },
-  grep = {
-    prompt = "Search❯   ",
-    rg_opts = rg_opts,
-    actions = {
-      ["ctrl-g"] = { actions.grep_lgrep },
-    },
-    continue_last_search = false,
-  },
-  file_icon_colors = {
-    ["sh"] = "green",
-  },
-  keymap = {
-    builtin = {
-      -- neovim `:tmap` mappings for the fzf win
-      ["<C-h>"] = "toggle-help",
-      ["<C-f>"] = "toggle-fullscreen",
-    },
-    fzf = {
-      ["ctrl-w"] = "toggle-preview-wrap",
-      ["ctrl-p"] = "toggle-preview",
-      ["ctrl-d"] = "preview-page-down",
-      ["ctrl-u"] = "preview-page-up",
-    },
-  },
-  actions = {
-    files = {
-      ["default"] = actions.file_edit_or_qf,
-      ["ctrl-s"] = actions.file_split,
-      ["ctrl-v"] = actions.file_vsplit,
-      ["ctrl-t"] = actions.file_tabedit,
-    },
-  },
-})
+}
+
+local bat_opts_env = os.getenv("BAT_ARGS")
+if bat_opts_env then
+  config.previewers.bat.args = bat_opts_env
+end
+
+local rg_opts_env = os.getenv("RG_OPTS")
+if rg_opts_env then
+  config.grep.rg_opts = rg_opts_env
+end
+
+local fd_opts_env = os.getenv("FD_OPTS")
+if fd_opts_env then
+  config.files.fd_opts = fd_opts_env
+end
+
+require("fzf-lua").setup(config)
