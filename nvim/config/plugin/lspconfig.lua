@@ -1,5 +1,5 @@
 dofile(vim.g.base46_cache .. "lsp")
-require("nvchad_ui.lsp")
+require "nvchad.lsp"
 
 local utils = require("core.utils")
 local lspformat = require("lsp-format")
@@ -61,6 +61,9 @@ for _, server in ipairs(deepvim.opts.lsp.servers) do
   }
   if cfg.config ~= nil then
     opts.settings = cfg.config
+  end
+  if cfg.root_dir ~= nil then
+    opts.root_dir = cfg.root_dir
   end
   lspconfig[cfg.name].setup(opts)
 end

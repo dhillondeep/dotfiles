@@ -10,20 +10,29 @@ require("lspsaga").setup({
     frequency = 20,
   },
   definition = {
-    edit = "<CR>",
-    vsplit = "<C-v>",
-    split = "<C-s>",
-    tabe = "<C-t>",
-    quit = "<ESC>",
+    keys = {
+      edit = "<CR>",
+      vsplit = "<C-v>",
+      split = "<C-s>",
+      tabe = "<C-t>",
+      quit = "<ESC>",
+    },
   },
   finder = {
     keys = {
-      jump_to = "<CR>",
-      expand_or_jump = "<CR>",
+      toggle_or_open = "<CR>",
       vsplit = "<C-v>",
       split = "<C-s>",
       tabe = "<C-t>",
       tabnew = "r",
+      quit = { "q", "<ESC>" },
+    },
+  },
+  callhierarchy = {
+    keys = {
+      edit = "<CR>",
+      vsplit = "<C-v>",
+      split = "<C-s>",
       quit = { "q", "<ESC>" },
     },
   },
@@ -34,9 +43,12 @@ require("lspsaga").setup({
     },
   },
   rename = {
-    quit = "<ESC>",
-    exec = "<CR>",
-    confirm = "<CR>",
+    in_select = false,
+    keys = {
+      quit = "<C-q>",
+      exec = "<CR>",
+      select = "x",
+    },
   },
   lightbulb = {
     enable = true,
