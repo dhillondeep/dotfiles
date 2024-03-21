@@ -15,6 +15,9 @@ M.disabled = {
     ["<C-l>"] = "",
     ["<C-j>"] = "",
     ["<C-k>"] = "",
+
+    -- telescope
+    ["<leader>gt"] = "",
   }
 }
 
@@ -31,7 +34,7 @@ M.general = {
 M.lspsaga = {
   plugin = true,
   n = {
-    ["<leader>ra"] = { "<cmd> Lspsaga rename <CR>", "LSP rename" },
+    -- ["<leader>ra"] = { "<cmd> Lspsaga rename <CR>", "LSP rename" },
     ["gd"] = { "<cmd>Lspsaga goto_definition<CR>", "LSP definition" },
     ["gf"] = { "<cmd>Lspsaga finder<CR>", "LSP finder" },
     ["gi"] = { "<cmd> Lspsaga finder imp<CR>", "LSP finder implementation" },
@@ -57,8 +60,19 @@ M.lspsaga = {
 M.lspconfig = {
   plugin = true,
   n = {
-    ["<leader>fm"] = { "<cmd> Format <CR>", "LSP formatting" },
+    ["<leader>fm"] = {
+      function()
+        vim.lsp.buf.format { async = true }
+      end,
+      "LSP formatting",
+    },
   },
+}
+
+M.rufflsp = {
+  n = {
+    ["<leader>fm"] = { "<cmd> RuffFormat <CR>", "LSP formatting" },
+  }
 }
 
 M.fzflua = {
@@ -77,7 +91,10 @@ M.fzflua = {
 M.telescope = {
   n = {
     ["<leader>fp"] = { "<cmd> Telescope projects <CR>", "Find projects" },
-    ["<leader>fs"] = { "<cmd> SessionManager load_session<CR>", "Find sessions" }
+    ["<leader>fs"] = { "<cmd> SessionManager load_session<CR>", "Find sessions" },
+
+    ["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" },
+    ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
   },
 }
 
@@ -87,7 +104,26 @@ M.nvterm = {
     ["<C-l>"] = { "<C-\\><C-n><C-w>l", "Terminal move right" },
     ["<C-j>"] = { "<C-\\><C-n><C-w>j", "Terminal move down" },
     ["<C-k>"] = { "<C-\\><C-n><C-w>k", "Terminal move up" },
-    ["<C-esc>"] = { "<C-\\><C-n>", "Terminal change to normal mode" },
+    ["<leader>tf"] = {
+      function()
+        require("nvterm.terminal").toggle "float"
+      end,
+      "Terminal toggle floating term",
+    },
+
+    ["<leader>tx"] = {
+      function()
+        require("nvterm.terminal").toggle "horizontal"
+      end,
+      "Terminal toggle horizontal term",
+    },
+
+    ["<leader>tv"] = {
+      function()
+        require("nvterm.terminal").toggle "vertical"
+      end,
+      "Terminal toggle vertical term",
+    }
   },
   n = {
     -- toggle in normal mode
@@ -98,11 +134,18 @@ M.nvterm = {
       "Terminal toggle floating term",
     },
 
-    ["<leader>tt"] = {
+    ["<leader>tx"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
-      "Terminal toggle",
+      "Terminal toggle horizontal term",
+    },
+
+    ["<leader>tv"] = {
+      function()
+        require("nvterm.terminal").toggle "vertical"
+      end,
+      "Terminal toggle vertical term",
     },
 
     ["<leader>tl"] = {
@@ -120,7 +163,7 @@ M.gitstatus = {
       function()
         require("gitsigns").diffthis()
       end,
-      "View git diff",
+      "Git diff",
     },
   },
 }

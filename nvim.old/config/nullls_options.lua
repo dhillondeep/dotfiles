@@ -4,12 +4,6 @@ end
 
 return {
   -- formatting --
-  ["black"] = function()
-    return nulllls_builtins().formatting.black
-  end,
-  ["isort"] = function()
-    return nulllls_builtins().formatting.isort
-  end,
   ["prettierd"] = function()
     return nulllls_builtins().formatting.prettierd
   end,

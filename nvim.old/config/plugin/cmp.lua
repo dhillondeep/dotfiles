@@ -36,8 +36,9 @@ return {
   },
   preselect = cmp.PreselectMode.None,
   sources = {
-    { name = "nvim_lsp" },
-    { name = "luasnip", keyword_length = 2 },
+    { name = "path" },
+    { name = "nvim_lsp", keyword_length = 1 },
+    { name = "luasnip",  keyword_length = 2 },
     {
       -- make it autocomplete from visible buffers
       name = "buffer",
@@ -50,9 +51,8 @@ return {
           return vim.tbl_keys(bufs)
         end
       },
-      keyword_length = 2,
+      keyword_length = 3,
     },
-    { name = "path" },
   },
   sorting = {
     comparators = {
@@ -76,9 +76,16 @@ return {
       end,
 
       cmp.config.compare.kind,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.length,
+      -- cmp.config.compare.sort_text,
+      -- cmp.config.compare.length,
       cmp.config.compare.order,
     },
+  },
+  experimental = {
+    -- I like the new menu better! Nice work hrsh7th
+    native_menu = false,
+
+    -- Let's play with this for a day or two
+    ghost_text = false,
   },
 }

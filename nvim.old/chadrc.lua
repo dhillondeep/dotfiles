@@ -4,8 +4,8 @@ M.plugins = "custom.plugin"
 M.mappings = require("custom.mapping")
 
 M.ui = {
-  theme_toggle = { "bearded-arc", "bearded-arc" },
-  theme = "bearded-arc",
+  theme_toggle = { "onedark", "onedark" },
+  theme = "onedark",
   telescope = {
     style = "bordered"
   }

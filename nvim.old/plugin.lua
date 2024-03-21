@@ -1,6 +1,28 @@
 local plugin_manager = require("custom.config.plugin.manager")
 
 local plugins = {
+	--- File Manager & Search/Find
+	{
+		"nvim-tree/nvim-tree.lua",
+		enabled = false,
+	},
+	{
+		'echasnovski/mini.files',
+		keys = {
+			{
+				"<C-n>",
+				function()
+					if not MiniFiles.close() then
+						MiniFiles.open(vim.api.nvim_buf_get_name(0))
+					end
+				end,
+				desc = "Toggle MiniFiles"
+			},
+		},
+		config = function()
+			plugin_manager.configure_mini_files()
+		end
+	},
 	{
 		"ibhagwan/fzf-lua",
 		init = require("core.utils").load_mappings("fzflua"),
@@ -61,7 +83,15 @@ local plugins = {
 		end,
 	},
 
-	{ "lukas-reineke/lsp-format.nvim" },
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = plugin_manager.get_noice_opts(),
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		}
+	},
 
 	{ "jose-elias-alvarez/null-ls.nvim" },
 

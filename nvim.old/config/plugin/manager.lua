@@ -6,6 +6,19 @@ function manager.configure_fzflua()
   require("custom.config.plugin.fzflua")
 end
 
+function manager.get_noice_opts()
+  return {
+    lsp = {
+      signature = {
+        enabled = false,
+      },
+      hover = {
+        enabled = false,
+      }
+    }
+  }
+end
+
 function manager.get_mason_opts()
   local nullls_cfg = require("custom.config.nullls_options")
   local ensure_installed = {}
@@ -155,7 +168,15 @@ function manager.configure_nvterm()
         horizontal = { location = "rightbelow", split_ratio = .2, },
         vertical = { location = "rightbelow", split_ratio = .2 },
       }
-    }
+    },
+    behavior = {
+      autoclose_on_quit = {
+        enabled = true,
+        confirm = true,
+      },
+      close_on_exit = true,
+      auto_insert = true,
+    },
   }
 end
 
