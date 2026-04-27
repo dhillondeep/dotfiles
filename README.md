@@ -51,6 +51,12 @@ Useful options:
 
 The bootstrap script detects macOS and Linux. On Linux it supports `apt`, `dnf`, and `pacman`, with Homebrew or portable installers for tools that are not consistently available in distro repositories. LazyVim requires Neovim `0.11.2` or newer; the script prefers Homebrew Neovim when available and falls back to an upstream portable build on Linux.
 
+Ghostty uses `TERM=xterm-ghostty`. The tracked Ghostty config enables its SSH
+integration so remote hosts can receive the terminfo entry or fall back to
+`xterm-256color`. The install script and zsh config also fall back to
+`xterm-256color` when a host does not know `xterm-ghostty`, which avoids tmux
+and shell widget failures on older Linux images.
+
 Homebrew users can audit the package set with:
 
 ```bash

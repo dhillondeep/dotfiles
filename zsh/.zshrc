@@ -10,6 +10,14 @@ path+=("$HOME/.local/bin")
 path+=("$HOME/.atuin/bin")
 typeset -gU path PATH
 
+# Ghostty uses xterm-ghostty. Older remote hosts often do not know that
+# terminfo entry yet, which breaks tmux, clear, and some zle widgets.
+if [[ "${TERM:-}" == xterm-ghostty ]]; then
+	if ! command -v infocmp >/dev/null 2>&1 || ! infocmp "$TERM" >/dev/null 2>&1; then
+		export TERM=xterm-256color
+	fi
+fi
+
 source_if_exists() {
 	[ -r "$1" ] && source "$1"
 }

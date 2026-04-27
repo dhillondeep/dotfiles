@@ -44,6 +44,7 @@ mouse-hide-while-typing = true
 mouse-scroll-multiplier = 10
 copy-on-select = false
 shell-integration = detect
+shell-integration-features = sudo,ssh-env,ssh-terminfo,path
 
 window-save-state = always
 quit-after-last-window-closed = true

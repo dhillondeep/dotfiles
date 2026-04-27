@@ -78,6 +78,22 @@ warn() {
   printf 'WARN: %s\n' "$*" >&2
 }
 
+normalize_terminal() {
+  [ -n "${TERM:-}" ] || return 0
+
+  if command -v infocmp >/dev/null 2>&1 && infocmp "$TERM" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  case "$TERM" in
+    xterm-ghostty | ghostty)
+      local original_term="$TERM"
+      export TERM=xterm-256color
+      warn "TERM=$original_term is not available in terminfo; using TERM=$TERM for this install"
+      ;;
+  esac
+}
+
 run() {
   if [ "$DRY_RUN" -eq 1 ]; then
     printf 'DRY RUN:'
@@ -688,6 +704,8 @@ check_dotfiles() {
 
   return "$CHECK_FAILED"
 }
+
+normalize_terminal
 
 if [ "$MODE" = "check" ]; then
   check_dotfiles
