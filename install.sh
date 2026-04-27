@@ -521,6 +521,16 @@ trust_mise_config() {
   run mise trust "$DOTFILES_DIR/mise/config.toml"
 }
 
+install_mise_tools() {
+  [ "$INSTALL_PACKAGES" -eq 1 ] || return 0
+  command -v mise >/dev/null 2>&1 || return 0
+  [ -f "$HOME/.config/mise/config.toml" ] || return 0
+
+  log "Installing mise-managed tools"
+  run mise install --yes
+  run mise reshim
+}
+
 install_submodules() {
   [ "$INSTALL_PLUGINS" -eq 1 ] || return 0
 
@@ -732,6 +742,7 @@ check_neovim_version
 install_submodules
 link_dotfiles
 trust_mise_config
+install_mise_tools
 install_tpm
 set_zsh_shell
 

@@ -6,3 +6,6 @@ status = { missing_tools = "if_other_versions_installed", show_env = false, show
 
 [settings.pipx]
 uvx = true
+
+[tools]
+node = "22"
