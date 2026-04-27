@@ -20,12 +20,10 @@ gui:
       - "#98c379"
     unstagedChangesColor:
       - "#e06c75"
-
 git:
-  paging:
-    colorArg: always
-    pager: ""
+  pagers:
+    - colorArg: always
+      pager: ""
   commit:
     signOff: false
-
 promptToReturnFromSubprocess: false
