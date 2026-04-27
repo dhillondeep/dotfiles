@@ -81,3 +81,7 @@ DOTFILES_INSTALL_ARGS="full --no-shell-change" ./bootstrap.sh
 - `alacritty`
 
 Machine-specific shell customizations should live in `~/.zshrc.local` or a private repo pointed to by `DOTFILES_PRIVATE`. See `examples/` for starter files.
+
+Machine-specific Git settings should live in `~/.gitconfig.local`. If a machine
+has GitHub SSH keys configured and you want Git to rewrite GitHub HTTPS remotes
+to SSH, copy `examples/gitconfig.local.example` to `~/.gitconfig.local`.

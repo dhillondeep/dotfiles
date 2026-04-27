@@ -293,7 +293,7 @@ install_linux_portable_tools() {
     if [ "$DRY_RUN" -eq 1 ]; then
       printf 'DRY RUN: install atuin via upstream script\n'
     else
-      curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+      curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh -s -- --non-interactive
     fi
   fi
 
@@ -463,7 +463,7 @@ install_submodules() {
 
   if [ -f "$DOTFILES_DIR/.gitmodules" ] && command -v git >/dev/null 2>&1; then
     log "Installing dotfiles submodules"
-    run git -C "$DOTFILES_DIR" submodule update --init --recursive
+    run env GIT_CONFIG_GLOBAL=/dev/null git -C "$DOTFILES_DIR" submodule update --init --recursive
   fi
 }
 
@@ -475,7 +475,7 @@ install_tpm() {
   if [ -d "$HOME/.tmux/plugins/tpm/.git" ]; then
     run git -C "$HOME/.tmux/plugins/tpm" pull --ff-only || warn "Could not update TPM"
   else
-    run git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+    run env GIT_CONFIG_GLOBAL=/dev/null git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
   fi
 
   if [ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]; then
