@@ -1,0 +1,42 @@
+font-family = "Iosevka Nerd Font"
+font-size = 18
+font-thicken = false
+font-synthetic-style = false
+
+adjust-cell-width = 0
+adjust-cell-height = 0
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = false
+
+background = #282c34
+foreground = #abb2bf
+background-opacity = 0.98
+background-opacity-cells = false
+background-blur = false
+
+palette = 0=#282c34
+palette = 1=#e06c75
+palette = 2=#98c379
+palette = 3=#d19a66
+palette = 4=#61afef
+palette = 5=#c678dd
+palette = 6=#56b6c2
+palette = 7=#abb2bf
+palette = 8=#5c6370
+palette = 9=#e06c75
+palette = 10=#98c379
+palette = 11=#d19a66
+palette = 12=#61afef
+palette = 13=#c678dd
+palette = 14=#56b6c2
+palette = 15=#ffffff
+
+cursor-style = block
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 10
+copy-on-select = false
+shell-integration = detect
+
+window-save-state = always
+quit-after-last-window-closed = true

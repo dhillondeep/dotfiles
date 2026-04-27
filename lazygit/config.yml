@@ -1,0 +1,31 @@
+gui:
+  nerdFontsVersion: "3"
+  border: single
+  showFileTree: true
+  showIcons: true
+  scrollHeight: 10
+  theme:
+    activeBorderColor:
+      - "#61afef"
+      - bold
+    inactiveBorderColor:
+      - "#5c6370"
+    optionsTextColor:
+      - "#56b6c2"
+    selectedLineBgColor:
+      - "#3e4451"
+    cherryPickedCommitBgColor:
+      - "#3e4451"
+    cherryPickedCommitFgColor:
+      - "#98c379"
+    unstagedChangesColor:
+      - "#e06c75"
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  commit:
+    signOff: false
+
+promptToReturnFromSubprocess: false

@@ -24,6 +24,10 @@ Use `full` mode on machines where you also want heavier development tools:
 ./install.sh full
 ```
 
+`full` also installs `mosh` for resilient interactive SSH-like sessions. Mosh still
+authenticates with SSH, but the server also needs `mosh` installed and UDP
+ports, usually `60000-61000`, allowed through the firewall.
+
 Install only Neovim formatter/tooling dependencies:
 
 ```bash
@@ -53,11 +57,27 @@ Homebrew users can audit the package set with:
 brew bundle check --file Brewfile
 ```
 
+On a new remote machine, use the small bootstrapper. It clones or updates the repo and defaults to `--no-shell-change`, which is safer for SSH hosts:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/dhillondeep/dotfiles/master/bootstrap.sh | bash
+```
+
+Override the install arguments when needed:
+
+```bash
+DOTFILES_INSTALL_ARGS="full --no-shell-change" ./bootstrap.sh
+```
+
 ### Available dotfiles
 - `zsh`
 - `tmux`
 - `nvim`
 - `atuin`
+- `git`
+- `ghostty`
+- `lazygit`
+- `mise`
 - `alacritty`
 
 Machine-specific shell customizations should live in `~/.zshrc.local` or a private repo pointed to by `DOTFILES_PRIVATE`. See `examples/` for starter files.

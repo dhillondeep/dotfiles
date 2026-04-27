@@ -1,0 +1,8 @@
+[settings]
+experimental = true
+not_found_auto_install = false
+idiomatic_version_file_enable_tools = ["node", "python", "go", "ruby", "terraform"]
+status = { missing_tools = "if_other_versions_installed", show_env = false, show_tools = false }
+
+[settings.pipx]
+uvx = true

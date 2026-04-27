@@ -2,9 +2,9 @@
 
 ## Setup
 ```bash
-task install
+~/.dotfiles/install.sh --link-only
 ```
-- `prefix` + <kbd>I</kbd> to install pluggins
+- `prefix` + <kbd>I</kbd> to install plugins
 
 ## Configurations
 ### General Bindings

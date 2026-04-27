@@ -1,0 +1,4 @@
+brew "ruff"
+brew "gofumpt"
+brew "goimports"
+brew "golines"

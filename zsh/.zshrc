@@ -13,6 +13,11 @@ source_if_exists() {
 	[ -r "$1" ] && source "$1"
 }
 
+if command -v mise >/dev/null 2>&1; then
+	eval "$(mise activate zsh)"
+	export MISE_INITIALIZED=1
+fi
+
 # initialize the completion system
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(N.mh+24) ]]; then
@@ -143,18 +148,19 @@ FILE=~/.zshrc.local && [ -f "$FILE" ] && source "$FILE" # local
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-# Generated for nvm. Do not edit.
-export NVM_DIR="$HOME/.nvm"
-_load_nvm() {
-	unset -f nvm node npm npx yarn
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-}
-nvm() { _load_nvm; nvm "$@"; }
-node() { _load_nvm; node "$@"; }
-npm() { _load_nvm; npm "$@"; }
-npx() { _load_nvm; npx "$@"; }
-yarn() { _load_nvm; yarn "$@"; }
+if [[ -z "${MISE_INITIALIZED:-}" ]]; then
+	export NVM_DIR="$HOME/.nvm"
+	_load_nvm() {
+		unset -f nvm node npm npx yarn
+		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+	}
+	nvm() { _load_nvm; nvm "$@"; }
+	node() { _load_nvm; node "$@"; }
+	npm() { _load_nvm; npm "$@"; }
+	npx() { _load_nvm; npx "$@"; }
+	yarn() { _load_nvm; yarn "$@"; }
+fi
 
 for gcloud_root in \
 	"$HOME/Lab/apps/gcloud-cli" \

@@ -11,19 +11,9 @@ INSTALL_PLUGINS=1
 DRY_RUN=0
 CHECK_FAILED=0
 
-MACOS_SHELL_PACKAGES=(
-  git zsh tmux neovim curl ca-certificates gnupg wget
-  bat eza ripgrep fd zoxide fzf starship atuin go-task
-)
-MACOS_FULL_PACKAGES=(
-  cmake ninja make go python yarn nvm bazelisk docker docker-compose
-  kubernetes-cli kubectx k9s eksctl gh awscli
-)
-MACOS_FONT_CASKS=(font-iosevka font-iosevka-nerd-font)
-
 APT_SHELL_PACKAGES=(git zsh tmux neovim curl wget unzip ca-certificates gnupg bat ripgrep fd-find fzf)
 DNF_SHELL_PACKAGES=(git zsh tmux neovim curl wget unzip ca-certificates gnupg bat ripgrep fd-find fzf eza)
-PACMAN_SHELL_PACKAGES=(git zsh tmux neovim curl wget unzip ca-certificates gnupg bat ripgrep fd fzf eza)
+PACMAN_SHELL_PACKAGES=(git zsh tmux neovim curl wget unzip ca-certificates gnupg bat ripgrep fd fzf eza mise uv git-delta lazygit)
 
 APT_FULL_PACKAGES=(build-essential cmake ninja-build make golang python3 python3-pip docker.io docker-compose)
 DNF_FULL_PACKAGES=(cmake ninja-build make golang python3 python3-pip docker docker-compose)
@@ -183,6 +173,13 @@ brew_install() {
   fi
 }
 
+brew_bundle() {
+  local brewfile="$1"
+  if [ -f "$brewfile" ]; then
+    run brew bundle --file "$brewfile"
+  fi
+}
+
 install_macos() {
   if [ "$INSTALL_PACKAGES" -eq 0 ]; then
     return 0
@@ -199,13 +196,13 @@ install_macos() {
   fi
 
   log "Installing macOS shell tools"
-  brew_install "${MACOS_SHELL_PACKAGES[@]}"
-  run brew install --cask "${MACOS_FONT_CASKS[@]}" || true
+  brew_bundle "$DOTFILES_DIR/Brewfile"
+  brew_bundle "$DOTFILES_DIR/Brewfile.macos"
 
   if [ "$MODE" = "full" ]; then
     log "Installing macOS development tools"
-    brew_install "${MACOS_FULL_PACKAGES[@]}"
-    run brew install --cask gcloud-cli || true
+    brew_bundle "$DOTFILES_DIR/Brewfile.full"
+    brew_bundle "$DOTFILES_DIR/Brewfile.full.macos"
   fi
 }
 
@@ -265,7 +262,7 @@ install_linux_brew_tools() {
   [ "$INSTALL_PACKAGES" -eq 1 ] || return 0
 
   log "Installing cross-platform tools with Homebrew"
-  brew_install neovim zoxide starship atuin go-task
+  brew_bundle "$DOTFILES_DIR/Brewfile"
 }
 
 install_linux_portable_tools() {
@@ -297,6 +294,24 @@ install_linux_portable_tools() {
       printf 'DRY RUN: install atuin via upstream script\n'
     else
       curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+    fi
+  fi
+
+  if ! command -v mise >/dev/null 2>&1; then
+    log "Installing mise"
+    if [ "$DRY_RUN" -eq 1 ]; then
+      printf 'DRY RUN: install mise via upstream script\n'
+    else
+      curl https://mise.run | sh
+    fi
+  fi
+
+  if ! command -v uv >/dev/null 2>&1; then
+    log "Installing uv"
+    if [ "$DRY_RUN" -eq 1 ]; then
+      printf 'DRY RUN: install uv via upstream script\n'
+    else
+      curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh
     fi
   fi
 }
@@ -369,7 +384,7 @@ install_nvim_tools() {
 
   log "Installing Neovim formatter tools"
   if command -v brew >/dev/null 2>&1; then
-    brew_install ruff gofumpt goimports golines
+    brew_bundle "$DOTFILES_DIR/Brewfile.nvim"
     return 0
   fi
 
@@ -424,10 +439,14 @@ link_dotfiles() {
   [ "$LINK_DOTFILES" -eq 1 ] || return 0
 
   log "Linking dotfiles"
+  link_path "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
   link_path "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
   link_path "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
   link_path "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
   link_path "$DOTFILES_DIR/atuin/config.toml" "$HOME/.config/atuin/config.toml"
+  link_path "$DOTFILES_DIR/mise/config.toml" "$HOME/.config/mise/config.toml"
+  link_path "$DOTFILES_DIR/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
+  link_path "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty/config"
 
   case "$(uname -s)" in
     Darwin) link_path "$DOTFILES_DIR/alacritty/macos/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml" ;;
@@ -474,6 +493,16 @@ check_command() {
     check_ok "$1 -> $(command -v "$1")"
   else
     check_warn "$1 is missing"
+  fi
+}
+
+check_ghostty() {
+  if command -v ghostty >/dev/null 2>&1; then
+    check_ok "ghostty -> $(command -v ghostty)"
+  elif [ -d "/Applications/Ghostty.app" ]; then
+    check_ok "Ghostty.app is installed"
+  else
+    check_warn "Ghostty is missing"
   fi
 }
 
@@ -525,14 +554,21 @@ check_neovim_health() {
 check_dotfiles() {
   log "Checking dotfiles"
 
-  for cmd in git zsh tmux nvim atuin starship zoxide fzf eza bat rg fd; do
+  for cmd in git zsh tmux nvim atuin starship zoxide fzf eza bat rg fd mise uv delta lazygit; do
     check_command "$cmd"
   done
+  if [ "$(uname -s)" = "Darwin" ]; then
+    check_ghostty
+  fi
 
+  check_link "$HOME/.gitconfig" "$DOTFILES_DIR/git/.gitconfig"
   check_link "$HOME/.zshrc" "$DOTFILES_DIR/zsh/.zshrc"
   check_link "$HOME/.tmux.conf" "$DOTFILES_DIR/tmux/.tmux.conf"
   check_link "$HOME/.config/nvim" "$DOTFILES_DIR/nvim"
   check_link "$HOME/.config/atuin/config.toml" "$DOTFILES_DIR/atuin/config.toml"
+  check_link "$HOME/.config/mise/config.toml" "$DOTFILES_DIR/mise/config.toml"
+  check_link "$HOME/.config/lazygit/config.yml" "$DOTFILES_DIR/lazygit/config.yml"
+  check_link "$HOME/.config/ghostty/config" "$DOTFILES_DIR/ghostty/config"
 
   case "$(uname -s)" in
     Darwin) check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/macos/alacritty.yml" ;;

@@ -1,0 +1,42 @@
+[user]
+	name = Deep Dhillon
+	email = deep@dhillon.io
+
+[core]
+	editor = nvim
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+	side-by-side = false
+
+[merge]
+	conflictstyle = zdiff3
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[rerere]
+	enabled = true
+
+[init]
+	defaultBranch = main
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
+[include]
+	path = ~/.gitconfig.local
