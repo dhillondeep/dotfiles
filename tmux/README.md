@@ -4,6 +4,7 @@
 ```bash
 ~/.dotfiles/install.sh --link-only
 ```
+- Prefix: <kbd>Ctrl</kbd> + <kbd>b</kbd>
 - `prefix` + <kbd>I</kbd> to install plugins
 
 ## Configurations
