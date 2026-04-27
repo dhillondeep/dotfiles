@@ -136,8 +136,21 @@ version_at_least() {
 }
 
 nvim_version() {
-  command -v nvim >/dev/null 2>&1 || return 1
-  nvim --version | awk 'NR == 1 { sub(/^NVIM v/, "", $2); print $2 }'
+  local nvim_bin
+  if [ -x "$HOME/.local/bin/nvim" ]; then
+    nvim_bin="$HOME/.local/bin/nvim"
+  else
+    nvim_bin="$(command -v nvim)" || return 1
+  fi
+  "$nvim_bin" --version | awk 'NR == 1 { sub(/^NVIM v/, "", $2); print $2 }'
+}
+
+nvim_path() {
+  if [ -x "$HOME/.local/bin/nvim" ]; then
+    printf '%s\n' "$HOME/.local/bin/nvim"
+  else
+    command -v nvim
+  fi
 }
 
 nvim_meets_min_version() {
@@ -454,7 +467,7 @@ check_neovim_version() {
   fi
 
   if ! version_at_least "$version" "$NVIM_MIN_VERSION"; then
-    warn "LazyVim requires Neovim >= $NVIM_MIN_VERSION; found $version at $(command -v nvim)"
+    warn "LazyVim requires Neovim >= $NVIM_MIN_VERSION; found $version at $(nvim_path)"
   fi
 }
 
@@ -511,8 +524,8 @@ install_tpm() {
   fi
 
   if [ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]; then
-    run tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins/" || warn "Could not set TPM plugin path"
-    run "$HOME/.tmux/plugins/tpm/bin/install_plugins" || warn "Could not install tmux plugins"
+    run env TERM=xterm-256color tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins/" || warn "Could not set TPM plugin path"
+    run env TERM=xterm-256color TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins/" "$HOME/.tmux/plugins/tpm/bin/install_plugins" || warn "Could not install tmux plugins"
   fi
 }
 

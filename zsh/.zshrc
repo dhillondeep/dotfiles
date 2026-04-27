@@ -89,6 +89,10 @@ source_if_exists ${DOTFILES}/zsh/plugins/fast-syntax-highlighting/fast-syntax-hi
 # - alias tips -
 if [[ "${DOTFILES_ALIAS_TIPS:-0}" == 1 ]]; then
 	source_if_exists ${DOTFILES}/zsh/plugins/alias-tips/alias-tips.plugin.zsh
+else
+	autoload -Uz add-zsh-hook
+	add-zsh-hook -d preexec _alias_tips__preexec 2>/dev/null
+	unfunction _alias_tips__preexec 2>/dev/null
 fi
 
 # - vi mode -
