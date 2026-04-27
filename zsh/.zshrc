@@ -97,7 +97,15 @@ source_if_exists ${DOTFILES}/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # --------- FZF ---------
 # -----------------------
 if command -v fzf >/dev/null 2>&1 && [[ -o interactive && -t 0 && -t 1 ]]; then
-	eval "$(fzf --zsh)"
+	if fzf --zsh >/dev/null 2>&1; then
+		eval "$(fzf --zsh)"
+	else
+		source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
+		source_if_exists /usr/share/doc/fzf/examples/completion.zsh
+		source_if_exists /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+		source_if_exists /opt/homebrew/opt/fzf/shell/completion.zsh
+		source_if_exists "$HOME/.fzf.zsh"
+	fi
 fi
 
 # ------ Starship (Prompt) -------

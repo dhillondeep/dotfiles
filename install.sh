@@ -221,16 +221,39 @@ install_linux_apt() {
     run ln -sfn "$(command -v batcat)" "$HOME/.local/bin/bat"
   fi
 
-  if apt-cache show eza >/dev/null 2>&1; then
-    sudo_cmd apt-get install -y eza
-  else
-    warn "eza is not available from this apt repository; install it separately if ls aliases need icons"
-  fi
+  install_eza_apt
 
   if [ "$MODE" = "full" ]; then
     log "Installing Linux development tools with apt"
     sudo_cmd apt-get install -y "${APT_FULL_PACKAGES[@]}"
   fi
+}
+
+install_eza_apt() {
+  command -v eza >/dev/null 2>&1 && return 0
+
+  if apt-cache show eza >/dev/null 2>&1; then
+    sudo_cmd apt-get install -y eza
+    return 0
+  fi
+
+  log "Installing eza from eza-community apt repository"
+  local arch
+  local key_tmp
+  local list_tmp
+  arch="$(dpkg --print-architecture)"
+  key_tmp="$(mktemp)"
+  list_tmp="$(mktemp)"
+
+  run wget -qO "$key_tmp" https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
+  sudo_cmd mkdir -p /etc/apt/keyrings
+  sudo_cmd gpg --dearmor --yes -o /etc/apt/keyrings/gierens.gpg "$key_tmp"
+  printf 'deb [arch=%s signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main\n' "$arch" >"$list_tmp"
+  sudo_cmd install -m 644 "$list_tmp" /etc/apt/sources.list.d/gierens.list
+  sudo_cmd chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+  rm -f "$key_tmp" "$list_tmp"
+  sudo_cmd apt-get update
+  sudo_cmd apt-get install -y eza
 }
 
 install_linux_dnf() {
@@ -458,6 +481,15 @@ link_dotfiles() {
   esac
 }
 
+trust_mise_config() {
+  [ "$LINK_DOTFILES" -eq 1 ] || return 0
+  command -v mise >/dev/null 2>&1 || return 0
+  [ -f "$DOTFILES_DIR/mise/config.toml" ] || return 0
+
+  log "Trusting mise config"
+  run mise trust "$DOTFILES_DIR/mise/config.toml"
+}
+
 install_submodules() {
   [ "$INSTALL_PLUGINS" -eq 1 ] || return 0
 
@@ -479,8 +511,35 @@ install_tpm() {
   fi
 
   if [ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]; then
+    run tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins/" || warn "Could not set TPM plugin path"
     run "$HOME/.tmux/plugins/tpm/bin/install_plugins" || warn "Could not install tmux plugins"
   fi
+}
+
+ensure_bashrc_zsh_fallback() {
+  [ "$CHANGE_SHELL" -eq 1 ] || return 0
+  command -v zsh >/dev/null 2>&1 || return 0
+
+  local bashrc="$HOME/.bashrc"
+  local marker="# >>> dotfiles zsh login fallback >>>"
+  if [ -f "$bashrc" ] && grep -Fq "$marker" "$bashrc"; then
+    return 0
+  fi
+
+  log "Adding bashrc zsh fallback"
+  if [ "$DRY_RUN" -eq 1 ]; then
+    printf 'DRY RUN: append zsh fallback to %q\n' "$bashrc"
+    return 0
+  fi
+
+  cat >>"$bashrc" <<'EOF'
+
+# >>> dotfiles zsh login fallback >>>
+if [ -t 1 ] && [ -z "${ZSH_VERSION:-}" ] && command -v zsh >/dev/null 2>&1; then
+  exec zsh -l
+fi
+# <<< dotfiles zsh login fallback <<<
+EOF
 }
 
 set_zsh_shell() {
@@ -488,7 +547,21 @@ set_zsh_shell() {
 
   if command -v zsh >/dev/null 2>&1 && [ "${SHELL:-}" != "$(command -v zsh)" ]; then
     log "Setting zsh as the default shell"
-    run chsh -s "$(command -v zsh)" "${USER:-}" || warn "Could not change default shell; run chsh manually"
+    if [ "$(id -u)" -eq 0 ]; then
+      run chsh -s "$(command -v zsh)" "${USER:-}"
+      return 0
+    fi
+    if [ "$(uname -s)" = "Darwin" ] || [ "${DOTFILES_INTERACTIVE_CHSH:-0}" = "1" ]; then
+      if run chsh -s "$(command -v zsh)" "${USER:-}"; then
+        return 0
+      fi
+    fi
+    if command -v sudo >/dev/null 2>&1 && sudo -n true >/dev/null 2>&1; then
+      run sudo chsh -s "$(command -v zsh)" "${USER:-}"
+      return 0
+    fi
+    warn "Could not change default shell non-interactively; installing bashrc fallback"
+    ensure_bashrc_zsh_fallback
   fi
 }
 
@@ -625,6 +698,7 @@ repair_neovim_shim
 check_neovim_version
 install_submodules
 link_dotfiles
+trust_mise_config
 install_tpm
 set_zsh_shell
 

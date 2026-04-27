@@ -9,11 +9,16 @@ alias vim="nvim"
 alias svim="sudoedit nvim"
 
 # -- faster tools --
-alias cat=bat
-alias grep=rg
-alias find=fd
-alias ls=eza
-alias ll='eza -lah --icons --group-directories-first'
+command -v bat >/dev/null 2>&1 && alias cat=bat
+command -v rg >/dev/null 2>&1 && alias grep=rg
+command -v fd >/dev/null 2>&1 && alias find=fd
+
+if command -v eza >/dev/null 2>&1; then
+	alias ls=eza
+	alias ll='eza -lah --icons --group-directories-first'
+else
+	alias ll='ls -lah'
+fi
 
 # -- zsh --
 alias histreload='fc -R'
