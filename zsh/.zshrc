@@ -7,6 +7,7 @@ export DOTFILES_PRIVATE=${DOTFILES_PRIVATE:-~/.dotfiles.private}
 
 # set local binaries location
 path+=("$HOME/.local/bin")
+path+=("$HOME/.atuin/bin")
 typeset -gU path PATH
 
 source_if_exists() {

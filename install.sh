@@ -11,6 +11,8 @@ INSTALL_PLUGINS=1
 DRY_RUN=0
 CHECK_FAILED=0
 
+export PATH="$HOME/.local/bin:$HOME/.atuin/bin:$PATH"
+
 APT_SHELL_PACKAGES=(git zsh tmux neovim curl wget unzip ca-certificates gnupg bat ripgrep fd-find fzf)
 DNF_SHELL_PACKAGES=(git zsh tmux neovim curl wget unzip ca-certificates gnupg bat ripgrep fd-find fzf eza)
 PACMAN_SHELL_PACKAGES=(git zsh tmux neovim curl wget unzip ca-certificates gnupg bat ripgrep fd fzf eza mise uv git-delta lazygit)
