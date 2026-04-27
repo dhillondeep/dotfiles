@@ -4,6 +4,7 @@ update_check = false
 style = "compact"
 inline_height = 18
 enter_accept = false
+keymap_mode = "auto"
 show_preview = true
 show_tabs = false
 filter_mode = "global"
