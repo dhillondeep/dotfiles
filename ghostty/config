@@ -9,6 +9,13 @@ window-padding-x = 0
 window-padding-y = 0
 window-padding-balance = false
 
+macos-titlebar-style = tabs
+window-new-tab-position = current
+tab-inherit-working-directory = true
+split-inherit-working-directory = true
+split-preserve-zoom = navigation
+unfocused-split-opacity = 0.7
+
 background = #282c34
 foreground = #abb2bf
 background-opacity = 0.98
@@ -40,3 +47,72 @@ shell-integration = detect
 
 window-save-state = always
 quit-after-last-window-closed = true
+
+# WezTerm-style Ctrl-a leader bindings.
+keybind = ctrl+a>ctrl+a=text:\x01
+keybind = ctrl+a>space=toggle_command_palette
+keybind = ctrl+a>ctrl+space=toggle_command_palette
+
+keybind = ctrl+a>s=new_split:down
+keybind = ctrl+a>ctrl+s=new_split:down
+keybind = ctrl+a>v=new_split:right
+keybind = ctrl+a>ctrl+v=new_split:right
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>ctrl+h=goto_split:left
+keybind = ctrl+a>j=goto_split:down
+keybind = ctrl+a>ctrl+j=goto_split:down
+keybind = ctrl+a>k=goto_split:up
+keybind = ctrl+a>ctrl+k=goto_split:up
+keybind = ctrl+a>l=goto_split:right
+keybind = ctrl+a>ctrl+l=goto_split:right
+keybind = ctrl+a>q=close_surface
+keybind = ctrl+a>ctrl+q=close_surface
+keybind = ctrl+a>z=toggle_split_zoom
+keybind = ctrl+a>ctrl+z=toggle_split_zoom
+keybind = ctrl+a>r=activate_key_table:resize_pane
+keybind = ctrl+a>ctrl+r=activate_key_table:resize_pane
+
+keybind = resize_pane/h=resize_split:left,1
+keybind = resize_pane/ctrl+h=resize_split:left,1
+keybind = resize_pane/j=resize_split:down,1
+keybind = resize_pane/ctrl+j=resize_split:down,1
+keybind = resize_pane/k=resize_split:up,1
+keybind = resize_pane/ctrl+k=resize_split:up,1
+keybind = resize_pane/l=resize_split:right,1
+keybind = resize_pane/ctrl+l=resize_split:right,1
+keybind = resize_pane/escape=deactivate_key_table
+keybind = resize_pane/enter=deactivate_key_table
+
+keybind = ctrl+a>t=new_tab
+keybind = ctrl+a>ctrl+t=new_tab
+keybind = ctrl+a>[=previous_tab
+keybind = ctrl+a>]=next_tab
+keybind = ctrl+a>n=toggle_tab_overview
+keybind = ctrl+a>ctrl+n=toggle_tab_overview
+keybind = ctrl+a>e=prompt_tab_title
+keybind = ctrl+a>ctrl+e=prompt_tab_title
+keybind = ctrl+a>m=activate_key_table:move_tab
+keybind = ctrl+a>ctrl+m=activate_key_table:move_tab
+keybind = ctrl+a>shift+[=move_tab:-1
+keybind = ctrl+a>shift+]=move_tab:1
+
+keybind = move_tab/h=move_tab:-1
+keybind = move_tab/ctrl+h=move_tab:-1
+keybind = move_tab/j=move_tab:-1
+keybind = move_tab/ctrl+j=move_tab:-1
+keybind = move_tab/k=move_tab:1
+keybind = move_tab/ctrl+k=move_tab:1
+keybind = move_tab/l=move_tab:1
+keybind = move_tab/ctrl+l=move_tab:1
+keybind = move_tab/escape=deactivate_key_table
+keybind = move_tab/enter=deactivate_key_table
+
+keybind = ctrl+a>1=goto_tab:1
+keybind = ctrl+a>2=goto_tab:2
+keybind = ctrl+a>3=goto_tab:3
+keybind = ctrl+a>4=goto_tab:4
+keybind = ctrl+a>5=goto_tab:5
+keybind = ctrl+a>6=goto_tab:6
+keybind = ctrl+a>7=goto_tab:7
+keybind = ctrl+a>8=goto_tab:8
+keybind = ctrl+a>9=goto_tab:9

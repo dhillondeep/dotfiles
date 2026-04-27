@@ -447,9 +447,13 @@ link_dotfiles() {
   link_path "$DOTFILES_DIR/mise/config.toml" "$HOME/.config/mise/config.toml"
   link_path "$DOTFILES_DIR/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
   link_path "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty/config"
+  link_path "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty/config.ghostty"
 
   case "$(uname -s)" in
-    Darwin) link_path "$DOTFILES_DIR/alacritty/macos/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml" ;;
+    Darwin)
+      link_path "$DOTFILES_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+      link_path "$DOTFILES_DIR/alacritty/macos/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+      ;;
     Linux) link_path "$DOTFILES_DIR/alacritty/linux/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml" ;;
   esac
 }
@@ -569,9 +573,13 @@ check_dotfiles() {
   check_link "$HOME/.config/mise/config.toml" "$DOTFILES_DIR/mise/config.toml"
   check_link "$HOME/.config/lazygit/config.yml" "$DOTFILES_DIR/lazygit/config.yml"
   check_link "$HOME/.config/ghostty/config" "$DOTFILES_DIR/ghostty/config"
+  check_link "$HOME/.config/ghostty/config.ghostty" "$DOTFILES_DIR/ghostty/config"
 
   case "$(uname -s)" in
-    Darwin) check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/macos/alacritty.yml" ;;
+    Darwin)
+      check_link "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty" "$DOTFILES_DIR/ghostty/config"
+      check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/macos/alacritty.yml"
+      ;;
     Linux) check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/linux/alacritty.yml" ;;
   esac
 
