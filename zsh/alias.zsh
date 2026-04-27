@@ -12,7 +12,8 @@ alias svim="sudoedit nvim"
 alias cat=bat
 alias grep=rg
 alias find=fd
-alias ls=exa
+alias ls=eza
+alias ll='eza -lah --icons --group-directories-first'
 
 # -- zsh --
 alias histreload='fc -R'
@@ -23,7 +24,7 @@ alias bazel=bazelisk
 
 # kubernetes
 alias kctl="kubectx"
-alias k="kubectl"
+#alias k="kubectl"
 
 # lazygit
 alias lgit="lazygit"

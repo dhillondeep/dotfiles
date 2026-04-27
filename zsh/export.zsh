@@ -25,7 +25,9 @@ export FZF_DEFAULT_OPTS="--info=inline "`
                         `"--bind 'ctrl-r:toggle-all' "`
                         `"--bind 'ctrl-s:toggle-sort' "`
                         `"--bind '?:toggle-preview' "`
-                        `"--bind 'ctrl-a:select-all'"
+                        `"--bind 'ctrl-a:select-all' "`
+                        `"--bind 'ctrl-n:preview-down' "`
+                        `"--bind 'ctrl-p:preview-up'"
 
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {

@@ -6,7 +6,12 @@ export DOTFILES=${DOTFILES:-~/.dotfiles}
 export DOTFILES_PRIVATE=${DOTFILES_PRIVATE:-~/.dotfiles.private}
 
 # set local binaries location
-export PATH=$PATH:~/.local/bin
+path+=("$HOME/.local/bin")
+typeset -gU path PATH
+
+source_if_exists() {
+	[ -r "$1" ] && source "$1"
+}
 
 # initialize the completion system
 autoload -Uz compinit
@@ -17,7 +22,11 @@ else
 fi;
 
 # setup zoxide
-source ${DOTFILES}/zsh/zoxide.sh
+if command -v zoxide >/dev/null 2>&1; then
+	eval "$(zoxide init zsh)"
+else
+	source_if_exists ${DOTFILES}/zsh/zoxide.sh
+fi
 
 # ------- History -------
 # -----------------------
@@ -54,6 +63,12 @@ setopt nolistambiguous
 # Permit completion to happen inside a word, just before the cursor.
 setopt completeinword
 
+# Searchable shell history.
+if command -v atuin >/dev/null 2>&1; then
+	eval "$(atuin init zsh)"
+	export ATUIN_INITIALIZED=1
+fi
+
 # ------- Plugins -------
 # -----------------------
 
@@ -61,48 +76,66 @@ setopt completeinword
 zstyle ':autocomplete:*' fzf-completion yes
 zstyle ':autocomplete:recent-dirs' backend zoxide
 zstyle ':autocomplete:*' widget-style menu-select
-source ${DOTFILES}/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source_if_exists ${DOTFILES}/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # - syntax highlighting -
-source ${DOTFILES}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source_if_exists ${DOTFILES}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # - alias tips -
-source ${DOTFILES}/zsh/plugins/alias-tips/alias-tips.plugin.zsh
+source_if_exists ${DOTFILES}/zsh/plugins/alias-tips/alias-tips.plugin.zsh
 
 # - vi mode -
 export ZVM_INIT_MODE=sourcing
 export ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-source ${DOTFILES}/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source_if_exists ${DOTFILES}/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # --------- FZF ---------
 # -----------------------
-export PATH=$PATH:~/.fzf/bin
-FILE=~/.fzf.zsh && [ -f "$FILE" ] && source "$FILE"
+if command -v fzf >/dev/null 2>&1 && [[ -o interactive && -t 0 && -t 1 ]]; then
+	eval "$(fzf --zsh)"
+fi
 
 # ------ Starship (Prompt) -------
 # --------------------------------
 
 export STARSHIP_CONFIG=$DOTFILES/zsh/starship.toml
-eval "$(starship init zsh)"
+if command -v starship >/dev/null 2>&1; then
+	eval "$(starship init zsh)"
+fi
 
 # ---------- Key Bindings ----------
 # ----------------------------------
 
-bindkey "\e[A" history-beginning-search-backward
-bindkey "\eOA" history-beginning-search-backward
+if [[ -n "${ATUIN_INITIALIZED:-}" ]]; then
+	bindkey '^R' atuin-search
+	bindkey "\e[A" atuin-up-search
+	bindkey "\eOA" atuin-up-search
+else
+	bindkey "\e[A" history-beginning-search-backward
+	bindkey "\eOA" history-beginning-search-backward
+fi
 bindkey "\e[B" history-beginning-search-forward
 bindkey "\eOB" history-beginning-search-forward
 
-bindkey -M vicmd "\e[A" history-beginning-search-backward
-bindkey -M vicmd "\eOA" history-beginning-search-backward
-bindkey -M vicmd "\e[B" history-beginning-search-backward
-bindkey -M vicmd "\eOB" history-beginning-search-backward
+if [[ -n "${ATUIN_INITIALIZED:-}" ]]; then
+	bindkey -M viins '^R' atuin-search-viins
+	bindkey -M vicmd '/' atuin-search-vicmd
+	bindkey -M viins "\e[A" atuin-up-search-viins
+	bindkey -M viins "\eOA" atuin-up-search-viins
+	bindkey -M vicmd "\e[A" atuin-up-search-vicmd
+	bindkey -M vicmd "\eOA" atuin-up-search-vicmd
+else
+	bindkey -M vicmd "\e[A" history-beginning-search-backward
+	bindkey -M vicmd "\eOA" history-beginning-search-backward
+fi
+bindkey -M vicmd "\e[B" history-beginning-search-forward
+bindkey -M vicmd "\eOB" history-beginning-search-forward
 
 # --------- Configurations ---------
 # ----------------------------------
 
-source $DOTFILES/zsh/export.zsh
-source $DOTFILES/zsh/alias.zsh
+source_if_exists $DOTFILES/zsh/export.zsh
+source_if_exists $DOTFILES/zsh/alias.zsh
 FILE=$DOTFILES_PRIVATE/zsh/export.zsh && [ -f $FILE ] && source "$FILE"
 FILE=$DOTFILES_PRIVATE/zsh/alias.zsh && [ -f $FILE ] && source "$FILE"
 FILE=~/.zshrc.local && [ -f "$FILE" ] && source "$FILE" # local
@@ -112,15 +145,86 @@ FILE=~/.zshrc.local && [ -f "$FILE" ] && source "$FILE" # local
 
 # Generated for nvm. Do not edit.
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+_load_nvm() {
+	unset -f nvm node npm npx yarn
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+nvm() { _load_nvm; nvm "$@"; }
+node() { _load_nvm; node "$@"; }
+npm() { _load_nvm; npm "$@"; }
+npx() { _load_nvm; npx "$@"; }
+yarn() { _load_nvm; yarn "$@"; }
 
-# The next line updates PATH for the Google Cloud SDK.
-gcloud_file_path="~/Lab/apps/gcloud-cli/path.zsh.inc"
-eval gcloud_file_path=$gcloud_file_path
-if [ -f $gcloud_file_path ]; then . $gcloud_file_path; fi
+for gcloud_root in \
+	"$HOME/Lab/apps/gcloud-cli" \
+	"/opt/homebrew/share/google-cloud-sdk" \
+	"/usr/local/share/google-cloud-sdk" \
+	"/usr/share/google-cloud-sdk"; do
+	source_if_exists "$gcloud_root/path.zsh.inc"
+	source_if_exists "$gcloud_root/completion.zsh.inc"
+done
 
-# The next line enables shell command completion for gcloud.
-gcloud_comp_path="~/Lab/apps/gcloud-cli/completion.zsh.inc"
-eval gcloud_comp_path=$gcloud_comp_path
-if [ -f $gcloud_comp_path ]; then . $gcloud_comp_path; fi
+for autoenv_file in \
+	"/opt/homebrew/opt/autoenv/activate.sh" \
+	"/usr/local/opt/autoenv/activate.sh"; do
+	source_if_exists "$autoenv_file"
+done
+
+source_if_exists "$HOME/.rye/env"
+
+path+=(
+	"$HOME/.modular/bin"
+	"$HOME/.kubectl/plugins"
+	"$HOME/.lmstudio/bin"
+	"$HOME/.opencode/bin"
+	"$HOME/.antigravity/antigravity/bin"
+)
+typeset -gU path PATH
+
+if command -v aws-sso >/dev/null 2>&1; then
+	__aws_sso_profile_complete() {
+		local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+		_multi_parts : "($(command aws-sso ${=_args} list --csv Profile))"
+	}
+
+	aws-sso-profile() {
+		local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+		if [ -n "$AWS_PROFILE" ]; then
+			echo "Unable to assume a role while AWS_PROFILE is set"
+			return 1
+		fi
+
+		if [ -z "$1" ]; then
+			echo "Usage: aws-sso-profile <profile>"
+			return 1
+		fi
+
+		eval "$(command aws-sso ${=_args} eval -p "$1")"
+		[ "$AWS_SSO_PROFILE" = "$1" ]
+	}
+
+	aws-sso-clear() {
+		local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+		if [ -z "$AWS_SSO_PROFILE" ]; then
+			echo "AWS_SSO_PROFILE is not set"
+			return 1
+		fi
+		eval "$(command aws-sso ${=_args} eval -c)"
+	}
+
+	compdef __aws_sso_profile_complete aws-sso-profile
+	if (( $+functions[complete] || $+commands[complete] )); then
+		complete -C "$(command -v aws-sso)" aws-sso
+	fi
+fi
+
+argo_passwd() {
+	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d
+}
+
+argo_portfwd() {
+	local service
+	service="$(kubectl get services -n argocd | awk '/443/ { print $1; exit }')"
+	kubectl port-forward "svc/$service" 8888:443 -n argocd
+}

@@ -75,7 +75,7 @@ install_macos() {
 
   if [ "$MODE" = "full" ]; then
     log "Installing macOS development tools"
-    brew install cmake ninja make go python yarn nvm bazel docker docker-compose kubernetes-cli kubectx k9s gh awscli
+    brew install cmake ninja make go python yarn nvm bazelisk docker docker-compose kubernetes-cli kubectx k9s eksctl gh awscli
     brew install --cask gcloud-cli || true
   fi
 }
@@ -124,7 +124,7 @@ install_linux_pacman() {
 
 install_linux_brew_tools() {
   log "Installing cross-platform tools with Homebrew"
-  brew install zoxide starship atuin go-task
+  brew install neovim zoxide starship atuin go-task
 }
 
 install_linux_portable_tools() {
@@ -161,6 +161,45 @@ install_linux() {
     install_linux_brew_tools
   else
     install_linux_portable_tools
+  fi
+}
+
+repair_neovim_shim() {
+  if ! command -v brew >/dev/null 2>&1; then
+    return 0
+  fi
+
+  local brew_nvim
+  brew_nvim="$(brew --prefix)/bin/nvim"
+  if [ ! -x "$brew_nvim" ]; then
+    return 0
+  fi
+
+  mkdir -p "$HOME/.local/bin"
+  ln -sfn "$brew_nvim" "$HOME/.local/bin/nvim"
+  printf 'linked: %s -> %s\n' "$HOME/.local/bin/nvim" "$brew_nvim"
+}
+
+check_neovim_version() {
+  if ! command -v nvim >/dev/null 2>&1; then
+    warn "Neovim is not installed; LazyVim config will not work until nvim is available"
+    return 0
+  fi
+
+  local version
+  version="$(nvim --version | awk 'NR == 1 { sub(/^NVIM v/, "", $2); print $2 }')"
+  if ! awk -v version="$version" 'BEGIN {
+    split(version, found, ".")
+    split("0.11.2", want, ".")
+    for (i = 1; i <= 3; i++) {
+      found[i] += 0
+      want[i] += 0
+      if (found[i] > want[i]) exit 0
+      if (found[i] < want[i]) exit 1
+    }
+    exit 0
+  }'; then
+    warn "LazyVim requires Neovim >= 0.11.2; found $version at $(command -v nvim)"
   fi
 }
 
@@ -205,6 +244,8 @@ case "$(uname -s)" in
   *) warn "Unsupported OS: $(uname -s); linking dotfiles only" ;;
 esac
 
+repair_neovim_shim
+check_neovim_version
 install_submodules
 link_dotfiles
 install_tpm
