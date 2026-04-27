@@ -81,13 +81,15 @@ fi
 zstyle ':autocomplete:*' fzf-completion yes
 zstyle ':autocomplete:recent-dirs' backend zoxide
 zstyle ':autocomplete:*' widget-style menu-select
-source_if_exists ${DOTFILES}/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source_if_exists ${DOTFILES}/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh 2>/dev/null
 
 # - syntax highlighting -
 source_if_exists ${DOTFILES}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # - alias tips -
-source_if_exists ${DOTFILES}/zsh/plugins/alias-tips/alias-tips.plugin.zsh
+if [[ "${DOTFILES_ALIAS_TIPS:-0}" == 1 ]]; then
+	source_if_exists ${DOTFILES}/zsh/plugins/alias-tips/alias-tips.plugin.zsh
+fi
 
 # - vi mode -
 export ZVM_INIT_MODE=sourcing
