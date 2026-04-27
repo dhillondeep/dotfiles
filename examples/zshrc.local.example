@@ -1,0 +1,7 @@
+# Machine-local shell config. Copy to ~/.zshrc.local and keep secrets,
+# host-specific paths, and work aliases out of the shared dotfiles repo.
+
+# export WORKSPACE="$HOME/src"
+# path+=("$HOME/.local/private/bin")
+
+# alias kctx-prod="kubectl config use-context prod"
