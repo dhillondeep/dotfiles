@@ -78,10 +78,12 @@ fi
 # -----------------------
 
 # - autocomplete -
-zstyle ':autocomplete:*' fzf-completion yes
-zstyle ':autocomplete:recent-dirs' backend zoxide
-zstyle ':autocomplete:*' widget-style menu-select
-source_if_exists ${DOTFILES}/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh 2>/dev/null
+if [[ "${DOTFILES_ZSH_AUTOCOMPLETE:-0}" == 1 ]]; then
+	zstyle ':autocomplete:*' fzf-completion yes
+	zstyle ':autocomplete:recent-dirs' backend zoxide
+	zstyle ':autocomplete:*' widget-style menu-select
+	source_if_exists ${DOTFILES}/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh 2>/dev/null
+fi
 
 # - syntax highlighting -
 source_if_exists ${DOTFILES}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
