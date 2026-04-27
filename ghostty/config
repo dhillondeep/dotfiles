@@ -9,7 +9,10 @@ window-padding-x = 0
 window-padding-y = 0
 window-padding-balance = false
 
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
+macos-window-buttons = hidden
+window-show-tab-bar = never
+gtk-tabs-location = hidden
 window-new-tab-position = current
 tab-inherit-working-directory = true
 split-inherit-working-directory = true
