@@ -46,7 +46,7 @@ copy-on-select = false
 shell-integration = detect
 shell-integration-features = sudo,ssh-env,ssh-terminfo,path
 
-window-save-state = always
+window-save-state = never
 quit-after-last-window-closed = true
 
 # WezTerm-style Ctrl-a leader bindings.
