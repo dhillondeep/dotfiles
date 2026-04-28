@@ -9,7 +9,7 @@ window-padding-x = 0
 window-padding-y = 0
 window-padding-balance = false
 
-macos-titlebar-style = transparent
+macos-titlebar-style = tabs
 window-new-tab-position = current
 tab-inherit-working-directory = true
 split-inherit-working-directory = true
@@ -87,11 +87,7 @@ keybind = resize_pane/enter=deactivate_key_table
 keybind = ctrl+a>t=new_tab
 keybind = ctrl+a>ctrl+t=new_tab
 keybind = ctrl+a>[=previous_tab
-keybind = ctrl+a>ctrl+[=previous_tab
-keybind = ctrl+a>shift+tab=previous_tab
 keybind = ctrl+a>]=next_tab
-keybind = ctrl+a>ctrl+]=next_tab
-keybind = ctrl+a>tab=next_tab
 keybind = ctrl+a>n=toggle_tab_overview
 keybind = ctrl+a>ctrl+n=toggle_tab_overview
 keybind = ctrl+a>e=prompt_tab_title
