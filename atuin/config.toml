@@ -8,8 +8,15 @@ keymap_mode = "auto"
 show_preview = true
 show_tabs = false
 filter_mode = "global"
-search_mode = "fuzzy"
+search_mode = "daemon-fuzzy"
 workspaces = true
+
+# The daemon keeps the search index hot and moves history writes off the
+# interactive path, which keeps Ctrl-R fast once history gets large. autostart
+# lets atuin manage the process itself, so this needs no systemd --user unit.
+[daemon]
+enabled = true
+autostart = true
 
 [stats]
 common_subcommands = [
