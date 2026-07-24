@@ -1,0 +1,20 @@
+# Linux-only tool versions, linked into ~/.config/mise/conf.d/linux.toml.
+#
+# macOS and Homebrew-on-Linux machines get these from the Brewfile, so this file
+# is only linked when brew is missing. Distro packages are a poor substitute
+# there: Ubuntu 22.04 ships bat and fd under the batcat and fdfind names, its
+# ripgrep and fzf are several years old, eza needs a third-party apt repository,
+# and delta and carapace are not packaged at all.
+#
+# zoxide, starship, atuin, and mise itself stay with the portable installers in
+# install.sh so that bootstrapping does not depend on mise already being present.
+
+[tools]
+bat = "latest"
+carapace = "latest"
+delta = "latest"
+eza = "latest"
+fd = "latest"
+fzf = "latest"
+jq = "latest"
+ripgrep = "latest"

@@ -36,6 +36,15 @@ else
 	compinit -C;
 fi;
 
+# carapace is one completer for kubectl, aws, gcloud, docker, cargo, and
+# friends. It has to load after compinit, and the bridges keep the completions
+# that zsh, bash, and fish already ship.
+if command -v carapace >/dev/null 2>&1; then
+	export CARAPACE_BRIDGES='zsh,fish,bash'
+	zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+	source <(carapace _carapace)
+fi
+
 # setup zoxide
 if command -v zoxide >/dev/null 2>&1; then
 	eval "$(zoxide init zsh)"
