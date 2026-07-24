@@ -489,6 +489,14 @@ check_neovim_version() {
   fi
 }
 
+# Linux without Homebrew has no good source for delta or carapace, and its
+# distro builds of bat, fd, ripgrep, fzf, and eza are stale or renamed, so mise
+# provides them there. Brew machines already get them from the Brewfile.
+use_mise_linux_tools() {
+  [ "$(uname -s)" = "Linux" ] || return 1
+  ! command -v brew >/dev/null 2>&1
+}
+
 link_dotfiles() {
   [ "$LINK_DOTFILES" -eq 1 ] || return 0
 
@@ -508,7 +516,12 @@ link_dotfiles() {
       link_path "$DOTFILES_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
       link_path "$DOTFILES_DIR/alacritty/macos/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
       ;;
-    Linux) link_path "$DOTFILES_DIR/alacritty/linux/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml" ;;
+    Linux)
+      link_path "$DOTFILES_DIR/alacritty/linux/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+      if use_mise_linux_tools; then
+        link_path "$DOTFILES_DIR/mise/config.linux.toml" "$HOME/.config/mise/conf.d/linux.toml"
+      fi
+      ;;
   esac
 }
 
@@ -519,6 +532,9 @@ trust_mise_config() {
 
   log "Trusting mise config"
   run mise trust "$DOTFILES_DIR/mise/config.toml"
+  if use_mise_linux_tools && [ -f "$DOTFILES_DIR/mise/config.linux.toml" ]; then
+    run mise trust "$DOTFILES_DIR/mise/config.linux.toml"
+  fi
 }
 
 install_mise_tools() {
@@ -672,7 +688,7 @@ check_neovim_health() {
 check_dotfiles() {
   log "Checking dotfiles"
 
-  for cmd in git zsh tmux nvim atuin starship zoxide fzf eza bat rg fd mise uv delta lazygit; do
+  for cmd in git zsh tmux nvim atuin starship zoxide fzf eza bat rg fd jq carapace mise uv delta lazygit; do
     check_command "$cmd"
   done
   if [ "$(uname -s)" = "Darwin" ]; then
@@ -694,7 +710,12 @@ check_dotfiles() {
       check_link "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty" "$DOTFILES_DIR/ghostty/config"
       check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/macos/alacritty.yml"
       ;;
-    Linux) check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/linux/alacritty.yml" ;;
+    Linux)
+      check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/linux/alacritty.yml"
+      if use_mise_linux_tools; then
+        check_link "$HOME/.config/mise/conf.d/linux.toml" "$DOTFILES_DIR/mise/config.linux.toml"
+      fi
+      ;;
   esac
 
   if zsh -n "$DOTFILES_DIR/zsh/.zshrc"; then

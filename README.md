@@ -51,6 +51,14 @@ Useful options:
 
 The bootstrap script detects macOS and Linux. On Linux it supports `apt`, `dnf`, and `pacman`, with Homebrew or portable installers for tools that are not consistently available in distro repositories. LazyVim requires Neovim `0.11.2` or newer; the script prefers Homebrew Neovim when available and falls back to an upstream portable build on Linux.
 
+On a Linux box without Homebrew, `mise/config.linux.toml` is linked to
+`~/.config/mise/conf.d/linux.toml` and supplies the CLI tools that distro
+packages handle badly: `delta` and `carapace` are usually not packaged at all,
+and Ubuntu 22.04 ships `bat` and `fd` under the `batcat` and `fdfind` names with
+`ripgrep`, `fzf`, and `eza` several versions behind. `zoxide`, `starship`,
+`atuin`, and `mise` itself stay with the portable installers so that
+bootstrapping does not depend on mise already being present.
+
 Ghostty uses `TERM=xterm-ghostty`. The tracked Ghostty config enables its SSH
 integration so remote hosts can receive the terminfo entry or fall back to
 `xterm-256color`. The install script and zsh config also fall back to
