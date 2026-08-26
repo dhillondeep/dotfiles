@@ -514,10 +514,10 @@ link_dotfiles() {
   case "$(uname -s)" in
     Darwin)
       link_path "$DOTFILES_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
-      link_path "$DOTFILES_DIR/alacritty/macos/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+      link_path "$DOTFILES_DIR/alacritty/macos/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
       ;;
     Linux)
-      link_path "$DOTFILES_DIR/alacritty/linux/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+      link_path "$DOTFILES_DIR/alacritty/linux/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
       if use_mise_linux_tools; then
         link_path "$DOTFILES_DIR/mise/config.linux.toml" "$HOME/.config/mise/conf.d/linux.toml"
       fi
@@ -708,10 +708,10 @@ check_dotfiles() {
   case "$(uname -s)" in
     Darwin)
       check_link "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty" "$DOTFILES_DIR/ghostty/config"
-      check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/macos/alacritty.yml"
+      check_link "$HOME/.config/alacritty/alacritty.toml" "$DOTFILES_DIR/alacritty/macos/alacritty.toml"
       ;;
     Linux)
-      check_link "$HOME/.config/alacritty/alacritty.yml" "$DOTFILES_DIR/alacritty/linux/alacritty.yml"
+      check_link "$HOME/.config/alacritty/alacritty.toml" "$DOTFILES_DIR/alacritty/linux/alacritty.toml"
       if use_mise_linux_tools; then
         check_link "$HOME/.config/mise/conf.d/linux.toml" "$DOTFILES_DIR/mise/config.linux.toml"
       fi
